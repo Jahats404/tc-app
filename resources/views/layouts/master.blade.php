@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>Tersimpan Cerita - Dashboard</title>
 
     @include('layouts.assets.css')
 
@@ -49,7 +49,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                        <span>Copyright &copy; Tersimpan Cerita 2024</span>
                     </div>
                 </div>
             </footer>

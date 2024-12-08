@@ -198,11 +198,11 @@
                         </li>
                     @else
                         <li class="nav-item">
-                            <a href="" class="btn btn-outline-primary me-2"
+                            <a href="{{ route('login') }}" class="btn btn-outline-primary me-2"
                                 style="color: white; border-color: white;">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="btn btn-primary"
+                            <a href="{{ route('register') }}" class="btn btn-primary"
                                 style="color: white; background-color: black; border-color: white;">Sign Up</a>
                         </li>
                     @endif
