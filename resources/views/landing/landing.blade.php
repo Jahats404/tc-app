@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Classy Photography</title>
+    <title>Tersimpan Cerita</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -66,7 +66,7 @@
     <style>
         .whatsapp-button {
             position: fixed;
-            bottom: 15%;
+            bottom: 20%;
             /* Adjust this value to move the button towards the center */
             right: 20px;
             z-index: 1000;
@@ -140,12 +140,12 @@
 
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg sticky-top shadow-sm"
-        style="z-index: 1000; background: linear-gradient(90deg, #cec1b0, #fcf5ec); font-family: 'Montserrat', sans-serif; color: white;">
+        style="z-index: 1000; background: linear-gradient(90deg, #ffffff, #ffffff); font-family: 'Montserrat', sans-serif; color: white;">
         <div class="container-fluid">
             <a href="/" class="navbar-brand d-flex align-items-center" style="color: white;">
-                <img id="logo" src="landing/img/logo.svg" alt="Classy Photography" height="40"
+                <img id="logo" src="landing/img/logo.svg" alt="Tersimpan Cerita" height="40"
                     class="d-inline-block align-text-top me-2">
-                <span class="d-inline-block align-middle">Classy Photography</span>
+                {{-- <span class="d-inline-block align-middle">Tersimpan Cerita</span> --}}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -155,17 +155,16 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/" style="color: white;">Home</a>
+                        <a class="nav-link active" href="/" style="color: white; font-weight: 150">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#aboutus" style="color: white;">About</a>
+                        <a class="nav-link" href="#aboutus" style="color: white; font-weight: 150">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#ourServices" style="color: white;">Services</a>
+                        <a class="nav-link" href="#packages" style="color: white; font-weight: 150">Packages</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" style="color: white;">Become a
-                            Freelancer</a>
+                        <a class="nav-link" href="#portofoio" style="color: white; font-weight: 150">Portofolio</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -222,7 +221,7 @@
         <!-- Video Background -->
         <video autoplay loop muted playsinline
             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;">
-            <source src="landing/img/vidio-2.mp4" type="video/mp4">
+            <source src="landing/img/background.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
         <!-- Overlay Hitam dengan Opacity -->
@@ -232,26 +231,22 @@
         <div class="container py-5 position-relative" style="z-index: 1;">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
-                    <p class="text-primary text-uppercase mb-2 animated slideInDown">Selamat datang di Classy
-                        Photography</p>
-                    <h1 class="text-bawah display-4 mb-3 animated slideInDown">Wedding Photography services based in
-                        Cilacap</h1>
-                    <p class="text-bawahnya-lagi animated slideInDown">Jaga Setiap Momen Berharga: Rasakan Keajaiban
-                        Fotografi
-                        Pernikahan
-                        di Cilacap, Menciptakan Kenangan Abadi yang Menerangi Perjalanan Cinta Anda.</p>
+                    <p class="text-primary text-uppercase mb-2 animated slideInDown">Welcome to Tersimpan Cerita</p>
+                    <h1 class="text-bawah display-4 mb-3 animated slideInDown">Outdor Graduation Photo services based in
+                        Indonesia</h1>
+                    <p class="text-bawahnya-lagi animated slideInDown">The Magic of the Light: Experience the Photographic Magic of Your Graduation Moment, Creating Lasting Memories That Illuminate Your Successful Journey.</p>
                 </div>
                 <div class="col-lg-6 animated fadeIn">
                     <div class="row g-3">
                         <div class="col-6 text-end">
-                            <img class="img-fluid bg-white p-3 w-100 mb-3" src="landing/img/hero-1.jpg"
+                            <img class="img-fluid bg-white p-3 w-100 mb-3" src="landing/img/f1.jpg"
                                 alt="">
-                            <img class="img-fluid bg-white p-3 w-50" src="landing/img/hero-3.jpg" alt="">
+                            <img class="img-fluid bg-white p-3 w-50" src="landing/img/f2.jpg" alt="">
                         </div>
                         <div class="col-6">
-                            <img class="img-fluid bg-white p-3 w-50 mb-3" src="landing/img/hero-4.jpg"
+                            <img class="img-fluid bg-white p-3 w-50 mb-3" src="landing/img/f3.jpg"
                                 alt="">
-                            <img class="img-fluid bg-white p-3 w-100" src="landing/img/hero-2.jpg" alt="">
+                            <img class="img-fluid bg-white p-3 w-100" src="landing/img/f4.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -265,13 +260,13 @@
 
 
     <!-- About Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-5" id="aboutus">
         <div class="container">
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="row g-3 img-twice position-relative h-100">
                         <div class="col-6">
-                            <img class="img-fluid bg-light p-3" src="landing/img/about-1.jpg" alt="">
+                            <img class="img-fluid bg-light p-3" src="landing/img/about.jpg" alt="">
                         </div>
                         <div class="col-6 align-self-end">
                             <img class="img-fluid bg-light p-3" src="landing/img/about-2.jpg" alt="">
@@ -280,13 +275,12 @@
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="h-100">
-                        <p class="text-primary text-uppercase mb-2" id="aboutus">About Us</p>
-                        <h1 class="display-6 mb-4">Kami adalah Fotografer Kreatif dan Profesional</h1>
-                        <p>Kami percaya bahwa setiap foto adalah karya seni yang harus mencerminkan kepribadian dan
-                            cerita di baliknya. Tim kami terdiri dari fotografer yang penuh imajinasi dan inovasi,
-                            selalu mencari sudut pandang baru dan ide-ide segar. Baik itu untuk fotografi pernikahan,
-                            potret keluarga, fashion, atau komersial, kami siap menghadirkan hasil yang unik dan
-                            memukau.
+                        <p class="text-primary text-uppercase mb-2">Do you know about us?</p>
+                        <h1 class="display-6 mb-4">The Magic of the Light</h1>
+                        <p>We are Tersimpan Cerita, a premier provider of photographic services. With a reputation for excellence and delivering high- quality images, we specialize in Graduation, Wedding, engagement, Couple Session Service
+                        </p>
+                        <p>
+                            Our team is dedicated to capturing moments with precision and creativity, ensuring that each project meets the highest standards of quality. We pride ourselves on being a reliable partner, committed to bringing your vision to life through our photography.
                         </p>
 
                         <div class="row g-2 mb-4">
@@ -345,15 +339,188 @@
         </div>
     </div>
 
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
 
+/* Container for cards */
+.container1 {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap; /* Wrap items when space is insufficient */
+    justify-content: center; /* Center cards */
+    gap: 20px; /* Space between cards */
+    margin: auto;
+    padding: 20px;
+}
+
+/* Card Styles */
+.card1 {
+    position: relative;
+    cursor: pointer;
+    width: calc(33.333% - 20px); /* 3 columns on larger screens */
+    max-width: 300px;
+    transition: transform 0.3s ease;
+}
+
+.card1:hover {
+    transform: scale(1.05);
+}
+
+.card1 .face {
+    width: 100%;
+    height: 200px;
+    transition: 0.5s;
+}
+
+/* Face 1 */
+.card1 .face.face1 {
+    position: relative;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transform: translateY(100px);
+    color: #fff;
+}
+
+.card1:hover .face.face1 {
+    background: #41373a;
+    transform: translateY(0);
+}
+
+.card1 .face.face1 .content {
+    opacity: 0.2;
+    transition: 0.5s;
+}
+
+.card1:hover .face.face1 .content {
+    opacity: 1;
+}
+
+.card1 .face.face1 .content img {
+    max-width: 290px;
+}
+
+.card1 .face.face1 .content h3 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+}
+
+/* Face 2 */
+.card1 .face.face2 {
+    position: relative;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100px);
+    text-align: center;
+}
+
+.card1:hover .face.face2 {
+    transform: translateY(0);
+}
+
+.card1 .face.face2 .content p {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.card1 .face.face2 .content a {
+    margin-top: 15px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 900;
+    color: #333;
+    padding: 5px 10px;
+    border: 1px solid #333;
+    transition: background 0.3s, color 0.3s;
+}
+
+.card1 .face.face2 .content a:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .card1 {
+        width: calc(50% - 20px); /* 2 columns on medium screens */
+    }
+}
+
+@media (max-width: 576px) {
+    .card1 {
+        width: 100%; /* 1 column on small screens */
+    }
+}
+
+</style>
     <!-- Facts Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-5" id="packages">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                {{-- <p class="text-primary text-uppercase mb-2">Dengan Penawaran Paket yang menarik!</p> --}}
-                <h1 class="display-6 mb-5">Dengan Penawaran Paket yang menarik!</h1>
+                <p class="text-primary text-uppercase mb-2" id="packages">Packages</p>
+                <h1 class="display-6 mb-5">With attractive Package Offers!</h1>
             </div>
-            <div class="row g-3">
+                <div class="container1">
+                    <div class="card1">
+                        <div class="face face1">
+                            <div class="content">
+                                <img src="landing/img/porto-1.png">
+                                <h3>PRIVATE I</h3>
+                            </div>
+                        </div>
+                        <div class="face face2">
+                            <div class="content">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
+                                    <a href="#">Reserv Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card1">
+                        <div class="face face1">
+                            <div class="content">
+                                <img src="landing/img/porto-1.png">
+                                <h3>PRIVATE I</h3>
+                            </div>
+                        </div>
+                        <div class="face face2">
+                            <div class="content">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
+                                    <a href="#">Reserv Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card1">
+                        <div class="face face1">
+                            <div class="content">
+                                <img src="landing/img/porto-1.png">
+                                <h3>PRIVATE I</h3>
+                            </div>
+                        </div>
+                        <div class="face face2">
+                            <div class="content">
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
+                                    <a href="#">Reserv Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {{-- @foreach ($paket as $item)
                     <div class="col-lg-4 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="fact-item bg-light text-center h-100 p-5">
@@ -424,30 +591,28 @@
                         </div>
                     </div>
                 @endforeach --}}
-
-            </div>
         </div>
     </div>
     <!-- Facts End -->
 
 
     <!-- Service Start -->
-    <div class="container-xxl bg-light py-5 my-5">
+    <div class="container-xxl bg-light py-5 my-5" id="portofolio">
         <div class="container py-5">
             <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-                <p class="text-primary text-uppercase mb-2" id="ourServices">Our Services</p>
-                <h1 class="display-6 mb-4">Kami Menyediakan Layanan Profesional Terbaik</h1>
+                <p class="text-primary text-uppercase mb-2" id="portofoio">Portofolio</p>
+                <h1 class="display-6 mb-4">We Provide the Best Professional Services</h1>
             </div>
             <div class="row g-3">
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="service-item d-flex flex-column bg-white p-3 pb-0">
                         <div class="position-relative">
-                            <iframe src="https://www.instagram.com/p/C52LfLKyzm5/embed" width="400" height="480"
+                            <iframe src="https://www.instagram.com/p/DCtyl-uvgAA/embed" width="400" height="480"
                                 frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 
                             <div class="service-overlay">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle"
-                                    href="https://www.instagram.com/p/C52LfLKyzm5"><i
+                                    href="https://www.instagram.com/p/DCtyl-uvgAA"><i
                                         class="fa fa-link text-primary"></i></a>
                             </div>
                         </div>
@@ -457,11 +622,11 @@
                 <div class="col-lg-3 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.3s">
                     <div class="service-item d-flex flex-column bg-white p-3 pb-0">
                         <div class="position-relative">
-                            <iframe src="https://www.instagram.com/p/CzX071_y7SP/embed" width="400" height="480"
+                            <iframe src="https://www.instagram.com/p/DDE-8I7PmwE/embed" width="400" height="480"
                                 frameborder="0" scrolling="no" allowtransparency="true"></iframe>
                             <div class="service-overlay">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle"
-                                    href="https://www.instagram.com/p/CzX071_y7SP"><i
+                                    href="https://www.instagram.com/p/DDE-8I7PmwE"><i
                                         class="fa fa-link text-primary"></i></a>
                             </div>
                         </div>
@@ -471,11 +636,11 @@
                 <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
                     <div class="service-item d-flex flex-column bg-white p-3 pb-0">
                         <div class="position-relative">
-                            <iframe src="https://www.instagram.com/p/CxsHtnsS2jF/embed" width="400" height="480"
+                            <iframe src="https://www.instagram.com/p/DBz1MwNyBSy/embed" width="400" height="480"
                                 frameborder="0" scrolling="no" allowtransparency="true"></iframe>
                             <div class="service-overlay">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle"
-                                    href="https://www.instagram.com/p/CxsHtnsS2jF"><i
+                                    href="https://www.instagram.com/p/DBz1MwNyBSy"><i
                                         class="fa fa-link text-primary"></i></a>
                             </div>
                         </div>
@@ -485,11 +650,11 @@
                 <div class="col-lg-3 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.7s">
                     <div class="service-item d-flex flex-column bg-white p-3 pb-0">
                         <div class="position-relative">
-                            <iframe src="https://www.instagram.com/p/CtN0BTayR0C/embed" width="400" height="480"
+                            <iframe src="https://www.instagram.com/p/DC9cwthviLe/embed" width="400" height="480"
                                 frameborder="0" scrolling="no" allowtransparency="true"></iframe>
                             <div class="service-overlay">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle"
-                                    href="https://www.instagram.com/p/CtN0BTayR0C"><i
+                                    href="https://www.instagram.com/p/DC9cwthviLe"><i
                                         class="fa fa-link text-primary"></i></a>
                             </div>
                         </div>
@@ -512,6 +677,91 @@
         </div>
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+                <div class="row g-0">
+                    <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="row g-0 flex-sm-row flex-wrap">
+                            <div class="col-sm-6">
+                                <div class="team-img position-relative aspect-ratio aspect-ratio-4x5">
+                                    <img class="img-fluid"
+                                        src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="h-100 p-4 d-flex flex-column justify-content-between">
+                                    <div class="mb-3">
+                                        <h4>Agus</h4>
+                                        <span>Photographer</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="row g-0 flex-sm-row flex-wrap">
+                            <div class="col-sm-6">
+                                <div class="team-img position-relative aspect-ratio aspect-ratio-4x5">
+                                    <img class="img-fluid"
+                                        src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="h-100 p-4 d-flex flex-column justify-content-between">
+                                    <div class="mb-3">
+                                        <h4>Agus</h4>
+                                        <span>Photographer</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
+                        <div class="row g-0 flex-sm-row flex-wrap">
+                            <div class="col-sm-6">
+                                <div class="team-img position-relative aspect-ratio aspect-ratio-4x5">
+                                    <img class="img-fluid"
+                                        src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg">
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="h-100 p-4 d-flex flex-column justify-content-between">
+                                    <div class="mb-3">
+                                        <h4>Agus</h4>
+                                        <span>Photographer</span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-facebook-f"></i></a>
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-twitter"></i></a>
+                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
+                                            href=""><i class="fab fa-instagram"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
                 {{-- @foreach ($user2 as $item)
                     <div class="col">
                         <div class="row g-0">
@@ -559,7 +809,7 @@
         <div class="row g-5 py-5">
             <div class="col-lg-6 pe-lg-5">
                 <a href="index.html" class="navbar-brand">
-                    <h1 class="display-5 text-primary">Classy Photography</h1>
+                    <h1 class="display-5 text-primary">Tersimpan Cerita</h1>
                 </a>
 
                 <div class="d-flex justify-content-start mt-4">
@@ -587,7 +837,7 @@
     <div class="container-fluid bg-dark text-white border-top border-secondary px-0">
         <div class="d-flex flex-column flex-md-row justify-content-between">
             <div class="py-4 px-5 text-center text-md-start">
-                <p class="mb-0">&copy; <a class="text-primary" href="#">Classy Photography</a>. All Rights
+                <p class="mb-0">&copy; <a class="text-primary" href="#">Tersimpan Cerita</a>. All Rights
                     Reserved.</p>
             </div>
         </div>

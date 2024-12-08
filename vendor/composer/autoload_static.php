@@ -355,8 +355,8 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -533,6 +533,9 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/ForgotPasswordController.php',
+        'App\\Http\\Controllers\\auth\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/auth/AuthController.php',
+        'App\\Http\\Controllers\\dashboard\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/dashboard/DashboardController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CekUserLogin' => __DIR__ . '/../..' . '/app/Http/Middleware/CekUserLogin.php',
@@ -2876,10 +2879,12 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'Laravel\\Tinker\\TinkerServiceProvider' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerServiceProvider.php',
         'League\\CommonMark\\CommonMarkConverter' => __DIR__ . '/..' . '/league/commonmark/src/CommonMarkConverter.php',
         'League\\CommonMark\\ConverterInterface' => __DIR__ . '/..' . '/league/commonmark/src/ConverterInterface.php',
+        'League\\CommonMark\\Delimiter\\Bracket' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/Bracket.php',
         'League\\CommonMark\\Delimiter\\Delimiter' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/Delimiter.php',
         'League\\CommonMark\\Delimiter\\DelimiterInterface' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/DelimiterInterface.php',
         'League\\CommonMark\\Delimiter\\DelimiterParser' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/DelimiterParser.php',
         'League\\CommonMark\\Delimiter\\DelimiterStack' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/DelimiterStack.php',
+        'League\\CommonMark\\Delimiter\\Processor\\CacheableDelimiterProcessorInterface' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/Processor/CacheableDelimiterProcessorInterface.php',
         'League\\CommonMark\\Delimiter\\Processor\\DelimiterProcessorCollection' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/Processor/DelimiterProcessorCollection.php',
         'League\\CommonMark\\Delimiter\\Processor\\DelimiterProcessorCollectionInterface' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/Processor/DelimiterProcessorCollectionInterface.php',
         'League\\CommonMark\\Delimiter\\Processor\\DelimiterProcessorInterface' => __DIR__ . '/..' . '/league/commonmark/src/Delimiter/Processor/DelimiterProcessorInterface.php',
@@ -3133,6 +3138,7 @@ class ComposerStaticInit9c491b8531eec05ba41a11d9276a5749
         'League\\CommonMark\\Parser\\MarkdownParserState' => __DIR__ . '/..' . '/league/commonmark/src/Parser/MarkdownParserState.php',
         'League\\CommonMark\\Parser\\MarkdownParserStateInterface' => __DIR__ . '/..' . '/league/commonmark/src/Parser/MarkdownParserStateInterface.php',
         'League\\CommonMark\\Parser\\ParserLogicException' => __DIR__ . '/..' . '/league/commonmark/src/Parser/ParserLogicException.php',
+        'League\\CommonMark\\Reference\\MemoryLimitedReferenceMap' => __DIR__ . '/..' . '/league/commonmark/src/Reference/MemoryLimitedReferenceMap.php',
         'League\\CommonMark\\Reference\\Reference' => __DIR__ . '/..' . '/league/commonmark/src/Reference/Reference.php',
         'League\\CommonMark\\Reference\\ReferenceInterface' => __DIR__ . '/..' . '/league/commonmark/src/Reference/ReferenceInterface.php',
         'League\\CommonMark\\Reference\\ReferenceMap' => __DIR__ . '/..' . '/league/commonmark/src/Reference/ReferenceMap.php',
