@@ -72,7 +72,7 @@
         <p class="email-note">Link ini hanya berlaku selama 60 menit. Jika Anda memerlukan bantuan lebih lanjut, silakan hubungi kami.</p>
     </div>
     <div class="email-footer">
-        <p>&copy; {{ date('Y') }} ALMAWA. Semua Hak Dilindungi.</p>
+        <p>&copy; {{ date('Y') }} Tersimpan Cerita. Semua Hak Dilindungi.</p>
     </div>
 </div>
 

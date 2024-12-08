@@ -1,11 +1,11 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Tersimpan Cerita </div>
     </a>
 
     <!-- Divider -->
@@ -26,6 +26,20 @@
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Paket
+    </div>
+    
+    <li class="nav-item {{ Request::routeIs('admin.paket') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.paket') }}">
+            <i class="fas fa-fw fa-images"></i>
+            <span>Paket</span></a>
     </li>
 
     {{-- <li class="nav-item {{ Request::routeIs('sa.kelola.jadwal') ? 'active' : '' }}">

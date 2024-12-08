@@ -3,6 +3,7 @@
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\paket\AdminPaketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,11 +42,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('admin')->name('admin.')->middleware('CekUserLogin:1')->group(function () {
         Route::get('dashboard', [DashboardController::class, 'dashboard_admin'])->name('dashboard');
+        Route::get('kelola-paket', [AdminPaketController::class, 'index'])->name('paket');
     });
     
 
     Route::prefix('client')->name('client.')->middleware('CekUserLogin:2')->group(function () {
-
+        Route::get('dashboard', [DashboardController::class, 'dashboard_client'])->name('dashboard');
     });
 
 });
