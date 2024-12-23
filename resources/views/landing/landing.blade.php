@@ -33,112 +33,180 @@
 
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 
-    {{-- Foto Profil Karyawan --}}
-    <style>
-        .team-img {
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
+{{-- Foto Profil Karyawan --}}
+<style>
+    .team-img {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    }
 
-        .aspect-ratio {
-            position: relative;
-            width: 100%;
-        }
+    .aspect-ratio {
+        position: relative;
+        width: 100%;
+    }
 
-        .aspect-ratio-4x5 {
-            padding-top: 125%;
-            /* Aspect ratio 4:5 (height / width * 100) */
-        }
+    .aspect-ratio-4x5 {
+        padding-top: 125%;
+        /* Aspect ratio 4:5 (height / width * 100) */
+    }
 
-        .aspect-ratio img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+    .aspect-ratio img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+</style>
 
-    <style>
-        .whatsapp-button {
-            position: fixed;
-            bottom: 20%;
-            /* Adjust this value to move the button towards the center */
-            right: 20px;
-            z-index: 1000;
-            background-color: #25d366;
-            color: white;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+<style>
+    .whatsapp-button {
+        position: fixed;
+        bottom: 20%;
+        /* Adjust this value to move the button towards the center */
+        right: 20px;
+        z-index: 1000;
+        background-color: #25d366;
+        color: white;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-        .whatsapp-button:hover {
-            background-color: #1ebd58;
-        }
+    .whatsapp-button:hover {
+        background-color: #1ebd58;
+    }
 
-        .whatsapp-icon {
-            font-size: 30px;
-        }
-    </style>
-
-
-    <style>
-        .fc-event {
-            background-color: #003366 !important;
-            /* Warna background */
-            color: white !important;
-            /* Warna teks */
-            border: none !important;
-            border-radius: 4px !important;
-            /* Membuat sudut membulat */
-            padding: 5px !important;
-            /* Menambahkan padding */
-            font-size: 12px !important;
-            /* Ukuran font */
-            white-space: nowrap;
-            /* Menghindari teks terpotong */
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .fc-event:hover {
-            background-color: #005599 !important;
-            /* Warna background saat hover */
-        }
-    </style>
+    .whatsapp-icon {
+        font-size: 30px;
+    }
+</style>
 
 
+<style>
+    .fc-event {
+        background-color: #003366 !important;
+        /* Warna background */
+        color: white !important;
+        /* Warna teks */
+        border: none !important;
+        border-radius: 4px !important;
+        /* Membuat sudut membulat */
+        padding: 5px !important;
+        /* Menambahkan padding */
+        font-size: 12px !important;
+        /* Ukuran font */
+        white-space: nowrap;
+        /* Menghindari teks terpotong */
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
+    .fc-event:hover {
+        background-color: #005599 !important;
+        /* Warna background saat hover */
+    }
+</style>
+
+<style>
+    .fact-item {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px; /* Opsional: Untuk memberikan efek sudut melengkung */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fact-item:hover {
+    transform: translateY(-5px); /* Efek saat hover agar terangkat sedikit */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Efek default tombol */
+.btn-warning {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Efek saat tombol dihover */
+.btn-warning:hover {
+    transform: scale(1.05); /* Membesar sedikit */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Efek saat tombol diklik (pressed) */
+.btn-warning:active {
+    transform: scale(0.95); /* Mengecil dan menekan tombol */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Mengurangi bayangan saat tombol ditekan */
+}
+
+.package-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+.package-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.fact-item {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+}
+
+.package-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.5rem;
+    text-transform: capitalize;
+    margin-top: 15px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.package-description {
+    display: none;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+</style>
 </head>
 
-
 <body>
-
-
-
-    <!-- Spinner Start -->
     <div id="spinner"
         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-grow text-primary" role="status"></div>
     </div>
-    <!-- Spinner End -->
-
     <div class="whatsapp-button" onclick="openWhatsApp()">
         <i class="fab fa-whatsapp whatsapp-icon"></i>
     </div>
 
-    {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg sticky-top shadow-sm"
         style="z-index: 1000; background: linear-gradient(90deg, #ffffff, #ffffff); font-family: 'Montserrat', sans-serif; color: white;">
         <div class="container-fluid">
@@ -209,14 +277,7 @@
             </div>
         </div>
     </nav>
-    {{-- Navbar End --}}
 
-
-
-
-
-
-    {{-- <div class="container-fluid hero-header bg-light py-5 mb-5 position-relative"> --}}
     <div class="video-background" style="position: relative; width: 100%; height: 100%; overflow: hidden;">
         <!-- Video Background -->
         <video autoplay loop muted playsinline
@@ -253,11 +314,6 @@
             </div>
         </div>
     </div>
-    {{-- </div> --}}
-
-
-
-
 
     <!-- About Start -->
     <div class="container-xxl py-5" id="aboutus">
@@ -339,262 +395,147 @@
         </div>
     </div>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-}
-
-/* Container for cards */
-.container1 {
-    width: 100%;
-    max-width: 1200px;
-    position: relative;
-    display: flex;
-    flex-wrap: wrap; /* Wrap items when space is insufficient */
-    justify-content: center; /* Center cards */
-    gap: 20px; /* Space between cards */
-    margin: auto;
-    padding: 20px;
-}
-
-/* Card Styles */
-.card1 {
-    position: relative;
-    cursor: pointer;
-    width: calc(33.333% - 20px); /* 3 columns on larger screens */
-    max-width: 300px;
-    transition: transform 0.3s ease;
-}
-
-.card1:hover {
-    transform: scale(1.05);
-}
-
-.card1 .face {
-    width: 100%;
-    height: 200px;
-    transition: 0.5s;
-}
-
-/* Face 1 */
-.card1 .face.face1 {
-    position: relative;
-    background: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    transform: translateY(100px);
-    color: #fff;
-}
-
-.card1:hover .face.face1 {
-    background: #41373a;
-    transform: translateY(0);
-}
-
-.card1 .face.face1 .content {
-    opacity: 0.2;
-    transition: 0.5s;
-}
-
-.card1:hover .face.face1 .content {
-    opacity: 1;
-}
-
-.card1 .face.face1 .content img {
-    max-width: 290px;
-}
-
-.card1 .face.face1 .content h3 {
-    margin-top: 10px;
-    font-size: 1.5rem;
-    color: #fff;
-    text-align: center;
-}
-
-/* Face 2 */
-.card1 .face.face2 {
-    position: relative;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    transform: translateY(-100px);
-    text-align: center;
-}
-
-.card1:hover .face.face2 {
-    transform: translateY(0);
-}
-
-.card1 .face.face2 .content p {
-    margin: 0;
-    padding: 0;
-    color: #333;
-    font-size: 0.9rem;
-}
-
-.card1 .face.face2 .content a {
-    margin-top: 15px;
-    display: inline-block;
-    text-decoration: none;
-    font-weight: 900;
-    color: #333;
-    padding: 5px 10px;
-    border: 1px solid #333;
-    transition: background 0.3s, color 0.3s;
-}
-
-.card1 .face.face2 .content a:hover {
-    background: #333;
-    color: #fff;
-}
-
-/* Responsive Design */
-@media (max-width: 992px) {
-    .card1 {
-        width: calc(50% - 20px); /* 2 columns on medium screens */
-    }
-}
-
-@media (max-width: 576px) {
-    .card1 {
-        width: 100%; /* 1 column on small screens */
-    }
-}
-
-</style>
-    <!-- Facts Start -->
     <div class="container-xxl py-5" id="packages">
         <div class="container">
             <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
                 <p class="text-primary text-uppercase mb-2" id="packages">Packages</p>
                 <h1 class="display-6 mb-5">With attractive Package Offers!</h1>
             </div>
-                <div class="container1">
-                    <div class="card1">
-                        <div class="face face1">
-                            <div class="content">
-                                <img src="landing/img/porto-1.png">
-                                <h3>PRIVATE I</h3>
+    
+            <!-- Grid Container for Packages -->
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="fact-item bg-light text-center h-100 p-0">
+                        <img src="landing/img/about-1.JPG" alt="Paket Private I" class="package-image">
+                        <h2 class="package-title">Private I</h2>
+                        <button class="toggle-btn" onclick="toggleDescriptions()">⬇️</button>
+                        <div class="package-description" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul>
+                                        <li>For <strong>1 Graduated</strong></li>
+                                        <li><strong>30 Minute</strong> Photo Session</li>
+                                        <li>Unlimited Shots</li>
+                                        <li><strong>15</strong> Photo Edited</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul>
+                                        <li>All Files on <strong>G-Drive</strong> <span class="text-muted">*Expired 14 Days</span></li>
+                                        <li>Location on Campus</li>
+                                        <li class="text-muted"><small>*If outside campus, additional fees apply</small></li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
-                        <div class="face face2">
-                            <div class="content">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                                    <a href="#">Reserv Now</a>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <p>
+                                        <strong>Available in:</strong><br>
+                                        Yogyakarta, Solo, Semarang, Purwokerto, Malang
+                                    </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>
+                                        <strong>Also available in:</strong><br>
+                                        Jabodetabek, Bandung, Surabaya, Bali
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card1">
-                        <div class="face face1">
-                            <div class="content">
-                                <img src="landing/img/porto-1.png">
-                                <h3>PRIVATE I</h3>
-                            </div>
-                        </div>
-                        <div class="face face2">
-                            <div class="content">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                                    <a href="#">Reserv Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card1">
-                        <div class="face face1">
-                            <div class="content">
-                                <img src="landing/img/porto-1.png">
-                                <h3>PRIVATE I</h3>
-                            </div>
-                        </div>
-                        <div class="face face2">
-                            <div class="content">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas cum cumque minus iste veritatis provident at.</p>
-                                    <a href="#">Reserv Now</a>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#loginAlertModal">Reservasi Sekarang!</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- @foreach ($paket as $item)
-                    <div class="col-lg-4 col-md-6 pt-lg-5 wow fadeInUp" data-wow-delay="0.1s">
-                        <div class="fact-item bg-light text-center h-100 p-5">
-                            <h1 class="display-2 text-primary mb-3">{{ $item->nama_paket }}</h1>
-                            <h2 class="mb-3">Rp.{{ number_format($item->harga_paket, 0, ',', '.') }}</h2>
-                            <div class="row g-2 mb-4">
-                                <div class="col-sm-6 d-flex align-items-center justify-content-center">
-                                    <i
-                                        class="fa fa-check {{ is_array($item->service) && in_array('Fotografi', $item->service) ? 'text-warning' : 'text-dark' }} me-2"></i>
-                                    <span>Fotografi</span>
+                <div class="col-lg-4 col-md-6">
+                    <div class="fact-item bg-light text-center h-100 p-0">
+                        <img src="landing/img/about-1.JPG" alt="Paket Private I" class="package-image">
+                        <h2 class="package-title">Private I</h2>
+                        <button class="toggle-btn" onclick="toggleDescriptions()">⬇️</button>
+                        <div class="package-description" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul>
+                                        <li>For <strong>1 Graduated</strong></li>
+                                        <li><strong>30 Minute</strong> Photo Session</li>
+                                        <li>Unlimited Shots</li>
+                                        <li><strong>15</strong> Photo Edited</li>
+                                    </ul>
                                 </div>
-                                <div class="col-sm-6 d-flex align-items-center justify-content-center">
-                                    <i
-                                        class="fa fa-check {{ is_array($item->service) && in_array('Vidiografi', $item->service) ? 'text-warning' : 'text-dark' }} me-2"></i>
-                                    <span>Vidiografi</span>
-                                </div>
-                            </div>
-                            <div class="row g-2 mb-4">
-                                <div class="col-sm-6 d-flex align-items-center justify-content-center">
-                                    <i
-                                        class="fa fa-check {{ is_array($item->service) && in_array('Album Foto', $item->service) ? 'text-warning' : 'text-dark' }} me-2"></i>
-                                    <span>Album Foto</span>
-                                </div>
-                                <div class="col-sm-6 d-flex align-items-center justify-content-center">
-                                    <i
-                                        class="fa fa-check {{ is_array($item->service) && in_array('Flashdisk', $item->service) ? 'text-warning' : 'text-dark' }} me-2"></i>
-                                    <span>Flashdisk</span>
+                                <div class="col-md-12">
+                                    <ul>
+                                        <li>All Files on <strong>G-Drive</strong> <span class="text-muted">*Expired 14 Days</span></li>
+                                        <li>Location on Campus</li>
+                                        <li class="text-muted"><small>*If outside campus, additional fees apply</small></li>
+                                    </ul>
                                 </div>
                             </div>
-
-                            @if (Auth::check())
-                                @if (in_array(Auth::user()->role_id, [1, 2, 4]))
-                                    <button type="button" class="btn btn-warning" disabled>Reservasi
-                                        Sekarang!</button>
-                                @else
-                                    <a data-bs-toggle="modal" data-bs-target="#tambahModal"
-                                        data-nama_paket="{{ $item->nama_paket }}">
-                                        <button type="button" class="btn btn-warning">Reservasi Sekarang!</button>
-                                    </a>
-                                @endif
-                            @else
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#loginAlertModal">Reservasi Sekarang!</button>
-                            @endif
-
-
-                            <!-- Modal untuk alert login -->
-                            <div class="modal fade" id="loginAlertModal" tabindex="-1"
-                                aria-labelledby="loginAlertModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="loginAlertModalLabel">Peringatan</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Kamu belum Login, silahkan login terlebih dahulu.
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Tutup</button>
-                                        </div>
-                                    </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <p>
+                                        <strong>Available in:</strong><br>
+                                        Yogyakarta, Solo, Semarang, Purwokerto, Malang
+                                    </p>
                                 </div>
+                                <div class="col-md-12">
+                                    <p>
+                                        <strong>Also available in:</strong><br>
+                                        Jabodetabek, Bandung, Surabaya, Bali
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#loginAlertModal">Reservasi Sekarang!</button>
                             </div>
                         </div>
                     </div>
-                @endforeach --}}
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="fact-item bg-light text-center h-100 p-0">
+                        <img src="landing/img/about-1.JPG" alt="Paket Private I" class="package-image">
+                        <h2 class="package-title">Private I</h2>
+                        <button class="toggle-btn" onclick="toggleDescriptions()">⬇️</button>
+                        <div class="package-description" style="display: none;">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul>
+                                        <li>For <strong>1 Graduated</strong></li>
+                                        <li><strong>30 Minute</strong> Photo Session</li>
+                                        <li>Unlimited Shots</li>
+                                        <li><strong>15</strong> Photo Edited</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul>
+                                        <li>All Files on <strong>G-Drive</strong> <span class="text-muted">*Expired 14 Days</span></li>
+                                        <li>Location on Campus</li>
+                                        <li class="text-muted"><small>*If outside campus, additional fees apply</small></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <p>
+                                        <strong>Available in:</strong><br>
+                                        Yogyakarta, Solo, Semarang, Purwokerto, Malang
+                                    </p>
+                                </div>
+                                <div class="col-md-12">
+                                    <p>
+                                        <strong>Also available in:</strong><br>
+                                        Jabodetabek, Bandung, Surabaya, Bali
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#loginAlertModal">Reservasi Sekarang!</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!-- Facts End -->
-
 
     <!-- Service Start -->
     <div class="container-xxl bg-light py-5 my-5" id="portofolio">
@@ -666,142 +607,6 @@ body {
     </div>
 
     <!-- Service End -->
-
-
-
-    <!-- Team Start -->
-    <div class="container-xxl px-0 py-5">
-        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 500px;">
-            <p class="text-primary text-uppercase mb-2">Our Team</p>
-            <h1 class="display-6 mb-0">Creative Photograher And Videographer</h1>
-        </div>
-        <div class="container">
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
-                <div class="row g-0">
-                    <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
-                        <div class="row g-0 flex-sm-row flex-wrap">
-                            <div class="col-sm-6">
-                                <div class="team-img position-relative aspect-ratio aspect-ratio-4x5">
-                                    <img class="img-fluid"
-                                        src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="h-100 p-4 d-flex flex-column justify-content-between">
-                                    <div class="mb-3">
-                                        <h4>Agus</h4>
-                                        <span>Photographer</span>
-                                    </div>
-                                    <div class="d-flex">
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-instagram"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
-                        <div class="row g-0 flex-sm-row flex-wrap">
-                            <div class="col-sm-6">
-                                <div class="team-img position-relative aspect-ratio aspect-ratio-4x5">
-                                    <img class="img-fluid"
-                                        src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="h-100 p-4 d-flex flex-column justify-content-between">
-                                    <div class="mb-3">
-                                        <h4>Agus</h4>
-                                        <span>Photographer</span>
-                                    </div>
-                                    <div class="d-flex">
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-instagram"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
-                        <div class="row g-0 flex-sm-row flex-wrap">
-                            <div class="col-sm-6">
-                                <div class="team-img position-relative aspect-ratio aspect-ratio-4x5">
-                                    <img class="img-fluid"
-                                        src="https://media.sproutsocial.com/uploads/2022/06/profile-picture.jpeg">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="h-100 p-4 d-flex flex-column justify-content-between">
-                                    <div class="mb-3">
-                                        <h4>Agus</h4>
-                                        <span>Photographer</span>
-                                    </div>
-                                    <div class="d-flex">
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-facebook-f"></i></a>
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-twitter"></i></a>
-                                        <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                            href=""><i class="fab fa-instagram"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                {{-- @foreach ($user2 as $item)
-                    <div class="col">
-                        <div class="row g-0">
-                            <div class="col-lg-12 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="row g-0 flex-sm-row flex-wrap">
-                                    <div class="col-sm-6">
-                                        <div class="team-img position-relative aspect-ratio aspect-ratio-4x5">
-                                            <img class="img-fluid"
-                                                src="{{ asset('storage/foto-profil/' . $item->foto_profil) }}"
-                                                alt="{{ $item->username }}">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="h-100 p-4 d-flex flex-column justify-content-between">
-                                            <div class="mb-3">
-                                                <h4>{{ $item->nama }}</h4>
-                                                <span>{{ $item->skill }}</span>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                                    href=""><i class="fab fa-facebook-f"></i></a>
-                                                <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                                    href=""><i class="fab fa-twitter"></i></a>
-                                                <a class="btn btn-square btn-outline-primary rounded-circle me-2"
-                                                    href=""><i class="fab fa-instagram"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach --}}
-            </div>
-        </div>
-    </div>
-    </div>
-    <!-- Team End -->
-
-
 
     <!-- Footer Start -->
     <div class="container-fluid footer position-relative bg-dark text-white-50 mt-5 py-5 px-4 px-lg-5 wow fadeIn"
@@ -882,6 +687,31 @@ body {
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.5/main.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.5/main.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+    <script>
+        function toggleDescriptions() {
+    const descriptions = document.querySelectorAll(".package-description");
+    const buttons = document.querySelectorAll(".toggle-btn");
+    let allHidden = true;
+
+    // Periksa apakah semua deskripsi tersembunyi
+    descriptions.forEach((desc) => {
+        if (desc.style.display === "block") {
+            allHidden = false;
+        }
+    });
+
+    // Tampilkan atau sembunyikan semua deskripsi berdasarkan kondisi
+    if (allHidden) {
+        descriptions.forEach((desc) => (desc.style.display = "block"));
+        buttons.forEach((btn) => (btn.innerHTML = "⬆️"));
+    } else {
+        descriptions.forEach((desc) => (desc.style.display = "none"));
+        buttons.forEach((btn) => (btn.innerHTML = "⬇️"));
+    }
+}
+
+    </script>
 
     <script>
         function updateNavbarColors() {
@@ -1078,8 +908,4 @@ body {
         </div>
     </div>
 </div>
-
-
-
-
 </html>
