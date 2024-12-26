@@ -1,9 +1,24 @@
 <?php
 
 use App\Http\Controllers\auth\AuthController;
-use App\Http\Controllers\dashboard\DashboardController;
+
+//ADMIN
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\RolesController;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\FotograferController;
+use App\Http\Controllers\Admin\KategoriPaketController;
+use App\Http\Controllers\Admin\PaketController;
+use App\Http\Controllers\Admin\WilayahController;
+use App\Http\Controllers\Admin\PaketTambahanController;
+use App\Http\Controllers\Admin\HargaPaketController;
+use App\Http\Controllers\Admin\BookingController;
+use App\Http\Controllers\Admin\PesananController;
+
+//CLIENT
+use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
+
 use App\Http\Controllers\ForgotPasswordController;
-use App\Http\Controllers\paket\AdminPaketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,18 +51,48 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 
 
 Route::middleware(['auth'])->group(function () {
-    
-    
-    // Route prefix untuk Produsen
 
+    //ADMIN
     Route::prefix('admin')->name('admin.')->middleware('CekUserLogin:1')->group(function () {
-        Route::get('dashboard', [DashboardController::class, 'dashboard_admin'])->name('dashboard');
-        Route::get('kelola-paket', [AdminPaketController::class, 'index'])->name('paket');
+        //DASHBOARD
+        Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        
+        //ROLES
+        Route::get('roles', [RolesController::class, 'index'])->name('roles');
+        
+        //USERS
+        Route::get('users', [UsersController::class, 'index'])->name('users');
+        
+        //FOTOGRAFER
+        Route::get('fotografer', [FotograferController::class, 'index'])->name('fotografer');
+        
+        //WILAYAH
+        Route::get('wilayah', [WilayahController::class, 'index'])->name('wilayah');
+        
+        //KATEGORI PAKET
+        Route::get('kategori-paket', [KategoriPaketController::class, 'index'])->name('kategori-paket');
+        
+        //PAKET
+        Route::get('paket', [PaketController::class, 'index'])->name('paket');
+        
+        //HARGA PAKET
+        Route::get('harga-paket', [HargaPaketController::class, 'index'])->name('harga-paket');
+        
+        //PAKET TAMBAHAN
+        Route::get('paket-tambahan', [PaketTambahanController::class, 'index'])->name('paket-tambahan');
+        
+        //BOOKING
+        Route::get('booking', [BookingController::class, 'index'])->name('booking');
+        
+        //PESANAN
+        Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan');
     });
     
 
+    //CLIENT
     Route::prefix('client')->name('client.')->middleware('CekUserLogin:2')->group(function () {
-        Route::get('dashboard', [DashboardController::class, 'dashboard_client'])->name('dashboard');
+        //DASHBOARD
+        Route::get('dashboard', [ClientDashboardController::class, 'dashboard_client'])->name('dashboard');
     });
 
 });
