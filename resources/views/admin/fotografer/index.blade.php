@@ -7,9 +7,58 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-wrap align-items-center">
             <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Fotografer</h6>
-            <button type="button" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0" data-toggle="modal" data-target="#modalTambah">
+            <button type="button" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0" data-toggle="modal" data-target="#modalTambahFg">
                 <i class="fas fa-solid fa-folder-plus fa-sm text-white-50"></i> Tambah Fotografer
             </button>
+        </div>
+
+        {{-- TAMBAH --}}
+        <div class="modal fade" id="modalTambahFg" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTambahLabel">Tambah Fotografer</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('admin.store.fotografer') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nama" class="col-form-label">Nama</label>
+                                <input 
+                                    type="text" 
+                                    name="nama" 
+                                    class="form-control @error('nama') is-invalid @enderror" 
+                                    id="nama" 
+                                    value="{{ old('nama') }}" 
+                                    placeholder="Masukkan Nama">
+                                @error('nama')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="no_wa" class="col-form-label">No WA</label>
+                                <input 
+                                    type="text" 
+                                    name="no_wa" 
+                                    class="form-control @error('no_wa') is-invalid @enderror" 
+                                    id="no_wa" 
+                                    value="{{ old('no_wa') }}" 
+                                    placeholder="Masukkan No WA">
+                                @error('no_wa')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <div class="card-body">
@@ -24,16 +73,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td>1</td>
-                            <td>Aris Kotlin</td>
-                            <td>08971271672</td>
+                        @foreach ($fg as $item)
+                            
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->no_wa }}</td>
+                                
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit" title="Update">
+                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_fotografer }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <form action="" method="POST" class="delete-form">
+                                        <form action="{{ route('admin.delete.fotografer', ['id' => $item->id_fotografer]) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -67,7 +121,8 @@
                                     });
                                 });
                             </script>
-                            @include('admin.fotografer.modal')
+                            @include('admin.fotografer.modal', ['item' => $item])
+                        @endforeach
                     </tbody>
                 </table>
             </div>

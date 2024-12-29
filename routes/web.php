@@ -62,9 +62,15 @@ Route::middleware(['auth'])->group(function () {
         
         //USERS
         Route::get('users', [UsersController::class, 'index'])->name('users');
+        Route::post('store/users', [UsersController::class, 'store'])->name('store.users');
+        Route::put('update/users/{id}', [UsersController::class, 'update'])->name('update.users');
+        Route::delete('delete/users/{id}', [UsersController::class, 'delete'])->name('delete.users');
         
         //FOTOGRAFER
         Route::get('fotografer', [FotograferController::class, 'index'])->name('fotografer');
+        Route::post('store/fotografer', [FotograferController::class, 'store'])->name('store.fotografer');
+        Route::put('update/fotografer/{id}', [FotograferController::class, 'update'])->name('update.fotografer');
+        Route::delete('delete/fotografer/{id}', [FotograferController::class, 'delete'])->name('delete.fotografer');
         
         //WILAYAH
         Route::get('wilayah', [WilayahController::class, 'index'])->name('wilayah');
