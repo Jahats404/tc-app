@@ -36,6 +36,10 @@ Route::get('/', function () {
     return view('landing.landing');
 });
 
+Route::get('select', function () {
+    return view('auth.selec2');
+});
+
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
 Route::get('/register', [AuthController::class,'register'])->name('register');
@@ -74,18 +78,33 @@ Route::middleware(['auth'])->group(function () {
         
         //WILAYAH
         Route::get('wilayah', [WilayahController::class, 'index'])->name('wilayah');
+        Route::post('store/wilayah', [WilayahController::class, 'store'])->name('store.wilayah');
+        Route::put('update/wilayah/{id}', [WilayahController::class, 'update'])->name('update.wilayah');
+        Route::delete('delete/wilayah/{id}', [WilayahController::class, 'delete'])->name('delete.wilayah');
         
         //KATEGORI PAKET
         Route::get('kategori-paket', [KategoriPaketController::class, 'index'])->name('kategori-paket');
+        Route::post('store/kategori-paket', [KategoriPaketController::class, 'store'])->name('store.kategori-paket');
+        Route::put('update/kategori-paket/{id}', [KategoriPaketController::class, 'update'])->name('update.kategori-paket');
+        Route::delete('delete/kategori-paket/{id}', [KategoriPaketController::class, 'delete'])->name('delete.kategori-paket');
         
         //PAKET
         Route::get('paket', [PaketController::class, 'index'])->name('paket');
+        Route::post('store/paket', [PaketController::class, 'store'])->name('store.paket');
+        Route::put('update/paket/{id}', [PaketController::class, 'update'])->name('update.paket');
+        Route::delete('delete/paket/{id}', [PaketController::class, 'delete'])->name('delete.paket');
         
         //HARGA PAKET
         Route::get('harga-paket', [HargaPaketController::class, 'index'])->name('harga-paket');
+        Route::post('store/harga-paket', [HargaPaketController::class, 'store'])->name('store.harga-paket');
+        Route::put('update/harga-paket/{id}', [HargaPaketController::class, 'update'])->name('update.harga-paket');
+        Route::delete('delete/harga-paket/{id}', [HargaPaketController::class, 'delete'])->name('delete.harga-paket');
         
         //PAKET TAMBAHAN
         Route::get('paket-tambahan', [PaketTambahanController::class, 'index'])->name('paket-tambahan');
+        Route::post('store/paket-tambahan', [PaketTambahanController::class, 'store'])->name('store.paket-tambahan');
+        Route::put('update/paket-tambahan/{id}', [PaketTambahanController::class, 'update'])->name('update.paket-tambahan');
+        Route::delete('delete/paket-tambahan/{id}', [PaketTambahanController::class, 'delete'])->name('delete.paket-tambahan');
         
         //BOOKING
         Route::get('booking', [BookingController::class, 'index'])->name('booking');

@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paket', function (Blueprint $table) {
-            $table->string('id_paket')->primary();
-            $table->string('nama_paket');
-            $table->json('fitur');
-            $table->string('kp_id');
-            $table->foreign('kp_id')->references('id_kp')->on('kategori_paket')->cascadeOnDelete();
+        Schema::create('harga_paket', function (Blueprint $table) {
+            $table->string('id_harga_paket')->primary()->unique();
+            $table->integer('harga');
+            $table->string('golongan');
+            $table->string('paket_id');
+            $table->foreign('paket_id')->references('id_paket')->on('paket')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paket');
+        Schema::dropIfExists('harga_paket');
     }
 };

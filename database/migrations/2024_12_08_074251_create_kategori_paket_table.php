@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paket', function (Blueprint $table) {
-            $table->string('id_paket')->primary();
-            $table->string('nama_paket');
-            $table->json('fitur');
-            $table->string('kp_id');
-            $table->foreign('kp_id')->references('id_kp')->on('kategori_paket')->cascadeOnDelete();
+        Schema::create('kategori_paket', function (Blueprint $table) {
+            $table->string('id_kp')->primary();
+            $table->string('nama_kategori');
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paket');
+        Schema::dropIfExists('kategori_paket');
     }
 };

@@ -12,6 +12,34 @@
             </button>
         </div>
 
+        {{-- TAMBAH --}}
+        <div class="modal fade" id="modalTambah" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTambahLabel">Tambah Kategori Paket</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('admin.store.kategori-paket') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="nama_kategori" class="col-form-label">Nama Kategori</label>
+                                <input type="text" name="nama_kategori" class="form-control" id="nama_kategori">
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -23,15 +51,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td>1</td>
-                            <td>PRIVATE</td>
+                        @foreach ($kp as $item)
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->nama_kategori }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit" title="Update">
+                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_kp }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <form action="" method="POST" class="delete-form">
+                                        <form action="{{ route('admin.delete.kategori-paket',['id' => $item->id_kp]) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -65,7 +96,8 @@
                                     });
                                 });
                             </script>
-                            @include('admin.kategori_paket.modal')
+                            @include('admin.kategori-paket.modal',['item' => $item])
+                        @endforeach
                     </tbody>
                 </table>
             </div>

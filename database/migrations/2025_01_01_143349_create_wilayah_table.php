@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paket', function (Blueprint $table) {
-            $table->string('id_paket')->primary();
-            $table->string('nama_paket');
-            $table->json('fitur');
-            $table->string('kp_id');
-            $table->foreign('kp_id')->references('id_kp')->on('kategori_paket')->cascadeOnDelete();
+        Schema::create('wilayah', function (Blueprint $table) {
+            $table->string('id_wilayah')->primary();
+            $table->enum('kode', ['W1', 'W2']);
+            $table->string('nama_wilayah');
+            // $table->integer('harga');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('paket');
+        Schema::dropIfExists('wilayah');
     }
 };

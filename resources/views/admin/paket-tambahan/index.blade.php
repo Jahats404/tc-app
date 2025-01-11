@@ -12,6 +12,44 @@
             </button>
         </div>
 
+        {{-- TAMBAH --}}
+        <div class="modal fade" id="modalTambah" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTambahLabel">Tambah Paket Tambahan</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="{{ route('admin.store.paket-tambahan') }}" method="POST">
+                        @csrf
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="jenis_tambahan" class="col-form-label">Jenis Tambahan</label>
+                                <input type="text" value="{{ old('jenis_tambahan') }}" name="jenis_tambahan" class="form-control @error('jenis_tambahan') is-invalid @enderror" id="jenis_tambahan">
+                                @error('jenis_tambahan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <label for="harga_tambahan" class="col-form-label">Harga</label>
+                                <input type="number" value="{{ old('harga_tambahan') }}" name="harga_tambahan" class="form-control @error('harga_tambahan') is-invalid @enderror" id="harga_tambahan">
+                                @error('harga_tambahan')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -24,16 +62,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td>1</td>
-                            <td>Foto 1000x</td>
-                            <td>Rp. 200.000</td>
+                        @foreach ($paketTambahan as $item)
+                            
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->jenis_tambahan }}</td>
+                                <td>{{ 'Rp. ' . number_format($item->harga_tambahan, 0, ',', '.') }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit" title="Update">
+                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_paket_tambahan }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <form action="" method="POST" class="delete-form">
+                                        <form action="{{ route('admin.delete.paket-tambahan',$item->id_paket_tambahan) }}" method="POST" class="delete-form">
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -67,7 +107,8 @@
                                     });
                                 });
                             </script>
-                            @include('admin.paket-tambahan.modal')
+                            @include('admin.paket-tambahan.modal',['item' => $item])
+                        @endforeach
                     </tbody>
                 </table>
             </div>
