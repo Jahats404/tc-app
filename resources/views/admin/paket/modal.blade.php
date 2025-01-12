@@ -13,6 +13,18 @@
                 @method('put')
                 <div class="modal-body">
                     <div class="form-group">
+                        <label for="kp_id" class="col-form-label">Kategori Paket</label>
+                        <select id="inputState" name="kp_id" class="form-control @error('kp_id') is-invalid @enderror">
+                            <option>-- Pilih Kategori Paket --</option>
+                            @foreach ($kp as $k)
+                                <option value="{{ $k->id_kp }}" {{ old('kp_id',$item->kp_id) == $item->kp_id ? 'selected' : '' }}>{{ $k->nama_kategori }}</option>
+                            @endforeach
+                        </select>
+                        @error('kp_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="nama_paket" class="col-form-label">Nama Paket</label>
                         <input 
                             type="text" 
@@ -22,18 +34,6 @@
                             value="{{ old('nama_paket',$item->nama_paket) }}" 
                             placeholder="Masukkan Nama Paket">
                         @error('nama_paket')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-                    <div class="form-group">
-                        <label for="kp_id" class="col-form-label">Kategori Paket</label>
-                        <select id="inputState" name="kp_id" class="form-control @error('kp_id') is-invalid @enderror">
-                            <option>-- Pilih Kategori Paket --</option>
-                            @foreach ($kp as $k)
-                                <option value="{{ $k->id_kp }}" {{ old('kp_id',$item->kp_id) == $item->kp_id ? 'selected' : '' }}>{{ $k->nama_kategori }}</option>
-                            @endforeach
-                        </select>
-                        @error('kp_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>

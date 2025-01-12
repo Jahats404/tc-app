@@ -1,0 +1,72 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Booking extends Model
+{
+    use HasFactory;
+
+    protected $primaryKey = 'id_booking';
+    protected $table = 'booking';
+    protected $guarded = [];
+    protected $casts = [
+        'id_booking' => 'string'
+    ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+    public function harga_paket()
+    {
+        return $this->belongsTo(HargaPaket::class,'harga_paket_id','id_harga_paket');
+    }
+    public static $rules = [
+        'nama' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'no_wa' => 'required|digits_between:10,15',
+        'event' => 'required|string|max:255',
+        'tanggal' => 'nullable|date',
+        'jam' => 'nullable|date_format:H:i',
+        'universitas' => 'required|string|max:255',
+        'fakultas' => 'required|string|max:255',
+        'lokasi_foto' => 'required|string|max:255',
+        'ig_vendor' => 'nullable|string|max:255',
+        'ig_client' => 'nullable|string|max:255',
+        'post_foto' => 'required|in:yes,no',
+        'jumlah_anggota' => 'required|integer|min:1',
+        'req_khusus' => 'nullable|string|max:1000',
+        'status_booking' => 'required|in:Pending,Diterima,Ditolak,Dibatalkan',
+        'harga_paket_id' => 'required|exists:harga_paket,id_harga_paket',
+        'user_id' => 'exists:users,id',
+    ];
+
+    public static $messages = [
+        'nama.required' => 'Nama wajib diisi.',
+        'nama.max' => 'Nama maksimal 255 karakter.',
+        'email.required' => 'Email wajib diisi.',
+        'email.email' => 'Format email tidak valid.',
+        'no_wa.required' => 'Nomor WhatsApp wajib diisi.',
+        'no_wa.digits_between' => 'Nomor WhatsApp harus antara 10-15 digit.',
+        'event.required' => 'Event wajib diisi.',
+        'tanggal.date' => 'Tanggal harus berupa format tanggal yang valid.',
+        'jam.date_format' => 'Jam harus menggunakan format HH:mm (24 jam).',
+        'universitas.required' => 'Universitas wajib diisi.',
+        'fakultas.required' => 'Fakultas wajib diisi.',
+        'lokasi_foto.required' => 'Lokasi Foto wajib diisi.',
+        'post_foto.required' => 'Post Foto wajib diisi.',
+        'post_foto.in' => 'Post Foto hanya dapat diisi dengan "yes" atau "no".',
+        'jumlah_anggota.required' => 'Jumlah anggota wajib diisi.',
+        'jumlah_anggota.integer' => 'Jumlah anggota harus berupa angka.',
+        'jumlah_anggota.min' => 'Jumlah anggota minimal 1.',
+        'status_booking.required' => 'Status Booking wajib diisi.',
+        'status_booking.in' => 'Status Booking harus salah satu dari: Pendding, Diterima, Ditolak, Dibatalkan.',
+        // 'user_id.required' => 'User ID wajib diisi.',
+        'user_id.exists' => 'User ID tidak ditemukan.',
+        'harga_paket_id.required' => 'Paket wajib diisi.',
+        'harga_paket_id.exists' => 'Harga Paket tidak ditemukan.',
+    ];
+}

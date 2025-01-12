@@ -30,7 +30,7 @@
                                 <select id="inputState" name="paket_id" class="form-control @error('paket_id') is-invalid @enderror">
                                     <option selected disabled value="">-- Pilih Paket --</option>
                                     @foreach ($paket as $item)
-                                        <option value="{{ $item->id_paket }}" {{ old('paket_id') == $item->id_paket ? 'selected' : '' }}>{{ $item->nama_paket }}</option>
+                                        <option value="{{ $item->id_paket }}" {{ old('paket_id') == $item->id_paket ? 'selected' : '' }}>{{ $item->kategori_paket->nama_kategori . ' ' . $item->nama_paket }}</option>
                                     @endforeach
                                 </select>
                                 @error('paket_id')
@@ -82,7 +82,7 @@
                         @foreach ($hargaPaket as $item)
                             <tr class="text-center">
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->paket->nama_paket }}</td>
+                                <td>{{ $item->paket->kategori_paket->nama_kategori . ' ' . $item->paket->nama_paket }}</td>
                                 <td>{{ $item->golongan }}</td>
                                 <td>{{ 'Rp ' . number_format($item->harga, 0, ',', '.') }}</td>
                                 <td>

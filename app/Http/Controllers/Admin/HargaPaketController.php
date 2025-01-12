@@ -36,6 +36,11 @@ class HargaPaketController extends Controller
             'paket_id.required' => 'Paket ID wajib diisi.',
             'paket_id.exists' => 'Paket ID yang dipilih tidak valid.',
         ]);
+        
+        $cekHargaPaket = HargaPaket::where('paket_id', $request->paket_id)->where('golongan',$request->golongan)->first();
+        if ($cekHargaPaket) {
+            return redirect()->back()->with('error','Harga Paket sudah tersedia');
+        }
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -54,8 +59,8 @@ class HargaPaketController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'harga' => 'required|integer|min:1',
-            'golongan' => 'required|string|max:255',
-            'paket_id' => 'required|exists:paket,id_paket',
+            // 'golongan' => 'required|string|max:255',
+            // 'paket_id' => 'required|exists:paket,id_paket',
         ], [
             'harga.required' => 'Harga wajib diisi.',
             'harga.integer' => 'Harga harus berupa angka.',
@@ -72,8 +77,8 @@ class HargaPaketController extends Controller
         }
 
         $hp = HargaPaket::find($id);
-        $hp->paket_id = $request->paket_id;
-        $hp->golongan = $request->golongan;
+        // $hp->paket_id = $request->paket_id;
+        // $hp->golongan = $request->golongan;
         $hp->harga = $request->harga;
         $hp->save();
 

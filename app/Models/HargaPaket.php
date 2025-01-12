@@ -16,10 +16,13 @@ class HargaPaket extends Model
         'id_harga_paket' => 'string'
     ];
 
-
     public function paket()
     {
         return $this->belongsTo(Paket::class,'paket_id','id_paket');
+    }
+    public function booking()
+    {
+        return $this->hasMany(Booking::class,'harga_paket_id','id_harga_paket');
     }
 
 }

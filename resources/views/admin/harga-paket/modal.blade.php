@@ -12,12 +12,12 @@
                 @csrf
                 @method('put')
                 <div class="modal-body">
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="paket_id" class="col-form-label">Nama Paket</label>
                         <select id="inputState" name="paket_id" class="form-control @error('paket_id') is-invalid @enderror">
                             <option selected disabled value="">-- Pilih Paket --</option>
                             @foreach ($paket as $p)
-                                <option value="{{ $p->id_paket }}" {{ old('paket_id',$item->paket_id) == $p->id_paket ? 'selected' : '' }}>{{ $p->nama_paket }}</option>
+                                <option value="{{ $p->id_paket }}" {{ old('paket_id',$item->paket_id) == $p->id_paket ? 'selected' : '' }}>{{ $p->kategori_paket->nama_kategori . ' ' . $p->nama_paket }}</option>
                             @endforeach
                         </select>
                         @error('paket_id')
@@ -34,7 +34,7 @@
                         @error('golongan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label for="harga" class="col-form-label">Harga Paket</label>
                         <input type="number" value="{{ old('harga',$item->harga) }}" min="1" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga">

@@ -12,9 +12,11 @@
             </button>
         </div>
 
+        @include('admin.booking.modal-tambah-booking',['hargaPaket' => $hargaPaket])
+
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered nowrap" id="booking" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
                             <th>NO</th>
@@ -38,30 +40,48 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td>1</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        @foreach ($booking as $item)
+                            <tr class="text-center">
+                                <td style="max-width: 200px; width: 100px;">{{ $loop->iteration }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td>{{ $item->no_wa }}</td>
+                                <td>{{ $item->event }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') ?? '-' }}</td>
+                                <td>{{ $item->jam ?? '-' }}</td>
+                                <td>{{ $item->universitas }}</td>
+                                <td>{{ $item->fakultas }}</td>
+                                <td>{{ $item->lokasi_foto }}</td>
+                                <td>{{ $item->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket->paket->nama_paket }}</td>
+                                <td>{{ $item->ig_vendor ?? '-' }}</td>
+                                <td>{{ $item->ig_client ?? '-' }}</td>
+                                <td>
+                                    @if ($item->post_foto == 'yes')
+                                        <span class="badge badge-success">{{ $item->post_foto }}</span>
+                                    @elseif ($item->post_foto == 'no')
+                                        <span class="badge badge-danger">{{ $item->post_foto }}</span>
+                                    @endif
+                                <td>{{ $item->jumlah_anggota }}</td>
+                                <td>{{ $item->req_khusus ?? '-' }}</td>
+                                <td>
+                                    @if ($item->status_booking == 'Pending')
+                                        <span class="badge badge-info">{{ $item->status_booking }}</span>
+                                    @elseif ($item->status_booking == 'Diterima')
+                                        <span class="badge badge-success">{{ $item->status_booking }}</span>
+                                    @elseif ($item->status_booking == 'Ditolak')
+                                        <span class="badge badge-danger">{{ $item->status_booking }}</span>
+                                    @elseif ($item->status_booking == 'Dibatalkan')
+                                        <span class="badge badge-warning">{{ $item->status_booking }}</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit" title="Update">
+                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <form action="" method="POST" class="delete-form">
+                                        <form action="{{ route('admin.delete.booking',$item->id_booking) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -95,7 +115,8 @@
                                     });
                                 });
                             </script>
-                            @include('admin.booking.modal')
+                            @include('admin.booking.modal',['item' => $item])
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -108,6 +108,9 @@ Route::middleware(['auth'])->group(function () {
         
         //BOOKING
         Route::get('booking', [BookingController::class, 'index'])->name('booking');
+        Route::post('store/booking', [BookingController::class, 'store'])->name('store.booking');
+        Route::put('update/booking/{id}', [BookingController::class, 'update'])->name('update.booking');
+        Route::delete('delete/booking/{id}', [BookingController::class, 'delete'])->name('delete.booking');
         
         //PESANAN
         Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan');
