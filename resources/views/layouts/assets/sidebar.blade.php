@@ -84,12 +84,18 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <div class="sidebar-heading">
-        PESANAN
+        PEMESANAN
     </div>
     <li class="nav-item {{ Request::routeIs('admin.booking') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.booking') }}">
             <i class="fas fa-fw fa-location-arrow"></i>
             <span>Booking</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::routeIs('admin.pesanan') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.pesanan') }}">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>Pesanan</span>
         </a>
     </li>
     @endif
