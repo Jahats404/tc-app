@@ -32,9 +32,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing.landing');
-});
+// Route::get('/', function () {
+//     return view('landing.landing');
+// });
+
+Route::get('/', [AdminDashboardController::class, 'landing'])->name('landing');
 
 Route::get('select', function () {
     return view('auth.selec2');
