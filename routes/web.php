@@ -2,6 +2,13 @@
 
 use App\Http\Controllers\auth\AuthController;
 
+//LANDING
+use App\Http\Controllers\Landing\HomeController;
+use App\Http\Controllers\Landing\AboutUsController;
+use App\Http\Controllers\Landing\ServicesController;
+use App\Http\Controllers\Landing\PortofolioController;
+use App\Http\Controllers\Landing\ContactController;
+
 //ADMIN
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\RolesController;
@@ -14,6 +21,7 @@ use App\Http\Controllers\Admin\PaketTambahanController;
 use App\Http\Controllers\Admin\HargaPaketController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\PesananController;
+use App\Http\Controllers\Admin\FotoController;
 
 //CLIENT
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
@@ -36,7 +44,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('landing.landing');
 // });
 
-Route::get('/', [AdminDashboardController::class, 'landing'])->name('landing');
+// Route::get('/', [AdminDashboardController::class, 'landing'])->name('landing');
 
 Route::get('select', function () {
     return view('auth.selec2');
@@ -55,6 +63,12 @@ Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPa
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
+// LANDING
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
+Route::get('/services', [ServicesController::class, 'index'])->name('services');
+Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::middleware(['auth'])->group(function () {
 
@@ -116,6 +130,9 @@ Route::middleware(['auth'])->group(function () {
         
         //PESANAN
         Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan');
+
+        //FOTO
+        Route::get('foto', [FotoController::class, 'index'])->name('foto');
     });
     
 

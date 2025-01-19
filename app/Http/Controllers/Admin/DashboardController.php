@@ -19,6 +19,6 @@ class DashboardController extends Controller
         $wilayah1 = Wilayah::where('kode','W1')->get();
         $wilayah2 = Wilayah::where('kode','W2')->get();
         // dd($paket->kategori_paket);
-        return view('landing.landing2',compact('paket','wilayah1','wilayah2'));
+        return view('landing.landing',compact('paket','wilayah1','wilayah2'));
     }
 }
