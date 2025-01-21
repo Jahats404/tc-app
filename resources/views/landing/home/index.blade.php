@@ -153,18 +153,18 @@
 
         <div class="row">
             <!-- Single Portfoio Area -->
-            <div class="col-12 col-md-10">
+            <div class="col-12 col-md-6">
                 <div class="single-portfolio-item mt-100 portfolio-item-3 wow fadeIn">
                     <div class="backend-content">
                         <img class="dots" src="img/core-img/dots.png" alt="">
                         <h2>Photography</h2>
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/p3.png" alt="">
+                        <img src="landing/img/bg-img/3.jpg" alt="">
                     </div>
                     <div class="portfolio-meta">
-                        <p class="portfolio-date">Feb 02, 2018</p>
-                        <h2>Foggy sunset over the lake</h2>
+                        <p class="portfolio-date">Jan 21, 2025</p>
+                        <h2>Morning graduation photoshoot</h2>
                     </div>
                 </div>
             </div>
@@ -178,11 +178,11 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/p2.png" alt="">
+                        <img src="landing/img/bg-img/4.jpg" alt="">
                     </div>
                     <div class="portfolio-meta">
-                        <p class="portfolio-date">Feb 02, 2018</p>
-                        <h2>Clouds on mountain top</h2>
+                        <p class="portfolio-date">Jan 20, 2025</p>
+                        <h2>Morning graduation photoshoot</h2>
                     </div>
                 </div>
             </div>
@@ -197,11 +197,11 @@
                         <h2>Hope</h2>
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/p5.png" alt="">
+                        <img src="landing/img/bg-img/5.jpg" alt="">
                     </div>
                     <div class="portfolio-meta">
-                        <p class="portfolio-date">Feb 02, 2018</p>
-                        <h2>Over the canion</h2>
+                        <p class="portfolio-date">Jan 19, 2025</p>
+                        <h2>Two session graduation photoshoot</h2>
                     </div>
                 </div>
             </div>
@@ -212,11 +212,11 @@
             <div class="col-12 col-md-4">
                 <div class="single-portfolio-item portfolio-item-6 wow fadeIn">
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/p6.png" alt="">
+                        <img src="landing/img/bg-img/6.jpg" alt="">
                     </div>
                     <div class="portfolio-meta">
-                        <p class="portfolio-date">Feb 02, 2018</p>
-                        <h2>Mirror lake</h2>
+                        <p class="portfolio-date">Jan 18, 2025</p>
+                        <h2>Graduation Group photoshoot</h2>
                     </div>
                 </div>
             </div>
@@ -231,11 +231,11 @@
                         <h2>Future</h2>
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/p7.png" alt="">
+                        <img src="landing/img/bg-img/7.jpg" alt="">
                     </div>
                     <div class="portfolio-meta">
-                        <p class="portfolio-date">Feb 02, 2018</p>
-                        <h2>Mirror lake</h2>
+                        <p class="portfolio-date">Jan 17, 2025</p>
+                        <h2>Pre-graduation photoshoot</h2>
                     </div>
                 </div>
             </div>
@@ -255,7 +255,7 @@
                 <div class="call-to-action-content wow fadeInUp" data-wow-delay="0.5s">
                     <h2>I am an experienced photographer</h2>
                     <h5>Let’s talk</h5>
-                    <a href="#" class="btn sonar-btn mt-100">contact me</a>
+                    <a href="https://wa.me/6285156272866?text=Halo%20Kaa,%20ada%20yang%20bisa%20saya%20bantu?" target="_blank" class="btn sonar-btn mt-100">contact me</a>
                 </div>
             </div>
         </div>

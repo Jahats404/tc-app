@@ -5,9 +5,10 @@ use App\Http\Controllers\auth\AuthController;
 //LANDING
 use App\Http\Controllers\Landing\HomeController;
 use App\Http\Controllers\Landing\AboutUsController;
-use App\Http\Controllers\Landing\ServicesController;
+use App\Http\Controllers\Landing\PackagesController;
 use App\Http\Controllers\Landing\PortofolioController;
 use App\Http\Controllers\Landing\ContactController;
+use App\Http\Controllers\Landing\FastBookingController;
 
 //ADMIN
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -66,9 +67,10 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 // LANDING
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
-Route::get('/services', [ServicesController::class, 'index'])->name('services');
+Route::get('/packages', [PackagesController::class, 'index'])->name('packages');
 Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/fastbooking', [FastBookingController::class, 'index'])->name('fastbooking');
 
 Route::middleware(['auth'])->group(function () {
 
