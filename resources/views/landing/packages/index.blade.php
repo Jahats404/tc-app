@@ -3,7 +3,7 @@
     <!-- ***** Hero Area Start ***** -->
     <div class="hero-area d-flex align-items-center">
         <!-- Hero Thumbnail -->
-        <div class="hero-thumbnail equalize bg-img" style="background-image: url(landing/img/bg-img/services.jpg);"></div>
+        <div class="hero-thumbnail equalize bg-img" style="background-image: url(landing/img/bg-img/serv.jpg);"></div>
         
         <!-- Hero Content -->
         <div class="hero-content equalize">
@@ -11,7 +11,7 @@
                 <div class="row h-100 align-items-center justify-content-center">
                     <div class="col-12 col-md-8">
                         <div class="line"></div>
-                        <h2>I provide top quality services</h2>
+                        <h2>I provide top quality packages</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
                         <a href="#" class="btn sonar-btn white-btn">contact me</a>
                     </div>
@@ -21,6 +21,14 @@
     </div>
     <!-- ***** Hero Area End ***** -->
 
+    <style>
+    .expired {
+        display: block;
+        margin-left: 5%;
+        font-size: 0.8em;
+        color: #888;
+    }
+    </style>
     <!-- ***** Services Area Start ***** -->
     <div class="sonar-services-area section-padding-100-50">
         <div class="container">
@@ -28,49 +36,37 @@
                 <!-- Single Services Area -->
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
-                        <img src="landing/img/core-img/camera.png" alt="">
-                        <h4>Wedding Photograpy</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
-                    </div>
-                </div>
-                <!-- Single Services Area -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-services-area wow fadeInUp" data-wow-delay="600ms">
-                        <img src="landing/img/core-img/vector.png" alt="">
-                        <h4>Studio Photograpy</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
-                    </div>
-                </div>
-                <!-- Single Services Area -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-services-area wow fadeInUp" data-wow-delay="900ms">
-                        <img src="landing/img/core-img/pantone.png" alt="">
-                        <h4>Fashion Photograpy</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
+                        <h4>Private I</h4>
+                            <li>For 1 Graduated</li>
+                            <li>30 Minute Photo Session</li>
+                            <li>Unlimited Shots</li>
+                            <li>15 Photo Edited</li>
+                            <li>All File on G-Drive <span class="expired">*Expired 14 Day</span></li>
+                            <li>Location on Campus <span class="expired">*If outside campus, additional fees apply</span></li>
                     </div>
                 </div>
                 <!-- Single Services Area -->
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
-                        <img src="landing/img/core-img/video-player.png" alt="">
-                        <h4>Profesional Videos</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
+                        <h4>Coupleor Partner</h4>
+                            <li>For 2 Graduated</li>
+                            <li>1 Hours Photo Session</li>
+                            <li>Unlimited Shots</li>
+                            <li>30 Photo Edited</li>
+                            <li>All File on G-Drive <span class="expired">*Expired 14 Day</span></li>
+                            <li>Location on Campus <span class="expired">*If outside campus, additional fees apply</span></li>
                     </div>
                 </div>
                 <!-- Single Services Area -->
                 <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-services-area wow fadeInUp" data-wow-delay="600ms">
-                        <img src="landing/img/core-img/browsing.png" alt="">
-                        <h4>Landscapes</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
-                    </div>
-                </div>
-                <!-- Single Services Area -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-services-area wow fadeInUp" data-wow-delay="900ms">
-                        <img src="landing/img/core-img/develop.png" alt="">
-                        <h4>Photo Journalism</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
+                    <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
+                        <h4>Private I</h4>
+                            <li>For 1 Graduated</li>
+                            <li>30 Minute Photo Session</li>
+                            <li>Unlimited Shots</li>
+                            <li>15 Photo Edited</li>
+                            <li>All File on G-Drive <span class="expired">*Expired 14 Day</span></li>
+                            <li>Location on Campus <span class="expired">*If outside campus, additional fees apply</span></li>
                     </div>
                 </div>
             </div>

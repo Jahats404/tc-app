@@ -19,13 +19,16 @@
                     <a class="nav-link" href="{{ route('about-us') }}">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('services') }}">Services</a>
+                    <a class="nav-link" href="{{ route('packages') }}">Packages</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('portofolio') }}">Portfolio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('contact') }}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('fastbooking') }}">Fast Booking</a>
                 </li>
             </ul>
         </nav>
