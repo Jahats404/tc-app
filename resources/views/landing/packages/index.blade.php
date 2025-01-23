@@ -13,7 +13,6 @@
                         <div class="line"></div>
                         <h2>I provide top quality packages</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
-                        <a href="#" class="btn sonar-btn white-btn">contact me</a>
                     </div>
                 </div>
             </div>
@@ -48,11 +47,12 @@
                 <!-- Single Services Area -->
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
-                        <h4>Coupleor Partner</h4>
+                        <h4>Couple or Partner</h4>
                             <li>For 2 Graduated</li>
                             <li>1 Hours Photo Session</li>
                             <li>Unlimited Shots</li>
                             <li>30 Photo Edited</li>
+                            <li>Included Self Potrait <span class="expired">*in last 15 minutes of the photoshoot session</span></li>
                             <li>All File on G-Drive <span class="expired">*Expired 14 Day</span></li>
                             <li>Location on Campus <span class="expired">*If outside campus, additional fees apply</span></li>
                     </div>
@@ -60,13 +60,19 @@
                 <!-- Single Services Area -->
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
-                        <h4>Private I</h4>
-                            <li>For 1 Graduated</li>
-                            <li>30 Minute Photo Session</li>
+                        <h4>Group I</h4>
+                            <li>For 3-5 Graduated</li>
+                            <li>1 Hours Photo Session</li>
                             <li>Unlimited Shots</li>
-                            <li>15 Photo Edited</li>
+                            <li>30 Photo Edited</li>
+                            <li>Group Photo Only</li>
                             <li>All File on G-Drive <span class="expired">*Expired 14 Day</span></li>
                             <li>Location on Campus <span class="expired">*If outside campus, additional fees apply</span></li>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="call-to-action-content">
+                        <a href="{{ route('fastbooking') }}" class="btn sonar-btn ">More</a>
                     </div>
                 </div>
             </div>
@@ -178,9 +184,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="call-to-action-content">
-                        <h2>I am an experienced photographer</h2>
-                        <h5>Let’s talk</h5>
-                        <a href="#" class="btn sonar-btn mt-100">contact me</a>
+                        <h2>We are experienced photographer</h2>
+                        <h5>Let’s fast booking now</h5>
+                        <a href="{{ route('fastbooking') }}" class="btn sonar-btn mt-100">Book Now</a>
                     </div>
                 </div>
             </div>

@@ -12,9 +12,8 @@
                 <div class="row h-100 align-items-center justify-content-center">
                     <div class="col-12 col-md-8">
                         <div class="line"></div>
-                        <h2>Take a look at my Portfolio</h2>
+                        <h2>Take a look our Portfolio</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
-                        <a href="#" class="btn sonar-btn white-btn">contact me</a>
                     </div>
                 </div>
             </div>
@@ -24,10 +23,10 @@
         <div class="sonar-portfolio-menu">
             <div class="text-center portfolio-menu">
                 <button class="btn active" data-filter="*">All</button>
-                <button class="btn" data-filter=".landscapes">Landscapes</button>
-                <button class="btn" data-filter=".portraits">Portraits</button>
-                <button class="btn" data-filter=".fashion">Fashion</button>
-                <button class="btn" data-filter=".studio">Studio</button>
+                <button class="btn" data-filter=".landscapes">UGM</button>
+                <button class="btn" data-filter=".portraits">UI</button>
+                <button class="btn" data-filter=".fashion">UNSOED</button>
+                <button class="btn" data-filter=".studio">UII</button>
             </div>
         </div>
     </div>

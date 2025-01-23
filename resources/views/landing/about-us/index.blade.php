@@ -18,7 +18,7 @@
                         <div class="line"></div>
                         <h2>Do you know about us?</h2>
                         <p>We are Tersimpan Cerita, a premier provider of photographic services. With a reputation for excellence and delivering high-quality images, we specialize in Graduation, Wedding, engagement, Couple Session Servic.</p>
-                        <a href="https://wa.me/6285156272866?text=Halo%20Kaa,%20ada%20yang%20bisa%20saya%20bantu?" target="_blank" class="btn sonar-btn white-btn">contact me</a>
+                        <a href="{{ route('fastbooking') }}" class="btn sonar-btn white-btn">Book Now</a>
                     </div>
                 </div>
             </div>

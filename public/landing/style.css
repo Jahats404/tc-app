@@ -312,15 +312,15 @@ img {
 #scrollUp {
     background-color: #232323;
     border-radius: 50%;
-    bottom: 60px;
-    right: 60px;
+    bottom: 150px;
+    right: 75px;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
     color: #ffffff;
     font-size: 30px;
-    height: 70px;
+    height: 50px;
     text-align: center;
-    width: 70px;
-    line-height: 66px;
+    width: 50px;
+    line-height: 46px;
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
 }
@@ -331,6 +331,49 @@ img {
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
     #scrollUp {
+        bottom: 90px;
+        right: 35px;
+        height: 40px;
+        width: 40px;
+        line-height: 36px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    #scrollUp {
+        bottom: 90px;
+        right: 35px;
+        height: 40px;
+        width: 40px;
+        line-height: 36px;
+    }
+}
+
+#WhatsApp {
+    background-color: #25D366;
+    border-radius: 50%;
+    bottom: 60px;
+    right: 60px;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    font-size: 30px;
+    height: 70px;
+    text-align: center;
+    width: 70px;
+    z-index: 9999;
+    line-height: 66px;
+    position: fixed;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+    text-decoration: none;
+}
+
+#WhatsApp:hover {
+    background-color: #128C7E;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    #WhatsApp {
         bottom: 30px;
         right: 30px;
         height: 50px;
@@ -340,7 +383,7 @@ img {
 }
 
 @media only screen and (max-width: 767px) {
-    #scrollUp {
+    #WhatsApp {
         bottom: 30px;
         right: 30px;
         height: 50px;

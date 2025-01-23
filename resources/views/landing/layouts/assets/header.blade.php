@@ -12,10 +12,10 @@
                     <div class="menu-content-area d-flex align-items-center">
                         <!-- Header Social Area -->
                         <div class="header-social-area d-flex align-items-center">
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                            <a href="https://www.instagram.com/tersimpancerita/" target="_blank" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                         </div>
                         <span>
-                            <a href="#" class="btn login-btn white-btn">Login</a>
+                            <a href="{{ route('login') }}" class="btn login-btn white-btn">Login</a>
                         </span>
                         <!-- Menu Icon -->
                         <span class="navbar-toggler-icon" id="menuIcon"></span>

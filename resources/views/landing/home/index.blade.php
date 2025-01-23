@@ -253,9 +253,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="call-to-action-content wow fadeInUp" data-wow-delay="0.5s">
-                    <h2>I am an experienced photographer</h2>
-                    <h5>Let’s talk</h5>
-                    <a href="https://wa.me/6285156272866?text=Halo%20Kaa,%20ada%20yang%20bisa%20saya%20bantu?" target="_blank" class="btn sonar-btn mt-100">contact me</a>
+                    <h2>We are experienced photographer</h2>
+                    <h5>Let’s fast book now</h5>
+                    <a href="{{ route('fastbooking') }}" class="btn sonar-btn mt-100">Book Now</a>
                 </div>
             </div>
         </div>

@@ -44,7 +44,11 @@
 
     @include('landing.layouts.assets.footer')
 
-    @include('landing.layouts.assets.js')
+    <!-- Tombol WhatsApp -->
+    <a href="https://wa.me/6285156272866" id="WhatsApp" target="_blank">
+        <i class="fa fa-whatsapp" aria-hidden="true"></i>
+    </a>
 
+    @include('landing.layouts.assets.js')
 </body>
 </html>

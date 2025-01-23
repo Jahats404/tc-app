@@ -1,29 +1,29 @@
-(function ($) {
+(function($) {
     'use strict';
 
     var $window = $(window);
 
     // :: Preloader Active Code
-    $window.on('load', function () {
-        $('#preloader').fadeOut('slow', function () {
+    $window.on('load', function() {
+        $('#preloader').fadeOut('slow', function() {
             $(this).remove();
         });
     });
 
     // :: Fullscreen Active Code
-    $window.on('resizeEnd', function () {
+    $window.on('resizeEnd', function() {
         $(".full_height").height($window.height());
     });
 
-    $window.on('resize', function () {
+    $window.on('resize', function() {
         if (this.resizeTO) clearTimeout(this.resizeTO);
-        this.resizeTO = setTimeout(function () {
+        this.resizeTO = setTimeout(function() {
             $(this).trigger('resizeEnd');
         }, 300);
     }).trigger("resize");
 
     // :: Sticky Active Code
-    $window.on('scroll', function () {
+    $window.on('scroll', function() {
         if ($window.scrollTop() > 0) {
             $('.header-area').addClass('sticky');
         } else {
@@ -32,10 +32,10 @@
     });
 
     // :: Menu Active Code
-    $('#menuIcon').on('click', function () {
+    $('#menuIcon').on('click', function() {
         $('body').toggleClass('menu-open');
     });
-    $('.closeIcon').on('click', function () {
+    $('.closeIcon').on('click', function() {
         $('body').removeClass('menu-open');
     });
 
@@ -80,28 +80,28 @@
             }
         });
 
-        welcomeSlide.on('translate.owl.carousel', function () {
+        welcomeSlide.on('translate.owl.carousel', function() {
             var slideLayer = $("[data-animation]");
-            slideLayer.each(function () {
+            slideLayer.each(function() {
                 var anim_name = $(this).data('animation');
                 $(this).removeClass('animated ' + anim_name).css('opacity', '0');
             });
         });
 
-        welcomeSlide.on('translated.owl.carousel', function () {
+        welcomeSlide.on('translated.owl.carousel', function() {
             var slideLayer = welcomeSlide.find('.owl-item.active').find("[data-animation]");
-            slideLayer.each(function () {
+            slideLayer.each(function() {
                 var anim_name = $(this).data('animation');
                 $(this).addClass('animated ' + anim_name).css('opacity', '1');
             });
         });
 
-        $("[data-delay]").each(function () {
+        $("[data-delay]").each(function() {
             var anim_del = $(this).data('delay');
             $(this).css('animation-delay', anim_del);
         });
 
-        $("[data-duration]").each(function () {
+        $("[data-duration]").each(function() {
             var anim_dur = $(this).data('duration');
             $(this).css('animation-duration', anim_dur);
         });
@@ -146,16 +146,16 @@
     }
 
     // :: Gallery Menu Style Active Code
-    $('.portfolio-menu button.btn').on('click', function () {
+    $('.portfolio-menu button.btn').on('click', function() {
         $('.portfolio-menu button.btn').removeClass('active');
         $(this).addClass('active');
     })
 
     // :: Masonary Gallery Active Code
     if ($.fn.imagesLoaded) {
-        $('.sonar-portfolio').imagesLoaded(function () {
+        $('.sonar-portfolio').imagesLoaded(function() {
             // filter items on button click
-            $('.portfolio-menu').on('click', 'button', function () {
+            $('.portfolio-menu').on('click', 'button', function() {
                 var filterValue = $(this).attr('data-filter');
                 $grid.isotope({
                     filter: filterValue
@@ -205,7 +205,7 @@
     }
 
     // :: PreventDefault a Click
-    $("a[href='#']").on('click', function ($) {
+    $("a[href='#']").on('click', function($) {
         $.preventDefault();
     });
 

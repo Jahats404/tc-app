@@ -92,8 +92,8 @@
     </section>
 
     <!-- Google Maps -->
-    <div class="map-area">
+    {{-- <div class="map-area">
         <div id="googleMap" class="googleMap"></div>
-    </div>
+    </div> --}}
 
 @endsection
