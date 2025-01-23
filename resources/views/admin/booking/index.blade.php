@@ -36,6 +36,7 @@
                             <th>JML ANGGOTA</th>
                             <th>REQ KHUSUS</th>
                             <th>STATUS</th>
+                            <th>HARGA</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -66,19 +67,32 @@
                                 <td>
                                     @if ($item->status_booking == 'Pending')
                                         <span class="badge badge-info">{{ $item->status_booking }}</span>
-                                    @elseif ($item->status_booking == 'Diterima')
+                                    @elseif ($item->status_booking == 'Accepted')
                                         <span class="badge badge-success">{{ $item->status_booking }}</span>
-                                    @elseif ($item->status_booking == 'Ditolak')
+                                    @elseif ($item->status_booking == 'Rejected')
                                         <span class="badge badge-danger">{{ $item->status_booking }}</span>
-                                    @elseif ($item->status_booking == 'Dibatalkan')
+                                    @elseif ($item->status_booking == 'Canceled')
                                         <span class="badge badge-warning">{{ $item->status_booking }}</span>
                                     @endif
                                 </td>
+                                <td>{{ 'Rp ' . number_format($item->harga_paket->harga, 0, ',', '.') }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
+                                        <form action="{{ route('admin.ubah.status.booking',$item->id_booking) }}" method="post">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" name="status_booking" value="Accepted">
+                                            <button class="btn btn-success btn-circle btn-acc btn-sm mr-2" type="submit"><i class="fas fa-solid fa-check"></i></button>
+                                        </form>
+                                        <form action="{{ route('admin.ubah.status.booking',$item->id_booking) }}" method="post">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" name="status_booking" value="Rejected">
+                                            <button class="btn btn-info btn-circle btn-reject btn-sm mr-2" type="submit"><i class="fas fa-times"></i></button>
+                                        </form>
                                         <form action="{{ route('admin.delete.booking',$item->id_booking) }}" method="POST" class="delete-form">
                                             @csrf
                                             @method('delete')
@@ -90,22 +104,48 @@
                                 </td>
                             </tr>
                             {{-- SweetAlert Delete --}}
+                            
                             <script>
                                 // Pilih semua tombol dengan kelas delete-btn
-                                document.querySelectorAll('.delete-btn').forEach(button => {
+                                document.querySelectorAll('.btn-acc').forEach(button => {
                                     button.addEventListener('click', function (e) {
                                         e.preventDefault(); // Mencegah pengiriman form langsung
                             
                                         const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
                             
                                         Swal.fire({
-                                            title: 'Apakah data ini akan dihapus?',
-                                            text: "Data yang dihapus tidak dapat dikembalikan!",
+                                            title: 'Apakah booking ini akan diterima?',
+                                            // text: "Data yang dihapus tidak dapat dikembalikan!",
                                             icon: 'warning',
                                             showCancelButton: true,
                                             confirmButtonColor: '#d33',
                                             cancelButtonColor: '#3085d6',
-                                            confirmButtonText: 'Ya, hapus!',
+                                            confirmButtonText: 'Ya, Terima',
+                                            cancelButtonText: 'Batal'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                form.submit(); // Kirim form jika pengguna mengonfirmasi
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+                            <script>
+                                // Pilih semua tombol dengan kelas delete-btn
+                                document.querySelectorAll('.btn-reject').forEach(button => {
+                                    button.addEventListener('click', function (e) {
+                                        e.preventDefault(); // Mencegah pengiriman form langsung
+                            
+                                        const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+                            
+                                        Swal.fire({
+                                            title: 'Apakah booking ini akan ditolak?',
+                                            // text: "Data yang dihapus tidak dapat dikembalikan!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ya, Tolak',
                                             cancelButtonText: 'Batal'
                                         }).then((result) => {
                                             if (result.isConfirmed) {

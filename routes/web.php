@@ -127,9 +127,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store/booking', [BookingController::class, 'store'])->name('store.booking');
         Route::put('update/booking/{id}', [BookingController::class, 'update'])->name('update.booking');
         Route::delete('delete/booking/{id}', [BookingController::class, 'delete'])->name('delete.booking');
+        Route::put('update-status/booking/{id}', [BookingController::class, 'ubah_status'])->name('ubah.status.booking');
         
         //PESANAN
         Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan');
+        Route::put('update/pesanan/{id}', [PesananController::class, 'update'])->name('update.pesanan');
 
         //FOTO
         Route::get('foto', [FotoController::class, 'index'])->name('foto');

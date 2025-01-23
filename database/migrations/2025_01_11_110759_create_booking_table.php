@@ -28,6 +28,13 @@ return new class extends Migration
             $table->string('jumlah_anggota');
             $table->string('req_khusus')->nullable();
             $table->string('status_booking');
+
+            $table->string('negara')->nullable();
+            $table->string('kota')->nullable();
+            $table->string('dp')->nullable();
+            $table->text('file_dp')->nullable();
+            $table->string('jam_selesai')->nullable();
+            
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('harga_paket_id');

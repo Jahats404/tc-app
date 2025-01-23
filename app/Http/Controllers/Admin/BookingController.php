@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\HargaPaket;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -94,5 +95,28 @@ class BookingController extends Controller
         $b->delete();
 
         return redirect()->back()->with('success','Booking berhasil dihapus');
+    }
+
+    public function ubah_status(Request $request, $id)
+    {
+        $cekPesanan = Pesanan::where('booking_id',$id)->first();
+        $booking = Booking::find($id);
+
+        if (!$cekPesanan && $request->status_booking == 'Accepted') {
+            $booking->status_booking = $request->status_booking;
+            $booking->save();
+            
+            $pesanan = new Pesanan();
+            $pesanan->id_pesanan = 'PSN' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+            $pesanan->booking_id = $booking->id_booking;
+            $pesanan->save();
+            
+        }
+        else {
+            $booking->status_booking = $request->status_booking;
+            $booking->save();
+        }
+        
+        return redirect()->back()->with('success','Status Booking berhasil diubah');
     }
 }

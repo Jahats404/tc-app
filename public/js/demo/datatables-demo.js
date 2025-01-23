@@ -8,3 +8,10 @@ $(document).ready(function() {
         scrollX: true,
     });
 });
+
+$(document).ready(function() {
+    $('#pesanan').DataTable({
+        scrollX: true,
+        autoWidth: false
+    });
+});
