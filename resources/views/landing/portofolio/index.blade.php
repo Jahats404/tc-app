@@ -20,7 +20,7 @@
         </div>
 
         <!-- Portfolio Menu -->
-        <div class="sonar-portfolio-menu">
+        {{-- <div class="sonar-portfolio-menu">
             <div class="text-center portfolio-menu">
                 <button class="btn active" data-filter="*">All</button>
                 <button class="btn" data-filter=".landscapes">UGM</button>
@@ -28,15 +28,20 @@
                 <button class="btn" data-filter=".fashion">UNSOED</button>
                 <button class="btn" data-filter=".studio">UII</button>
             </div>
-        </div>
+        </div> --}}
     </div>
     <!-- ***** Hero Area End ***** -->
 
+    
     <!-- ****** Gallery Area Start ****** -->
     <section class="sonar-projects-area" id="projects">
+        <script src="https://static.elfsight.com/platform/platform.js" async></script>
+        <div class="elfsight-app-dc5f5a37-ca7d-42ae-822d-1a7eaa11b541" data-elfsight-app-lazy></div>
         <div class="container-fluid">
+            
             <div class="row sonar-portfolio">
 
+                
                 <!-- Single gallery Item -->
                 <div class="col-12 col-sm-6 col-lg-3 single_gallery_item landscapes studio wow fadeInUpBig" data-wow-delay="300ms">
                     <a class="gallery-img" href="landing/img/portfolio-img/1.jpg"><img src="landing/img/portfolio-img/1.jpg" alt=""></a>

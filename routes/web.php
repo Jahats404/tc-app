@@ -31,6 +31,8 @@ use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
+use App\Exports\PesananExport;
+use Maatwebsite\Excel\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +49,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Route::get('/', [AdminDashboardController::class, 'landing'])->name('landing');
+
+Route::get('/export-pesanan', function () {
+    return Excel::download(new PesananExport, 'Pesanan_Report.xlsx');
+});
 
 Route::get('select', function () {
     return view('auth.selec2');
