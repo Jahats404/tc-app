@@ -77,10 +77,33 @@
                     </div>
                 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        {{-- <div class="form-group col-md-6">
                             <label for="kategori_paket" class="col-form-label">Kategori Paket</label>
-                            <input type="text" value="{{ old('kategori_paket', $item->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $item->booking->harga_paket->paket->nama_paket) }}" name="kategori_paket" class="form-control @error('kategori_paket') is-invalid @enderror" id="kategori_paket" readonly>
+                            <input type="text" value="{{ old('kategori_paket', $item->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $item->booking->harga_paket->paket->nama_paket) }}" name="kategori_paket" class="form-control @error('kategori_paket') is-invalid @enderror" id="kategori_paket">
                             @error('kategori_paket')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div> --}}
+
+                        <div class="form-group col-md-6">
+                            <label for="harga_paket_id" class="col-form-label">Paket</label>
+                            <select id="harga_paket_id" name="harga_paket_id" class="form-control @error('harga_paket_id') is-invalid @enderror">
+                                <option selected disabled value="">--Pilih Paket--</option>
+                                @foreach ($hargaPaket as $harga)
+                                    <option value="{{ $harga->id_harga_paket }}" 
+                                        {{ old('harga_paket_id', $item->booking->harga_paket->id_harga_paket) == $harga->id_harga_paket ? 'selected' : '' }}>
+                                        
+                                        {{ $harga->paket->kategori_paket->nama_kategori . ' ' . $harga->paket->nama_paket . ' | ' }}
+                                        
+                                        @php
+                                            $namaWilayah = \App\Models\Wilayah::where('kode', $harga->golongan)->pluck('nama_wilayah')->toArray();
+                                        @endphp
+                        
+                                        {{ implode(', ', $namaWilayah) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('harga_paket_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -159,7 +182,9 @@
                             $jumlahHargaTambahan += $pt->harga_tambahan;
                         }
                         $kekurangan = ($item->booking->harga_paket->harga + $jumlahHargaTambahan) - ($item->booking->dp + $item->pelunasan);
+                        
                         $total = $item->booking->dp + $item->pelunasan;
+                        
                     @endphp
                 
                     <div class="form-row">
@@ -191,7 +216,7 @@
                     
                         <div class="form-group col-md-6">
                             <label for="kekurangan" class="col-form-label">Kekurangan</label>
-                            <input type="number" value="{{ old('kekurangan', $kekurangan) }}" min="0" name="kekurangan" class="form-control @error('kekurangan') is-invalid @enderror" id="kekurangan" readonly>
+                            <input type="number" value="{{ old('kekurangan', $item->kekurangan) }}" min="0" name="kekurangan" class="form-control @error('kekurangan') is-invalid @enderror" id="kekurangan" readonly>
                             @error('kekurangan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -209,7 +234,7 @@
                     
                         <div class="form-group col-md-6">
                             <label for="total" class="col-form-label">Total</label>
-                            <input type="number" value="{{ old('total', $total) }}" min="1" name="total" class="form-control @error('total') is-invalid @enderror" id="total" readonly>
+                            <input type="number" value="{{ old('total', $item->total) }}" min="1" name="total" class="form-control @error('total') is-invalid @enderror" id="total" readonly>
                             @error('total')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -221,9 +246,8 @@
                             <label for="status_pembayaran" class="col-form-label">Status Pembayaran</label>
                             <select id="inputState" name="status_pembayaran" class="form-control">
                                 <option value="">-- Pilih Status Pembayaran --</option>
-                                <option value="Pending" {{ old('status_pembayaran', $item->status_pembayaran) == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="Edited" {{ old('status_pembayaran', $item->status_pembayaran) == 'Failed' ? 'selected' : '' }}>Failed</option>
-                                <option value="Complete" {{ old('status_pembayaran', $item->status_pembayaran) == 'Success' ? 'selected' : '' }}>Success</option>
+                                <option value="Lunas" {{ old('status_pembayaran', $item->status_pembayaran) == 'Lunas' ? 'selected' : '' }}>Lunas</option>
+                                <option value="Belum Lunas" {{ old('status_pembayaran', $item->status_pembayaran) == 'Belum Lunas' ? 'selected' : '' }}>Belum Lunas</option>
                             </select>
                             @error('status_pembayaran')
                                 <div class="text-danger">{{ $message }}</div>

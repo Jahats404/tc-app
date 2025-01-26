@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Foto;
 use App\Models\Fotografer;
+use App\Models\HargaPaket;
 use App\Models\Pesanan;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ class PesananController extends Controller
     public function index(){
 
         $bulan = request()->get('bulan');
+        $hargaPaket = HargaPaket::orderBy('paket_id')->get();
         $pesanan = Pesanan::whereHas('booking', function ($query) use ($bulan) {
             $query->where('status_booking', 'Accepted');
         
@@ -49,7 +51,7 @@ class PesananController extends Controller
         
         $fotografer = Fotografer::all();
         
-        return view('admin.pesanan.index',compact('pesanan','fotografer'));
+        return view('admin.pesanan.index',compact('pesanan','fotografer','hargaPaket'));
     }
 
     public function filter2(Request $request)

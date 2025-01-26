@@ -27,6 +27,7 @@ use App\Http\Controllers\Client\BookingController as ClientBookingController;
 //CLIENT
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\Client\FotoController as ClientFotoController;
+use App\Http\Controllers\Client\ProfileController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -147,11 +148,18 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('client')->name('client.')->middleware('CekUserLogin:2')->group(function () {
         //DASHBOARD
         Route::get('dashboard', [ClientDashboardController::class, 'dashboard_client'])->name('dashboard');
+
+        //PROFILE
+        Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+        Route::put('update/profile', [ProfileController::class, 'update'])->name('profile.update');
+
         // BOOKING
         Route::get('booking', [ClientBookingController::class, 'index'])->name('booking');
         Route::put('update/booking/{id}', [ClientBookingController::class, 'update'])->name('update.booking');
         Route::delete('delete/booking/{id}', [ClientBookingController::class, 'delete'])->name('delete.booking');
         Route::put('ubah-status/booking/{id}', [ClientBookingController::class, 'ubah_status'])->name('ubah.status.booking');
+        // PELUNASAN
+        Route::put('pelunasan/{id}', [ClientBookingController::class, 'add_pelunasan'])->name('add.pelunasan');
         // FOTO
         Route::put('list/foto/{id}', [ClientFotoController::class, 'add_list_foto'])->name('add.list.foto');
     });

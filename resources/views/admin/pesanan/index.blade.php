@@ -56,6 +56,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $cek = 0;
+                        @endphp
                         @foreach ($pesanan as $item)
                             <tr class="text-center">
                                 <td>{{ $loop->iteration }}</td>
@@ -110,9 +113,17 @@
                                         </div>
                                         <div class="modal-body">
                                             @if ($item->booking->file_dp)
+                                                <span class="text-muted text-center">Bukti DP</span> <br>
                                                 <img src="{{ asset('storage/' . $item->booking->file_dp) }}" class="card-img-top" alt="...">
                                             @else
-                                                <p class="text-muted">Bukti DP Tidak ditemukan!</p>
+                                                <p class="text-muted text-center">Bukti DP Tidak ditemukan!</p>
+                                            @endif
+                                            <hr>
+                                            @if ($item->booking->file_pelunasan)
+                                                <span class="text-muted text-center">Bukti Pelunasan</span> <br>
+                                                <img src="{{ asset('storage/' . $item->booking->file_pelunasan) }}" class="card-img-top" alt="...">
+                                            @else
+                                                <p class="text-muted text-center">Bukti Pelunasan Tidak ditemukan!</p>
                                             @endif
                                         </div>
                                         <div class="modal-footer">

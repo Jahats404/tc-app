@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('harga_paket_tambahan')->nullable();
             $table->integer('kekurangan')->nullable();
             $table->integer('pelunasan')->nullable();
+            $table->text('file_pelunasan')->nullable();
             $table->integer('total')->nullable();
             $table->string('status_pembayaran')->nullable();
             $table->integer('freelance')->nullable();

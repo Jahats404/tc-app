@@ -35,19 +35,22 @@
                                     <strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') ?? '-' }}<br>
                                     <strong>Jam:</strong> {{ $item->jam_selesai ? $item->jam . '-' . $item->jam_selesai :  $item->jam ?? '-' }} <br>
                                     <strong>Fotograger:</strong> {{ $item->pesanan?->fotografer?->nama ?? '-' }} <br>
-                                    @if ($item->pesanan)
+                                    @if ($item->pesanan->foto)
                                         <strong>Status Foto:</strong> 
-                                        @if ($item->pesanan?->foto->status_foto == 'Pending')
-                                            <span class="badge badge-info">{{ $item->pesanan?->foto->status_foto }}</span>
-                                        @elseif ($item->pesanan?->foto->status_foto == 'Editing')
-                                            <span class="badge badge-primary">{{ $item->pesanan?->foto->status_foto }}</span>
-                                        @elseif ($item->pesanan?->foto->status_foto == 'Complete')
-                                            <span class="badge badge-success">{{ $item->pesanan?->foto->status_foto }}</span>
+                                        @if ($item->pesanan?->foto?->status_foto == 'Pending')
+                                            <span class="badge badge-info">{{ $item->pesanan?->foto?->status_foto }}</span>
+                                        @elseif ($item->pesanan?->foto?->status_foto == 'Editing')
+                                            <span class="badge badge-primary">{{ $item->pesanan?->foto?->status_foto }}</span>
+                                        @elseif ($item->pesanan?->foto?->status_foto == 'Complete')
+                                            <span class="badge badge-success">{{ $item->pesanan?->foto?->status_foto }}</span>
                                         @else
                                             -
                                         @endif
                                     @endif
-                                    
+                                    <br>
+                                    @if ($item->status_booking == 'Accepted')
+                                        <strong>Kekurangan:</strong> {{ 'Rp. ' . number_format($item->pesanan->kekurangan, 0, ',', '.') ?? '-' }} <br>
+                                    @endif
                                 </p>
                                 <div class="d-flex justify-content-center flex-wrap">
                                     <!-- Tombol File -->
@@ -78,13 +81,19 @@
                                         </button>
                                     </form>
                                 
-                                    <!-- Tombol Pilih foto edit -->
-                                    <button class="btn btn-sm btn-primary mt-3 mr-2" data-toggle="modal" data-target="#modalEditFoto{{ $item->id_booking }}">
-                                        Pilih Foto Edit
+                                    @if ($item->pesanan)
+                                        <!-- Tombol Pilih foto edit -->
+                                        <button class="btn btn-sm btn-primary mt-3 mr-2" data-toggle="modal" data-target="#modalEditFoto{{ $item->id_booking }}">
+                                            Pilih Foto Edit
+                                        </button>
+                                    @endif
+
+                                    <button class="btn btn-sm btn-dark mt-3 mr-2" data-toggle="modal" data-target="#modalPelunasan{{ $item->id_booking }}">
+                                        Pelunasan
                                     </button>
                                 
                                     <!-- Form Delete -->
-                                    <form action="{{ route('client.delete.booking', $item->id_booking) }}" method="POST" class="mt-3 me-2" class="delete-form">
+                                    {{-- <form action="{{ route('client.delete.booking', $item->id_booking) }}" method="POST" class="mt-3 me-2" class="delete-form">
                                         @csrf
                                         @method('delete')
                                         <button 
@@ -94,14 +103,14 @@
                                             title="Delete">
                                             <i class="fas fa-trash"></i>
                                         </button>
-                                    </form>
+                                    </form> --}}
                                 </div>
                                 
                             </div>
                         </div>
                     </div>
 
-                    <!-- Modal file -->
+                    <!-- Modal file DP -->
                     <div class="modal fade" id="fileModal{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-scrollable modal-lg">
                             <div class="modal-content">
@@ -124,6 +133,55 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Modal file Pelunasan -->
+                    <div class="modal fade" id="modalPelunasan{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modalLabel{{ $item->id_booking }}">Pelunasan</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('client.add.pelunasan',$item->id_booking) }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('put')
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="pelunasan" class="col-form-label">Jumlah Pelunasan</label>
+                                            <input type="number" value="{{ old('pelunasan',$item->pesanan->pelunasan) }}" name="pelunasan" min="0" class="form-control @error('pelunasan') is-invalid @enderror" id="pelunasan">
+                                            @error('pelunasan')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="file_dp">Upload Bukti Pelunasan </label>
+                                            <input 
+                                                type="file" 
+                                                name="file_pelunasan" 
+                                                id="file_pelunasan" 
+                                                class="form-control @error('file_pelunasan') is-invalid @enderror">
+                                            @if($item->pesanan->file_pelunasan)
+                                                <small class="form-text text-muted">
+                                                    File Pelunasan saat ini: 
+                                                    <a href="{{ asset('storage/' . $item->pesanan->file_pelunasan) }}">Lihat DP</a>.
+                                                    Biarkan kosong jika tidak ingin mengganti.
+                                                </small>
+                                            @endif
+                                            @error('file_pelunasan')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 
                     <!-- Modal pilih edit foto -->
                     <div class="modal fade" id="modalEditFoto{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
@@ -141,7 +199,7 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="link" class="col-form-label">Link Foto</label>
-                                            <textarea name="link" readonly id="link" class="form-control @error('link') is-invalid @enderror">{{ $item->pesanan->foto?->link ? $item->pesanan->foto->link : 'Link Belum Tersedia.' }}</textarea>
+                                            <textarea name="link" readonly id="link" class="form-control @error('link') is-invalid @enderror">{{ $item->pesanan?->foto?->link ? $item?->pesanan->foto->link : 'Link Belum Tersedia.' }}</textarea>
                                             @error('link')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -149,10 +207,10 @@
                                         <div class="form-group">
                                             <label for="kp_id" class="col-form-label">Pilih foto yang akan diedit</label>
                                             <select class="form-control js-example-tokenizer" 
-                                                {{ $item->pesanan?->foto->status_foto == 'Editing' || $item->pesanan?->foto->status_foto == 'Editing' ? 'disabled' : '' }} 
+                                                {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Editing' ? 'disabled' : '' }} 
                                                 style="width: 100%; height: 300px;" 
                                                 multiple="multiple" name="foto_edit[]">
-                                                @if ($item->pesanan?->foto->foto_edit)
+                                                @if ($item->pesanan?->foto?->foto_edit)
                                                     @php
                                                         $potoEdit = json_decode($item->pesanan->foto->foto_edit);
                                                     @endphp

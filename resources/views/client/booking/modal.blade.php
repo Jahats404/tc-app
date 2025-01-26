@@ -137,21 +137,6 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="kp_id" class="col-form-label">Pilih Paket Tambahan</label>
-                            <select class="form-control js-example-tokenizer" 
-                                style="width: 100%; height: 300px;" 
-                                multiple="multiple" name="foto_edit[]">
-                                @if ($item->pesanan?->foto->foto_edit)
-                                    @php
-                                        $potoEdit = json_decode($item->pesanan->foto->foto_edit);
-                                    @endphp
-                                    @foreach ($potoEdit as $ft)
-                                        <option value="{{ $ft }}" selected>{{ $ft }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                        </div>
-                        <div class="form-group">
                             <label for="jumlah_anggota" class="col-form-label">Jumlah Anggota</label>
                             <input type="text" value="{{ old('jumlah_anggota',$item->jumlah_anggota) }}" name="jumlah_anggota" class="form-control @error('jumlah_anggota') is-invalid @enderror" id="jumlah_anggota">
                             @error('jumlah_anggota')

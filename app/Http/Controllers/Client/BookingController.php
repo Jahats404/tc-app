@@ -7,6 +7,7 @@ use App\Models\Booking;
 use App\Models\BookingPaketTambahan;
 use App\Models\HargaPaket;
 use App\Models\PaketTambahan;
+use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -68,19 +69,6 @@ class BookingController extends Controller
                 ]);
             }
         }
-
-        // if ($request->has('paket_tambahan')) {
-            
-        //     if () {
-        //         # code...
-        //     }
-        //     foreach ($request->paket_tambahan as $pt) {
-        //         $bookingPaketTambahan = BookingPaketTambahan::create([
-        //             'booking_id' => $b->id_booking,
-        //             'paket_tambahan_id' => $pt,
-        //         ]);
-        //     }
-        // }
         
         // Cek jika file ada di request
         if ($request->hasFile('file_dp')) {
@@ -122,5 +110,28 @@ class BookingController extends Controller
         $b->save();
 
         return redirect()->back()->with('success','Booking berhasil di Cancel');
+    }
+
+    public function add_pelunasan(Request $request,$id)
+    {
+        $pesanan = Pesanan::where('booking_id',$id)->first();
+        $pesanan->pelunasan = $request->pelunasan;
+        if ($request->hasFile('file_pelunasan')) {
+            $file = $request->file('file_pelunasan');
+
+            // Hapus file lama jika ada
+            if ($pesanan->file_pelunasan) {
+                // Menghapus file lama dari storage
+                Storage::disk('public')->delete($pesanan->file_pelunasan);
+            }
+
+            $path = 'uploads/pelunasan';
+
+            // Simpan file baru
+            $pesanan->file_pelunasan = $file->store($path, 'public');
+        }
+        $pesanan->save();
+
+        return redirect()->back()->with('success','Pelunasan sedang diverifikasi oleh Admin');
     }
 }
