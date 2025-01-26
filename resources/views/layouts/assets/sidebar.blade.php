@@ -98,6 +98,25 @@
             <span>Pesanan</span>
         </a>
     </li>
-    @endif
     <hr class="sidebar-divider d-none d-md-block">
+    @endif
+
+    @if (Auth::user()->role_id == 2)
+    <li class="nav-item {{ Request::routeIs('client.dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('client.dashboard') }}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ Request::routeIs('client.booking') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('client.booking') }}">
+            <i class="fas fa-fw fa-location-arrow"></i>
+            <span>Booking</span>
+        </a>
+    </li>
+
+
+    <hr class="sidebar-divider d-none d-md-block">
+    @endif
 </ul>

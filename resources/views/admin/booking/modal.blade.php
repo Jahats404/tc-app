@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('admin.update.booking',$item->id_booking) }}" method="POST">
+            <form action="{{ route('admin.update.booking',$item->id_booking) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="modal-body">
@@ -48,9 +48,16 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="jam" class="col-form-label">Jam</label>
+                        <label for="jam_selesai" class="col-form-label">Jam</label>
                         <input type="time" value="{{ old('jam',$item->jam) }}" name="jam" class="form-control @error('jam') is-invalid @enderror" id="jam">
                         @error('jam')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
+                        <input type="time" value="{{ old('jam_selesai',$item->jam_selesai) }}" name="jam_selesai" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam_selesai">
+                        @error('jam_selesai')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
@@ -126,7 +133,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="status_booking" class="col-form-label">Status Booking</label>
                         <select id="status_booking" name="status_booking" class="form-control @error('status_booking') is-invalid @enderror">
                             <option value="Pending" {{ old('status_booking',$item->status_booking) == 'Pending' ? 'selected' : '' }}>Pending</option>
@@ -136,6 +143,31 @@
                         </select>
                         @error('status_booking')
                             <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div> --}}
+                    <div class="form-group">
+                        <label for="dp" class="col-form-label">DP</label>
+                        <input type="number" value="{{ old('dp',$item->dp) }}" name="dp" min="0" class="form-control @error('dp') is-invalid @enderror" id="dp">
+                        @error('dp')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="file_dp">Upload Bukti DP </label>
+                        <input 
+                            type="file" 
+                            name="file_dp" 
+                            id="file_dp" 
+                            class="form-control @error('file_dp') is-invalid @enderror">
+                        @if($item->file_dp)
+                            <small class="form-text text-muted">
+                                File DP saat ini: 
+                                <a href="{{ asset('storage/' . $item->file_dp) }}">Lihat DP</a>.
+                                Biarkan kosong jika tidak ingin mengganti.
+                            </small>
+                        @endif
+                        @error('file_dp')
+                            <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
                 </div>

@@ -23,10 +23,10 @@ use App\Http\Controllers\Admin\HargaPaketController;
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\FotoController;
-
+use App\Http\Controllers\Client\BookingController as ClientBookingController;
 //CLIENT
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
-
+use App\Http\Controllers\Client\FotoController as ClientFotoController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -70,7 +70,9 @@ Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::get('/packages', [PackagesController::class, 'index'])->name('packages');
 Route::get('/portofolio', [PortofolioController::class, 'index'])->name('portofolio');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+
 Route::get('/fastbooking', [FastBookingController::class, 'index'])->name('fastbooking');
+Route::post('/store-fastbooking', [FastBookingController::class, 'store'])->name('store.fastbooking');
 
 Route::middleware(['auth'])->group(function () {
 
@@ -133,6 +135,7 @@ Route::middleware(['auth'])->group(function () {
         
         //PESANAN
         Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan');
+        Route::get('filter/pesanan', [PesananController::class, 'filter'])->name('filter.pesanan');
         Route::put('update/pesanan/{id}', [PesananController::class, 'update'])->name('update.pesanan');
 
         //FOTO
@@ -144,6 +147,13 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('client')->name('client.')->middleware('CekUserLogin:2')->group(function () {
         //DASHBOARD
         Route::get('dashboard', [ClientDashboardController::class, 'dashboard_client'])->name('dashboard');
+        // BOOKING
+        Route::get('booking', [ClientBookingController::class, 'index'])->name('booking');
+        Route::put('update/booking/{id}', [ClientBookingController::class, 'update'])->name('update.booking');
+        Route::delete('delete/booking/{id}', [ClientBookingController::class, 'delete'])->name('delete.booking');
+        Route::put('ubah-status/booking/{id}', [ClientBookingController::class, 'ubah_status'])->name('ubah.status.booking');
+        // FOTO
+        Route::put('list/foto/{id}', [ClientFotoController::class, 'add_list_foto'])->name('add.list.foto');
     });
 
 });

@@ -24,13 +24,27 @@ class Booking extends Model
     {
         return $this->belongsTo(HargaPaket::class,'harga_paket_id','id_harga_paket');
     }
+    public function pesanan()
+    {
+        return $this->hasOne(Pesanan::class,'booking_id','id_booking');
+    }
+    
+    public function bookingPaketTambahan()
+    {
+        return $this->hasMany(BookingPaketTambahan::class, 'booking_id', 'id_booking');
+    }
+    public function paketTambahan()
+    {
+        return $this->belongsToMany(PaketTambahan::class, 'booking_paket_tambahan', 'booking_id', 'paket_tambahan_id');
+    }
+    
     public static $rules = [
         'nama' => 'required|string|max:255',
         'email' => 'required|email|max:255',
         'no_wa' => 'required|digits_between:10,15',
         'event' => 'required|string|max:255',
         'tanggal' => 'nullable|date',
-        'jam' => 'nullable|date_format:H:i',
+        'jam' => 'nullable',
         'universitas' => 'required|string|max:255',
         'fakultas' => 'required|string|max:255',
         'lokasi_foto' => 'required|string|max:255',
@@ -39,9 +53,11 @@ class Booking extends Model
         'post_foto' => 'required|in:yes,no',
         'jumlah_anggota' => 'required|integer|min:1',
         'req_khusus' => 'nullable|string|max:1000',
-        'status_booking' => 'required|in:Pending,Diterima,Ditolak,Dibatalkan',
+        'status_booking' => 'in:Pending,Diterima,Ditolak,Dibatalkan',
         'harga_paket_id' => 'required|exists:harga_paket,id_harga_paket',
         'user_id' => 'exists:users,id',
+
+        'file_dp' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf',
     ];
 
     public static $messages = [
@@ -68,5 +84,7 @@ class Booking extends Model
         'user_id.exists' => 'User ID tidak ditemukan.',
         'harga_paket_id.required' => 'Paket wajib diisi.',
         'harga_paket_id.exists' => 'Harga Paket tidak ditemukan.',
+        'file_dp.mimes' => 'File DP harus berupa file dengan format: jpg, jpeg, png, gif, atau pdf.',
+        'file_dp.max' => 'File DP tidak boleh lebih dari 2MB.',
     ];
 }

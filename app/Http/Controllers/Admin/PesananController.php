@@ -14,10 +14,106 @@ class PesananController extends Controller
 {
     public function index(){
 
-        $pesanan = Pesanan::all();
+        $bulan = request()->get('bulan');
+        $pesanan = Pesanan::whereHas('booking', function ($query) use ($bulan) {
+            $query->where('status_booking', 'Accepted');
+        
+            // Jika bulan ada, filter berdasarkan bulan
+            if ($bulan) {
+                $query->whereYear('tanggal', date('Y', strtotime($bulan)))
+                        ->whereMonth('tanggal', date('m', strtotime($bulan)));
+            }
+        })
+        ->get();
+        
+        // Mengembalikan hanya bagian body tabel untuk pembaruan AJAX
+        if (request()->ajax()) {
+            return view('admin.pesanan.table-body', compact('pesanan'));
+        }
+
+        $jumlahHargaTambahan = 0;
+        foreach ($pesanan as $pes) {
+            foreach ($pes->booking->paketTambahan as $pt) {
+                $jumlahHargaTambahan += $pt->harga_tambahan;
+            }
+            $kekurangan = ($pes->booking->harga_paket->harga + $jumlahHargaTambahan) - ($pes->booking->dp + $pes->pelunasan);
+            $total = $pes->booking->dp + $pes->pelunasan;
+
+            // Update pesanan dengan nilai yang telah dihitung
+            $pes->update([
+                'harga_paket_tambahan' => $jumlahHargaTambahan,
+                'kekurangan' => $kekurangan,
+                'total' => $total
+            ]);
+        }
+        
         $fotografer = Fotografer::all();
         
         return view('admin.pesanan.index',compact('pesanan','fotografer'));
+    }
+
+    public function filter2(Request $request)
+    {
+        $bulan = $request->get('bulan');
+        
+        if ($bulan) {
+            $pesanan = Pesanan::with(['booking', 'fotografer'])
+                ->whereHas('booking', function ($query) use ($bulan) {
+                    $query->whereMonth('tanggal', '=', \Carbon\Carbon::parse($bulan)->month)
+                        ->whereYear('tanggal', '=', \Carbon\Carbon::parse($bulan)->year)
+                        ->where('status_booking', 'Accepted');
+                })
+                ->get();
+        } else {
+            $pesanan = Pesanan::with(['booking', 'fotografer'])
+                ->whereHas('booking', function ($query) use ($bulan) {
+                    $query->where('status_booking', 'Accepted');
+                })
+                ->get();
+        }
+
+        $filteredData = $pesanan->map(function ($item) {
+            return [
+                'tanggal' => \Carbon\Carbon::parse($item->booking->tanggal)->translatedFormat('d F Y') ?? '-',
+                'negara' => $item->booking->negara ?? 'Indonesia',
+                'kota' => $item->booking->kota ?? '-',
+                'universitas' => $item->booking->universitas ?? '-',
+                'nama' => $item->booking->nama ?? '-',
+                'waktu' => $item->booking->jam . '-' . $item->booking->jam_selesai ?? '-',
+                'paket' => $item->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $item->booking->harga_paket->paket->nama_paket,
+                'fg' => $item->fotografer->nama ?? '-',
+                'fakultas' => $item->booking->fakultas ?? '-',
+                'lokasi_foto' => $item->booking->lokasi_foto ?? '-',
+                'upload_ig' => $item->booking->post_foto ?? '-',
+                'keterangan' => $item->keterangan ?? '-',
+                'status_foto' => $item->foto->status_foto ?? '-',
+                'harga' => 'Rp ' . number_format($item->booking->harga_paket->harga, 0, ',', '.'),
+                'total_paket_tambahan' => 'Rp ' . number_format($item->harga_paket_tambahan, 0, ',', '.'),
+                'dp' => 'Rp ' . number_format($item->booking->dp, 0, ',', '.'),
+                'kekurangan' => 'Rp ' . number_format($item->kekurangan, 0, ',', '.'),
+                'pelunasan' => 'Rp ' . number_format($item->pelunasan, 0, ',', '.'),
+                'total' => 'Rp ' . number_format($item->total, 0, ',', '.'),
+                'freelance' => 'Rp ' . number_format($item->freelance, 0, ',', '.'),
+                'nomor_wa' => $item->booking->no_wa ?? '-',
+                'aksi' => view('admin.pesanan.index', compact('item'))->render(),
+            ];
+        });
+
+        return response()->json($filteredData);
+    }
+
+    public function filter(Request $request)
+    {
+        $bulan = $request->get('bulan');
+        $pesanan = Pesanan::whereHas('booking', function ($query) use ($bulan) {
+                $query->where('status_booking', 'Accepted');
+                if ($bulan) {
+                    $query->whereMonth('tanggal', '=', \Carbon\Carbon::parse($bulan)->month)
+                        ->whereYear('tanggal', '=', \Carbon\Carbon::parse($bulan)->year);
+                }
+            })->get();
+
+    return view('admin.pesanan.index', compact('pesanan'));
     }
 
     public function update(Request $request,$id)
@@ -35,7 +131,7 @@ class PesananController extends Controller
             'lokasi_foto' => 'nullable|string|max:255',
             'post_foto' => 'nullable|string|max:255',
             'keterangan' => 'nullable|string|max:255',
-            'status_foto' => 'required|in:Pending,Edited,Complete',
+            'status_foto' => 'required|in:Pending,Editing,Complete',
             'harga' => 'required|numeric|min:1',
             'dp' => 'required|numeric|min:1',
             'kekurangan' => 'nullable|numeric|min:0',
@@ -58,7 +154,7 @@ class PesananController extends Controller
             // 'jam.date_format' => 'Format jam tidak valid. Gunakan format HH:mm.',
             'kategori_paket.required' => 'Kategori paket wajib diisi.',
             'status_foto.required' => 'Status foto wajib diisi.',
-            'status_foto.in' => 'Status foto harus salah satu dari Pending, Edited, atau Complete.',
+            'status_foto.in' => 'Status foto harus salah satu dari Pending, Editing, atau Complete.',
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
             'harga.min' => 'Harga minimal adalah 1.',
@@ -83,6 +179,7 @@ class PesananController extends Controller
         $booking->universitas = $request->universitas;
         $booking->nama = $request->nama;
         $booking->jam = $request->jam;
+        $booking->jam_selesai = $request->jam_selesai;
         $booking->fakultas = $request->fakultas;
         $booking->lokasi_foto = $request->lokasi_foto;
         $booking->post_foto = $request->post_foto;

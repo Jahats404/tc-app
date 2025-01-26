@@ -49,18 +49,28 @@
                     </div>
                 
                     <div class="form-row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label for="nama" class="col-form-label">Nama</label>
                             <input type="text" value="{{ old('nama', $item->booking->nama) }}" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama">
                             @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    
+                    </div>
+                
+                    <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="jam" class="col-form-label">Jam</label>
                             <input type="time" value="{{ old('jam', $item->booking->jam) }}" name="jam" class="form-control @error('jam') is-invalid @enderror" id="jam">
                             @error('jam')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    
+                        <div class="form-group col-md-6">
+                            <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
+                            <input type="time" value="{{ old('jam_selesai',$item->jam_selesai) }}" name="jam_selesai" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam_selesai">
+                            @error('jam_selesai')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -76,7 +86,7 @@
                         </div>
                     
                         <div class="form-group col-md-6">
-                            <label for="fotografer_id" class="col-form-label">Sebagai</label>
+                            <label for="fotografer_id" class="col-form-label">Fotografer</label>
                             <select id="inputState" name="fotografer_id" class="form-control @error('fotografer_id') is-invalid @enderror">
                                 <option value="">-- Pilih Fotografer --</option>
                                 @foreach ($fotografer as $fg)
@@ -125,26 +135,45 @@
                         </div>
                     
                         <div class="form-group col-md-6">
-                            <label for="keterangan" class="col-form-label">Keterangan</label>
-                            <input type="text" value="{{ old('keterangan', $item->keterangan) }}" name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan">
-                            @error('keterangan')
+                            <label for="no_wa" class="col-form-label">No Wa</label>
+                            <input type="text" value="{{ old('no_wa', $item->booking->no_wa) }}" min="1" name="no_wa" class="form-control @error('no_wa') is-invalid @enderror" id="no_wa">
+                            @error('no_wa')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                 
                     <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="keterangan" class="col-form-label">Keterangan</label>
+                            <textarea name="keterangan" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" rows="3">{{ old('keterangan',$item->keterangan) }}</textarea>
+                            @error('keterangan')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                
+                    @php
+                        $jumlahHargaTambahan = 0;
+                        foreach ($item->booking->paketTambahan as $pt) {
+                            $jumlahHargaTambahan += $pt->harga_tambahan;
+                        }
+                        $kekurangan = ($item->booking->harga_paket->harga + $jumlahHargaTambahan) - ($item->booking->dp + $item->pelunasan);
+                        $total = $item->booking->dp + $item->pelunasan;
+                    @endphp
+                
+                    <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="no_wa" class="col-form-label">No Wa</label>
-                            <input type="text" value="{{ old('no_wa', $item->no_wa) }}" min="1" name="no_wa" class="form-control @error('no_wa') is-invalid @enderror" id="no_wa">
-                            @error('no_wa')
+                            <label for="harga" class="col-form-label">Harga Paket</label>
+                            <input type="number" value="{{ old('harga', $item->booking->harga_paket->harga) }}" min="1" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga" readonly>
+                            @error('harga')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     
                         <div class="form-group col-md-6">
-                            <label for="harga" class="col-form-label">Harga Paket</label>
-                            <input type="number" value="{{ old('harga', $item->booking->harga_paket->harga) }}" min="1" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga" readonly>
+                            <label for="harga" class="col-form-label">Harga Paket Tambahan</label>
+                            <input type="number" value="{{ old('harga', $jumlahHargaTambahan) }}" min="1" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga" readonly>
                             @error('harga')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -162,7 +191,7 @@
                     
                         <div class="form-group col-md-6">
                             <label for="kekurangan" class="col-form-label">Kekurangan</label>
-                            <input type="number" value="{{ old('kekurangan', $item->kekurangan) }}" min="0" name="kekurangan" class="form-control @error('kekurangan') is-invalid @enderror" id="kekurangan">
+                            <input type="number" value="{{ old('kekurangan', $kekurangan) }}" min="0" name="kekurangan" class="form-control @error('kekurangan') is-invalid @enderror" id="kekurangan" readonly>
                             @error('kekurangan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -180,7 +209,7 @@
                     
                         <div class="form-group col-md-6">
                             <label for="total" class="col-form-label">Total</label>
-                            <input type="number" value="{{ old('total', $item->total) }}" min="1" name="total" class="form-control @error('total') is-invalid @enderror" id="total">
+                            <input type="number" value="{{ old('total', $total) }}" min="1" name="total" class="form-control @error('total') is-invalid @enderror" id="total" readonly>
                             @error('total')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -219,7 +248,7 @@
                         <select id="inputState" name="status_foto" class="form-control">
                             <option value="">-- Pilih Status Foto --</option>
                             <option value="Pending" {{ old('status_foto', $item->foto?->status_foto) == 'Pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="Edited" {{ old('status_foto', $item->foto?->status_foto) == 'Edited' ? 'selected' : '' }}>Edited</option>
+                            <option value="Editing" {{ old('status_foto', $item->foto?->status_foto) == 'Editing' ? 'selected' : '' }}>Editing</option>
                             <option value="Complete" {{ old('status_foto', $item->foto?->status_foto) == 'Complete' ? 'selected' : '' }}>Complete</option>
                         </select>
                         @error('status_foto')

@@ -36,24 +36,25 @@
 
                         <h2>Fast Book Now</h2>
 
-                        <form action="#" method="post">
+                        <form id="fastBookingForm" action="{{ route('store.fastbooking') }}" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="">Nama *</label>
-                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Anda">
+                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Anda" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="">Email *</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Anda">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Anda" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="">No.WA *</label>
-                                        <input type="number" class="form-control" id="no_wa" name="no_wa" placeholder="No. WhatsApp">
+                                        <input type="number" class="form-control" id="no_wa" name="no_wa" placeholder="No. WhatsApp" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
@@ -65,23 +66,29 @@
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="">Tanggal Foto</label>
-                                        <input type="date" class="form-control" id="tanggal" name="tanggal">
+                                        <input type="date" class="form-control" id="tanggal" name="tanggal" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="">Universitas *</label>
-                                        <input type="text" class="form-control" id="universitas" name="universitas" placeholder="Asal Universitas">
+                                        <input type="text" class="form-control" id="universitas" name="universitas" placeholder="Asal Universitas" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="">Area *</label>
-                                        <input type="text" class="form-control" id="wilayah" name="wilayah" placeholder="Asal Kota">
+                                        {{-- <input type="text" class="form-control" id="wilayah" name="wilayah" placeholder="Asal Kota" required> --}}
+                                        <select class="form-control" name="kota" id="kota">
+                                            <option value="">-- Pilih Area --</option>
+                                            @foreach ($wilayah as $item)
+                                                <option value="{{ $item->nama_wilayah }}">{{ $item->nama_wilayah }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn sonar-btn">Kirim</button>
+                                    <button type="submit" class="btn sonar-btn" id="submitForm">Kirim</button>
                                 </div>
                             </div>
                         </form>
@@ -90,6 +97,54 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.getElementById('submitForm').addEventListener('click', function () {
+            // Ambil data dari form
+            const nama = document.getElementById('nama').value;
+            const email = document.getElementById('email').value;
+            const noWa = document.getElementById('no_wa').value;
+            const igClient = document.getElementById('ig_client').value || '-';
+            const tanggal = document.getElementById('tanggal').value;
+            const universitas = document.getElementById('universitas').value;
+            const kota = document.getElementById('kota').value;
+    
+            // Validasi form
+            if (!nama || !email || !noWa || !tanggal || !universitas || !kota) {
+                alert('Harap lengkapi semua field yang bertanda *');
+                return;
+            }
+    
+            // Format pesan WhatsApp
+            const message = `
+                Halo kak, saya dengan biodata berikut:
+    Nama: ${nama}
+    Email: ${email}
+    No. WA: ${noWa}
+    Instagram: ${igClient}
+    Tanggal Foto: ${tanggal}
+    Universitas: ${universitas}
+    Area: ${kota}
+    
+    Saya ingin meminta price list.
+                        `.trim();
+    
+            // Encode pesan untuk URL
+            const encodedMessage = encodeURIComponent(message);
+    
+            // Nomor tujuan WhatsApp
+            const whatsappNumber = '6285878653934';
+    
+            // Buat URL WhatsApp
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    
+            // Redirect ke WhatsApp
+            window.open(whatsappUrl, '_blank');
+    
+            // Submit form ke server
+            document.getElementById('fastBookingForm').submit();
+        });
+    </script>
 
     <!-- Google Maps -->
     {{-- <div class="map-area">

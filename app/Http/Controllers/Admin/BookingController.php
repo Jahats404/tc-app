@@ -8,6 +8,7 @@ use App\Models\HargaPaket;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class BookingController extends Controller
@@ -49,7 +50,7 @@ class BookingController extends Controller
         $b->jumlah_anggota = $request->jumlah_anggota;
         $b->req_khusus = $request->req_khusus;
         $b->status_booking = $request->status_booking;
-        $b->user_id = Auth::user()->id;
+        // $b->user_id = Auth::user()->id;
         $b->harga_paket_id = $request->harga_paket_id;
         $b->save();
 
@@ -58,6 +59,7 @@ class BookingController extends Controller
 
     public function update(Request $request,$id)
     {
+        $rules = Booking::$rules = ['status_booking' => 'nullable'];
         $validator = Validator::make($request->all(), Booking::$rules, Booking::$messages);
     
         if ($validator->fails()) {
@@ -73,6 +75,7 @@ class BookingController extends Controller
         $b->event = $request->event;
         $b->tanggal = $request->tanggal;
         $b->jam = $request->jam;
+        $b->jam_selesai = $request->jam_selesai;
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;
         $b->lokasi_foto = $request->lokasi_foto;
@@ -81,9 +84,25 @@ class BookingController extends Controller
         $b->post_foto = $request->post_foto;
         $b->jumlah_anggota = $request->jumlah_anggota;
         $b->req_khusus = $request->req_khusus;
-        $b->status_booking = $request->status_booking;
-        $b->user_id = Auth::user()->id;
+        // $b->status_booking = $request->status_booking;
+        // $b->user_id = Auth::user()->id;
         $b->harga_paket_id = $request->harga_paket_id;
+
+        // Cek jika file ada di request
+        if ($request->hasFile('file_dp')) {
+            $file = $request->file('file_dp');
+
+            // Hapus file lama jika ada
+            if ($b->file_dp) {
+                // Menghapus file lama dari storage
+                Storage::disk('public')->delete($b->file_dp);
+            }
+
+            $path = 'uploads/dp';
+
+            // Simpan file baru
+            $b->file_dp = $file->store($path, 'public');
+        }
         $b->save();
 
         return redirect()->back()->with('success','Booking berhasil diperbarui');
@@ -92,6 +111,11 @@ class BookingController extends Controller
     public function delete($id)
     {
         $b = Booking::find($id);
+        // Hapus file lama jika ada
+        if ($b->file_dp) {
+            // Menghapus file lama dari storage
+            Storage::disk('public')->delete($b->file_dp);
+        }
         $b->delete();
 
         return redirect()->back()->with('success','Booking berhasil dihapus');

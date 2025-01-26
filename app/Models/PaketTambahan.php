@@ -15,4 +15,14 @@ class PaketTambahan extends Model
     protected $casts = [
         'id_paket_tambahan' => 'string',
     ];
+
+    public function bookingPaketTambahan()
+    {
+        return $this->hasMany(BookingPaketTambahan::class, 'paket_tambahan_id', 'id_paket_tambahan');
+    }
+
+    public function bookings()
+    {
+        return $this->belongsToMany(Booking::class, 'booking_paket_tambahan', 'paket_tambahan_id', 'booking_id');
+    }
 }

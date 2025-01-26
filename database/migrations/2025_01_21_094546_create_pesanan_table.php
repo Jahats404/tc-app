@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('fotografer_id')->nullable();
             $table->text('keterangan')->nullable();
             
+            $table->integer('harga_paket_tambahan')->nullable();
             $table->integer('kekurangan')->nullable();
             $table->integer('pelunasan')->nullable();
             $table->integer('total')->nullable();
