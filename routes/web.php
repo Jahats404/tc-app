@@ -144,9 +144,7 @@ Route::middleware(['auth'])->group(function () {
         //FOTO
         Route::get('foto', [FotoController::class, 'index'])->name('foto');
 
-        Route::get('/export-pesanan', function () {
-            return Excel::download(new PesananExport, 'Pesanan_Report.xlsx');
-        })->name('export.pesanan');
+        Route::get('/export-pesanan', [PesananController::class, 'export'])->name('export.pesanan');
     });
     
 

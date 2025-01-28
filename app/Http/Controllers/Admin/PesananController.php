@@ -10,6 +10,8 @@ use App\Models\HargaPaket;
 use App\Models\Pesanan;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use App\Exports\PesananExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PesananController extends Controller
 {
@@ -217,5 +219,17 @@ class PesananController extends Controller
 
         return redirect()->back()->with('success','Berhasil diperbarui');
         
+    }
+
+    public function export(Request $request)
+    {
+        $bulan = $request->input('bulan');
+        $formattedBulan = date('F Y', strtotime($bulan)); // Format menjadi "January 2025"
+            $formattedBulan = str_replace(
+                ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                $formattedBulan
+            );
+        return Excel::download(new PesananExport($bulan), 'Laporan_Pesanan_'. $formattedBulan .'.xlsx');
     }
 }
