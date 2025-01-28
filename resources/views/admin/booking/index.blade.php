@@ -59,7 +59,7 @@
                                 <td>{{ $item->universitas }}</td>
                                 <td>{{ $item->fakultas }}</td>
                                 <td>{{ $item->lokasi_foto }}</td>
-                                <td>{{ $item->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket->paket->nama_paket }}</td>
+                                <td>{{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket }}</td>
                                 <td>{{ $item->ig_vendor ?? '-' }}</td>
                                 <td>{{ $item->ig_client ?? '-' }}</td>
                                 <td>
@@ -81,7 +81,7 @@
                                         <span class="badge badge-warning">{{ $item->status_booking }}</span>
                                     @endif
                                 </td>
-                                <td>{{ 'Rp ' . number_format($item->harga_paket->harga, 0, ',', '.') }}</td>
+                                <td>{{ 'Rp ' . number_format($item->harga_paket?->harga, 0, ',', '.') }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}" title="Update">

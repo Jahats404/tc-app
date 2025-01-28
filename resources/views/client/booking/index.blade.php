@@ -35,7 +35,7 @@
                                     <strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') ?? '-' }}<br>
                                     <strong>Jam:</strong> {{ $item->jam_selesai ? $item->jam . '-' . $item->jam_selesai :  $item->jam ?? '-' }} <br>
                                     <strong>Fotograger:</strong> {{ $item->pesanan?->fotografer?->nama ?? '-' }} <br>
-                                    @if ($item->pesanan->foto)
+                                    @if ($item?->pesanan?->foto)
                                         <strong>Status Foto:</strong> 
                                         @if ($item->pesanan?->foto?->status_foto == 'Pending')
                                             <span class="badge badge-info">{{ $item->pesanan?->foto?->status_foto }}</span>
@@ -150,7 +150,7 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="pelunasan" class="col-form-label">Jumlah Pelunasan</label>
-                                            <input type="number" value="{{ old('pelunasan',$item->pesanan->pelunasan) }}" name="pelunasan" min="0" class="form-control @error('pelunasan') is-invalid @enderror" id="pelunasan">
+                                            <input type="number" value="{{ old('pelunasan',$item->pesanan?->pelunasan) }}" name="pelunasan" min="0" class="form-control @error('pelunasan') is-invalid @enderror" id="pelunasan">
                                             @error('pelunasan')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -162,7 +162,7 @@
                                                 name="file_pelunasan" 
                                                 id="file_pelunasan" 
                                                 class="form-control @error('file_pelunasan') is-invalid @enderror">
-                                            @if($item->pesanan->file_pelunasan)
+                                            @if($item->pesanan?->file_pelunasan)
                                                 <small class="form-text text-muted">
                                                     File Pelunasan saat ini: 
                                                     <a href="{{ asset('storage/' . $item->pesanan->file_pelunasan) }}">Lihat DP</a>.
