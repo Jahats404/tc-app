@@ -12,7 +12,7 @@
             <!-- Actions -->
             <div class="d-flex align-items-center flex-wrap">
                 <!-- Tanggal Keberangkatan Input -->
-                <form action="" method="GET" class="d-flex align-items-center mr-3">
+                <form action="{{ route('admin.export.pesanan') }}" method="GET" class="d-flex align-items-center mr-3">
                     <div class="form-group d-flex mb-0 align-items-center">
                         <input type="month" name="bulan" value="{{ request()->get('bulan') }}" id="filterTanggal"
                             class="form-control form-control-sm mr-2" placeholder="Pilih bulan">

@@ -50,10 +50,6 @@ use Maatwebsite\Excel\Facades\Excel;
 
 // Route::get('/', [AdminDashboardController::class, 'landing'])->name('landing');
 
-Route::get('/export-pesanan', function () {
-    return Excel::download(new PesananExport, 'Pesanan_Report.xlsx');
-});
-
 Route::get('select', function () {
     return view('auth.selec2');
 });
@@ -147,6 +143,10 @@ Route::middleware(['auth'])->group(function () {
 
         //FOTO
         Route::get('foto', [FotoController::class, 'index'])->name('foto');
+
+        Route::get('/export-pesanan', function () {
+            return Excel::download(new PesananExport, 'Pesanan_Report.xlsx');
+        })->name('export.pesanan');
     });
     
 
