@@ -7,7 +7,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex align-items-center justify-content-between flex-wrap">
             <!-- Title -->
-            <h6 class="m-0 font-weight-bold text-primary">Neraca</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Daftar Pesanan</h6>
 
             <!-- Actions -->
             <div class="d-flex align-items-center flex-wrap">
@@ -83,11 +83,33 @@
                                 <td>{{ 'Rp ' . number_format($item->pelunasan, 0, ',', '.') ?? '-' }}</td>
                                 <td>{{ 'Rp ' . number_format($item->total, 0, ',', '.') ?? '-' }}</td>
                                 <td>{{ 'Rp ' . number_format($item->freelance, 0, ',', '.') ?? '-' }}</td>
-                                <td>{{ $item->booking->no_wa ?? '-' }}</td>
+                                <td>
+                                    @php
+                                        // Mendapatkan nomor WA
+                                        $waNumber = $item->booking->no_wa ?? '-';
+                            
+                                        // Cek jika nomor WA dimulai dengan '0', ubah menjadi '62'
+                                        if ($waNumber !== '-' && substr($waNumber, 0, 1) === '0') {
+                                            $waNumber = '62' . substr($waNumber, 1);
+                                        }
+                                    @endphp
+                                    
+                                    @if ($waNumber !== '-')
+                                        <!-- Membuat link WhatsApp yang dapat diklik -->
+                                        <a href="https://wa.me/{{ $waNumber }}" target="_blank">
+                                            <i class="fab fa-whatsapp"></i> {{ $waNumber }}
+                                        </a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Update">
+                                        <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti TF">
                                             <i class="fas fa-file-image"></i>
+                                        </a>
+                                        <a href="{{ route('admin.export.faktur') }}" target="_blank" class="btn btn-info btn-circle btn-sm mr-2" title="Faktur">
+                                            <i class="fas fa-file"></i>
                                         </a>
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pesanan }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>

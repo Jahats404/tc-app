@@ -147,6 +147,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('delete/foto/{id}', [FotoController::class, 'delete'])->name('delete.foto');
 
         Route::get('/export-pesanan', [PesananController::class, 'export'])->name('export.pesanan');
+
+        Route::get('/export-faktur', [PesananController::class, 'faktur'])->name('export.faktur');
+
     });
     
 

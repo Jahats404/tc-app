@@ -12,6 +12,7 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use App\Exports\PesananExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PesananController extends Controller
 {
@@ -233,5 +234,17 @@ class PesananController extends Controller
                 $formattedBulan
             );
         return Excel::download(new PesananExport($bulan), 'Laporan_Pesanan_'. $formattedBulan .'.xlsx');
+    }
+
+    public function faktur()
+    {
+        // Ambil HTML untuk invoice dari view
+        $html = view('exports.faktur')->render(); // pastikan 'invoice' adalah nama view Anda yang berisi HTML yang sudah disiapkan
+
+        // Membuat PDF dari HTML
+        $pdf = Pdf::loadHTML($html);
+        
+        // Menampilkan PDF di browser sebagai preview (tidak langsung diunduh)
+        return $pdf->stream('faktur.pdf'); // Anda bisa mengganti nama file sesuai kebutuhan
     }
 }

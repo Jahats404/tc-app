@@ -46,7 +46,21 @@
                                 <td style="max-width: 200px; width: 100px;">{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ $item->no_wa }}</td>
+                                <td>
+                                    <!-- Mengubah nomor WA jika dimulai dengan '0' -->
+                                    @php
+                                        $waNumber = $item->no_wa;
+                                        // Cek apakah nomor WA dimulai dengan '0'
+                                        if (substr($waNumber, 0, 1) === '0') {
+                                            $waNumber = '62' . substr($waNumber, 1); // Ganti '0' dengan '62'
+                                        }
+                                    @endphp
+                                    
+                                    <!-- Menampilkan nomor WA dengan ikon WhatsApp -->
+                                    <a href="https://wa.me/{{ $waNumber }}" target="_blank">
+                                        <i class="fab fa-whatsapp"></i> {{ $waNumber }}
+                                    </a>
+                                </td>
                                 <td>{{ $item->event }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') ?? '-' }}</td>
                                 <td>
@@ -60,8 +74,34 @@
                                 <td>{{ $item->fakultas }}</td>
                                 <td>{{ $item->lokasi_foto }}</td>
                                 <td>{{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket }}</td>
-                                <td>{{ $item->ig_vendor ?? '-' }}</td>
-                                <td>{{ $item->ig_client ?? '-' }}</td>
+                                <td>
+                                    <!-- IG Vendor, menghapus '@' jika ada -->
+                                    @php
+                                        $igVendor = $item->ig_vendor;
+                                        if ($igVendor && substr($igVendor, 0, 1) === '@') {
+                                            $igVendor = substr($igVendor, 1); // Hapus '@' di depan
+                                        }
+                                    @endphp
+                                    @if ($igVendor)
+                                        <a href="https://instagram.com/{{ $igVendor }}" target="_blank">{{ $igVendor }}</a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    <!-- IG Client, menghapus '@' jika ada -->
+                                    @php
+                                        $igClient = $item->ig_client;
+                                        if ($igClient && substr($igClient, 0, 1) === '@') {
+                                            $igClient = substr($igClient, 1); // Hapus '@' di depan
+                                        }
+                                    @endphp
+                                    @if ($igClient)
+                                        <a href="https://instagram.com/{{ $igClient }}" target="_blank">{{ $igClient }}</a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($item->post_foto == 'yes')
                                         <span class="badge badge-success">{{ $item->post_foto }}</span>
@@ -89,12 +129,26 @@
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <form action="{{ route('admin.ubah.status.booking',$item->id_booking) }}" method="post">
+                                        {{-- <form action="{{ route('admin.ubah.status.booking',$item->id_booking) }}" method="post">
                                             @csrf
                                             @method('put')
                                             <input type="hidden" name="status_booking" value="Accepted">
                                             <button class="btn btn-success btn-circle btn-acc btn-sm mr-2" type="submit"><i class="fas fa-solid fa-check"></i></button>
+                                        </form> --}}
+
+                                        <form action="{{ route('admin.ubah.status.booking', $item->id_booking) }}" method="post" class="accept-form">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" name="status_booking" value="Accepted">
+                                            <button 
+                                                class="btn btn-success btn-circle btn-acc btn-sm mr-2" 
+                                                type="button" 
+                                                data-phone="{{ $item->no_wa }}"
+                                            >
+                                                <i class="fas fa-solid fa-check"></i>
+                                            </button>
                                         </form>
+
                                         <form action="{{ route('admin.ubah.status.booking',$item->id_booking) }}" method="post">
                                             @csrf
                                             @method('put')
@@ -113,7 +167,7 @@
                             </tr>
                             {{-- SweetAlert Delete --}}
                             
-                            <script>
+                            {{-- <script>
                                 // Pilih semua tombol dengan kelas delete-btn
                                 document.querySelectorAll('.btn-acc').forEach(button => {
                                     button.addEventListener('click', function (e) {
@@ -137,7 +191,79 @@
                                         });
                                     });
                                 });
+                            </script> --}}
+
+                            <script>
+                                document.querySelectorAll('.btn-acc').forEach(button => {
+    button.addEventListener('click', function (e) {
+        e.preventDefault(); // Mencegah pengiriman form langsung
+
+        const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+        let phoneNumber = this.getAttribute('data-phone'); // Ambil nomor WhatsApp dari atribut data-phone
+
+        // Cek jika nomor telepon dimulai dengan 0 dan ganti menjadi 62
+        if (phoneNumber.startsWith('0')) {
+            phoneNumber = '62' + phoneNumber.slice(1);
+        }
+
+        // Cek jika nomor telepon valid
+        console.log('Phone number:', phoneNumber);
+
+        // Popup konfirmasi menggunakan SweetAlert2
+        Swal.fire({
+            title: 'Apakah booking ini akan diterima?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Ya, Terima',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Log untuk memastikan form submit
+                console.log('Form will be submitted!');
+                form.submit();
+
+                // Format nomor telepon (hilangkan karakter selain angka)
+                const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
+                console.log('Formatted phone number:', formattedPhoneNumber);
+
+                // Template pesan WhatsApp yang akan dikirim
+                const message = `Terimakasih ka, Dp sudah masuk yah 
+Selanjutnya, Kaka akan di hubungi oleh team FG kita di H-2 atau H-1 Wisuda yah ka.
+                
+*Untuk Pelunasan setelah sesi Foto selesai, dan bukti Transfer untuk syarat akses Link Hasil foto pada hari itu,*
+
+Link foto akan dikirimkan setelah proses Upload ke G-drive selesai yah ka (Malam Hari/Ke-esokan harinya Maksimal H+2)
+
+Proses edit akan berlangsung maksimal 3-10hari,
+*Apabila setelah mendapat link dan belum melilih photo sampai selama 3 hari*, pemilihan photo untuk edit akan di serahkan kepada team Tersimpan Cerita yah ka
+                
+*Penting!!*
+Apabila Cancel secara sepihak maka DP akan hangus , untuk Reschedule Tanggal dan Jam dilakukan H-7 (*Dengan catatan Jam yang di inginkan masih kosong, apabila penuh maka sesuai dengan Booking awal*)
+                
+Terimakasih,
+See you on your happy day ka ✨😍`;
+
+                // Encode pesan untuk URL (karena URL harus aman)
+                const encodedMessage = encodeURIComponent(message);
+
+                // Buat URL WhatsApp
+                const whatsappUrl = `https://wa.me/${formattedPhoneNumber}?text=${encodedMessage}`;
+
+                // Log untuk mengecek URL WhatsApp
+                console.log('WhatsApp URL:', whatsappUrl);
+
+                // Coba menggunakan window.location.href jika window.open tidak bekerja
+                window.location.href = whatsappUrl;
+                // window.open(whatsappUrl, '_blank');
+            }
+        });
+    });
+});
+ 
                             </script>
+                            
                             <script>
                                 // Pilih semua tombol dengan kelas delete-btn
                                 document.querySelectorAll('.btn-reject').forEach(button => {

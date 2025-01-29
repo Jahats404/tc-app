@@ -116,17 +116,17 @@
             }
     
             // Format pesan WhatsApp
-            const message = `
-                Halo kak, saya dengan biodata berikut:
-    Nama: ${nama}
-    Email: ${email}
-    No. WA: ${noWa}
-    Instagram: ${igClient}
-    Tanggal Foto: ${tanggal}
-    Universitas: ${universitas}
-    Area: ${kota}
-    
-    Saya ingin meminta price list.
+            const message = `Halo kak, saya dengan biodata berikut:
+
+Nama: ${nama}
+Email: ${email}
+No. WA: ${noWa}
+Instagram: ${igClient}
+Tanggal Foto: ${tanggal}
+Universitas: ${universitas}
+Area: ${kota}
+
+Saya ingin meminta price list.
                         `.trim();
     
             // Encode pesan untuk URL

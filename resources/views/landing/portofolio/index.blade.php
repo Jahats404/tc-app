@@ -20,7 +20,7 @@
         </div>
 
         <!-- Portfolio Menu -->
-        {{-- <div class="sonar-portfolio-menu">
+        <div class="sonar-portfolio-menu">
             <div class="text-center portfolio-menu">
                 <button class="btn active" data-filter="*">All</button>
                 <button class="btn" data-filter=".landscapes">UGM</button>
@@ -28,7 +28,7 @@
                 <button class="btn" data-filter=".fashion">UNSOED</button>
                 <button class="btn" data-filter=".studio">UII</button>
             </div>
-        </div> --}}
+        </div>
     </div>
     <!-- ***** Hero Area End ***** -->
 
