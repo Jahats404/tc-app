@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\HargaPaket;
 use App\Models\Pesanan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -33,7 +35,22 @@ class BookingController extends Controller
                 ->withInput();
         }
 
+        $cekUser = User::where('email',$request->email)->first();
         $b = new Booking();
+
+        if (!$cekUser) {
+            $user = User::create([
+                'name' => $request->nama,
+                'email' => $request->email,
+                'password' => Hash::make($request->email),
+                'role_id' => '2',
+            ]);
+            $b->user_id = $user->id;
+        } 
+        else {
+            $b->user_id = $cekUser->id;
+        }
+
         $b->id_booking = 'BOOK' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
         $b->nama = $request->nama;
         $b->email = $request->email;

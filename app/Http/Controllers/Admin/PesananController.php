@@ -203,12 +203,14 @@ class PesananController extends Controller
         $pesanan->save();
 
         $foto = Foto::where('pesanan_id',$pesanan->id_pesanan)->first();
+        $antrianFoto = Foto::where('status_foto', 'Editing')->orderBy('antrian','desc')->first()->antrian;
         if (!$foto) {
             $foto = new Foto();
             $foto->id_foto = 'FT' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
             $foto->status_foto = $request->status_foto;
             $foto->link = $request->link;
             $foto->pesanan_id = $pesanan->id_pesanan;
+            $foto->antrian = $antrianFoto + 1;
             $foto->save();
         } 
         else {

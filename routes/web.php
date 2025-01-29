@@ -143,6 +143,8 @@ Route::middleware(['auth'])->group(function () {
 
         //FOTO
         Route::get('foto', [FotoController::class, 'index'])->name('foto');
+        Route::put('update/foto/{id}', [FotoController::class, 'update'])->name('update.foto');
+        Route::delete('delete/foto/{id}', [FotoController::class, 'delete'])->name('delete.foto');
 
         Route::get('/export-pesanan', [PesananController::class, 'export'])->name('export.pesanan');
     });

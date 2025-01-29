@@ -98,6 +98,12 @@
             <span>Pesanan</span>
         </a>
     </li>
+    <li class="nav-item {{ Request::routeIs('admin.foto') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.foto') }}">
+            <i class="fas fa-fw fa-camera-retro"></i>
+            <span>Foto</span>
+        </a>
+    </li>
     <hr class="sidebar-divider d-none d-md-block">
     @endif
 

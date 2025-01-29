@@ -1,12 +1,22 @@
 @extends('layouts.master')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">KELOLA FOTO</h1>
+        <h1 class="h3 mb-0 text-gray-800">FOTO</h1>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-wrap align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Foto</h6>
+            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Antrian Foto</h6>
+            @php
+                $jumlahAntrian = \App\Models\Foto::count();
+                $cekAntrian = \App\Models\Foto::where('status_foto','Editing')->orderBy('antrian','asc')->first();
+                if ($cekAntrian) {
+                    $antrianSekarang = $cekAntrian->antrian;
+                } else {
+                    $antrianSekarang = $jumlahAntrian;
+                }
+            @endphp
+            <span class="badge badge-dark">Antrian Sekarang : {{ $antrianSekarang . '/' . $jumlahAntrian }}</span>
         </div>
 
         <div class="card-body">
@@ -15,24 +25,36 @@
                     <thead>
                         <tr class="text-center">
                             <th>NO</th>
-                            <th>ID PEMESANAN</th>
+                            <th>CLIENT</th>
                             <th>STATUS FOTO</th>
-                            <th>LINK</th>
+                            <th>ANTRIAN</th>
                             <th>AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                        @foreach ($foto as $item)
+                            <tr class="text-center">
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $item->pesanan->booking->nama }}</td>
+                                <td>
+                                    @if ($item->status_foto == 'Editing')
+                                        <span class="badge badge-primary">{{ $item->status_foto }}</span>
+                                    @elseif ($item->status_foto == 'Complete')
+                                        <span class="badge badge-success">{{ $item->status_foto }}</span>
+                                    @endif
+                                </td>
+                                <td>{{ $item->antrian ?? '-' }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit" title="Update">
+                                        <a href="#" class="btn btn-secondary btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalLink{{ $item->id_foto }}" title="Link">
+                                            <i class="fas fa-link"></i>
+                                        </a>
+                                        <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_foto }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <form action="" method="POST" class="delete-form">
+                                        <form action="{{ route('admin.delete.foto',$item->id_foto) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
@@ -66,7 +88,8 @@
                                     });
                                 });
                             </script>
-                            @include('admin.foto.modal')
+                            @include('admin.foto.modal',['item' => $item])
+                        @endforeach
                     </tbody>
                 </table>
             </div>

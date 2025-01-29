@@ -67,6 +67,8 @@
                                         <span class="badge badge-success">{{ $item->post_foto }}</span>
                                     @elseif ($item->post_foto == 'no')
                                         <span class="badge badge-danger">{{ $item->post_foto }}</span>
+                                    @else
+                                        -
                                     @endif
                                 <td>{{ $item->jumlah_anggota }}</td>
                                 <td>{{ $item->req_khusus ?? '-' }}</td>

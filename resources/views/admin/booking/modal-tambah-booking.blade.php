@@ -74,12 +74,34 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="harga_paket_id" class="col-form-label">Paket</label>
                         <select id="harga_paket_id" name="harga_paket_id" class="form-control @error('harga_paket_id') is-invalid @enderror">
                             <option selected disabled value="">--Pilih Paket--</option>
                             @foreach ($hargaPaket as $item)
                                 <option value="{{ $item->id_harga_paket }}" {{ old('harga_paket_id') == $item->id_harga_paket ? 'selected' : '' }}>{{ $item->paket->kategori_paket->nama_kategori . ' ' . $item->paket->nama_paket }}, {{ $item->golongan == 'W1' ? 'Wilayah 1' : 'Wilayah 2' }}</option>
+                            @endforeach
+                        </select>
+                        @error('harga_paket_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div> --}}
+                    <div class="form-group">
+                        <label for="harga_paket_id" class="col-form-label">Paket</label>
+                        <select id="harga_paket_id" name="harga_paket_id" class="form-control @error('harga_paket_id') is-invalid @enderror">
+                            <option selected disabled value="">--Pilih Paket--</option>
+                            @foreach ($hargaPaket as $harga)
+                                <option value="{{ $harga->id_harga_paket }}" 
+                                    {{ old('harga_paket_id') == $harga->id_harga_paket ? 'selected' : '' }}>
+                                    
+                                    {{ $harga->paket->kategori_paket->nama_kategori . ' ' . $harga->paket->nama_paket . ' | ' }}
+                                    
+                                    @php
+                                        $namaWilayah = \App\Models\Wilayah::where('kode', $harga->golongan)->pluck('nama_wilayah')->toArray();
+                                    @endphp
+                    
+                                    {{ implode(', ', $namaWilayah) }}
+                                </option>
                             @endforeach
                         </select>
                         @error('harga_paket_id')

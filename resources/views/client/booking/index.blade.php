@@ -51,6 +51,29 @@
                                     @if ($item->status_booking == 'Accepted')
                                         <strong>Kekurangan:</strong> {{ 'Rp. ' . number_format($item->pesanan->kekurangan, 0, ',', '.') ?? '-' }} <br>
                                     @endif
+                                    
+                                    {{-- Foto --}}
+                                    @php
+                                        $jumlahAntrian = \App\Models\Foto::count();
+                                        $antrianAnda = \App\Models\Foto::where('pesanan_id',$item->pesanan?->id_pesanan)->first();
+
+                                        if ($antrianAnda) {
+                                            $antrianAnda = $antrianAnda->antrian;
+                                        } else {
+                                            $antrianAnda = null;
+                                        }
+
+                                        $cekAntrian = \App\Models\Foto::where('status_foto','Editing')->orderBy('antrian','asc')->first();
+                                        if ($cekAntrian) {
+                                            $antrianSekarang = $cekAntrian->antrian;
+                                        } else {
+                                            $antrianSekarang = $jumlahAntrian;
+                                        }
+                                    @endphp
+                                    @if ($item?->pesanan?->foto)
+                                        <strong>Antrian Anda:</strong> <span class="badge badge-dark">{{ $antrianAnda }}</span> <br>
+                                        <strong>Antrian Sekarang:</strong> <span class="badge badge-dark">{{ $antrianSekarang . '/' . $jumlahAntrian }}</span>
+                                    @endif
                                 </p>
                                 <div class="d-flex justify-content-center flex-wrap">
                                     <!-- Tombol File -->
@@ -83,7 +106,7 @@
                                 
                                     @if ($item->pesanan)
                                         <!-- Tombol Pilih foto edit -->
-                                        <button class="btn btn-sm btn-primary mt-3 mr-2" data-toggle="modal" data-target="#modalEditFoto{{ $item->id_booking }}">
+                                        <button class="btn btn-sm btn-primary mt-3 mr-2"  data-toggle="modal" data-target="#modalEditFoto{{ $item->id_booking }}">
                                             Pilih Foto Edit
                                         </button>
                                     @endif
@@ -207,7 +230,7 @@
                                         <div class="form-group">
                                             <label for="kp_id" class="col-form-label">Pilih foto yang akan diedit</label>
                                             <select class="form-control js-example-tokenizer" 
-                                                {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Editing' ? 'disabled' : '' }} 
+                                                {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete' ? 'disabled' : '' }} 
                                                 style="width: 100%; height: 300px;" 
                                                 multiple="multiple" name="foto_edit[]">
                                                 @if ($item->pesanan?->foto?->foto_edit)
@@ -223,7 +246,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete' ? '' : '<button type="submit" class="btn btn-primary">Submit</button>' }} 
                                     </div>
                                 </form>
                             </div>

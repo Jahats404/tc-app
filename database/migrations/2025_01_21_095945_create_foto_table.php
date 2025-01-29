@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('status_foto')->nullable();
             $table->text('link')->nullable();
             $table->json('foto_edit')->nullable();
+            $table->integer('antrian')->nullable()->unique();
 
             $table->foreign('pesanan_id')->references('id_pesanan')->on('pesanan')->cascadeOnDelete();
             $table->timestamps();
