@@ -140,6 +140,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('pesanan', [PesananController::class, 'index'])->name('pesanan');
         Route::get('filter/pesanan', [PesananController::class, 'filter'])->name('filter.pesanan');
         Route::put('update/pesanan/{id}', [PesananController::class, 'update'])->name('update.pesanan');
+        Route::delete('delete/pesanan/{id}', [PesananController::class, 'delete'])->name('delete.pesanan');
 
         //FOTO
         Route::get('foto', [FotoController::class, 'index'])->name('foto');
@@ -148,7 +149,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/export-pesanan', [PesananController::class, 'export'])->name('export.pesanan');
 
-        Route::get('/export-faktur', [PesananController::class, 'faktur'])->name('export.faktur');
+        Route::get('/export-faktur/{id}', [PesananController::class, 'faktur'])->name('export.faktur');
 
     });
     
@@ -164,6 +165,7 @@ Route::middleware(['auth'])->group(function () {
 
         // BOOKING
         Route::get('booking', [ClientBookingController::class, 'index'])->name('booking');
+        Route::post('store/booking', [ClientBookingController::class, 'store'])->name('store.booking');
         Route::put('update/booking/{id}', [ClientBookingController::class, 'update'])->name('update.booking');
         Route::delete('delete/booking/{id}', [ClientBookingController::class, 'delete'])->name('delete.booking');
         Route::put('ubah-status/booking/{id}', [ClientBookingController::class, 'ubah_status'])->name('ubah.status.booking');

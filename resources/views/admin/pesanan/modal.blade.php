@@ -69,7 +69,7 @@
                     
                         <div class="form-group col-md-6">
                             <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
-                            <input type="time" value="{{ old('jam_selesai',$item->jam_selesai) }}" name="jam_selesai" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam_selesai">
+                            <input type="time" value="{{ old('jam_selesai',$item->booking->jam_selesai) }}" name="jam_selesai" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam_selesai">
                             @error('jam_selesai')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -271,7 +271,6 @@
                         <label for="status_foto" class="col-form-label">Status Foto</label>
                         <select id="inputState" name="status_foto" class="form-control">
                             <option value="">-- Pilih Status Foto --</option>
-                            <option value="Pending" {{ old('status_foto', $item->foto?->status_foto) == 'Pending' ? 'selected' : '' }}>Pending</option>
                             <option value="Editing" {{ old('status_foto', $item->foto?->status_foto) == 'Editing' ? 'selected' : '' }}>Editing</option>
                             <option value="Complete" {{ old('status_foto', $item->foto?->status_foto) == 'Complete' ? 'selected' : '' }}>Complete</option>
                         </select>

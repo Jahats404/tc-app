@@ -193,7 +193,7 @@
                                 });
                             </script> --}}
 
-                            <script>
+                            {{-- <script>
                                 document.querySelectorAll('.btn-acc').forEach(button => {
     button.addEventListener('click', function (e) {
         e.preventDefault(); // Mencegah pengiriman form langsung
@@ -262,6 +262,75 @@ See you on your happy day ka ✨😍`;
     });
 });
  
+                            </script> --}}
+
+                            <script>
+                                document.querySelectorAll('.btn-acc').forEach(button => {
+                                    button.addEventListener('click', function (e) {
+                                        e.preventDefault(); // Mencegah pengiriman form langsung
+                            
+                                        const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+                                        let phoneNumber = this.getAttribute('data-phone'); // Ambil nomor WhatsApp dari atribut data-phone
+                            
+                                        // Cek jika nomor telepon dimulai dengan 0 dan ganti menjadi 62
+                                        if (phoneNumber.startsWith('0')) {
+                                            phoneNumber = '62' + phoneNumber.slice(1);
+                                        }
+                            
+                                        // Cek jika nomor telepon valid
+                                        console.log('Phone number:', phoneNumber);
+                            
+                                        // Popup konfirmasi menggunakan SweetAlert2
+                                        Swal.fire({
+                                            title: 'Apakah booking ini akan diterima?',
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ya, Terima',
+                                            cancelButtonText: 'Batal'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                // Log untuk memastikan form submit
+                                                console.log('Form will be submitted!');
+                                                form.submit();
+                            
+                                                // Format nomor telepon (hilangkan karakter selain angka)
+                                                const formattedPhoneNumber = phoneNumber.replace(/\D/g, '');
+                                                console.log('Formatted phone number:', formattedPhoneNumber);
+                            
+                                                // Template pesan WhatsApp yang akan dikirim
+                const message = `Terimakasih ka, Dp sudah masuk yah 
+Selanjutnya, Kaka akan di hubungi oleh team FG kita di H-2 atau H-1 Wisuda yah ka.
+                
+*Untuk Pelunasan setelah sesi Foto selesai, dan bukti Transfer untuk syarat akses Link Hasil foto pada hari itu,*
+
+Link foto akan dikirimkan setelah proses Upload ke G-drive selesai yah ka (Malam Hari/Ke-esokan harinya Maksimal H+2)
+
+Proses edit akan berlangsung maksimal 3-10hari,
+*Apabila setelah mendapat link dan belum melilih photo sampai selama 3 hari*, pemilihan photo untuk edit akan di serahkan kepada team Tersimpan Cerita yah ka
+                
+*Penting!!*
+Apabila Cancel secara sepihak maka DP akan hangus , untuk Reschedule Tanggal dan Jam dilakukan H-7 (*Dengan catatan Jam yang di inginkan masih kosong, apabila penuh maka sesuai dengan Booking awal*)
+                
+Terimakasih,
+See you on your happy day ka ✨😍`;
+                            
+                                                // Encode pesan untuk URL (karena URL harus aman)
+                                                const encodedMessage = encodeURIComponent(message);
+                            
+                                                // Buat URL WhatsApp
+                                                const whatsappUrl = `https://wa.me/${formattedPhoneNumber}?text=${encodedMessage}`;
+                            
+                                                // Log untuk mengecek URL WhatsApp
+                                                console.log('WhatsApp URL:', whatsappUrl);
+                            
+                                                // Buka WhatsApp di jendela/tab baru dengan pengaturan keamanan
+                                                window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+                                            }
+                                        });
+                                    });
+                                });
                             </script>
                             
                             <script>

@@ -136,9 +136,9 @@ class PesananController extends Controller
             'lokasi_foto' => 'nullable|string|max:255',
             'post_foto' => 'nullable|string|max:255',
             'keterangan' => 'nullable|string|max:255',
-            'status_foto' => 'required|in:Pending,Editing,Complete',
-            'harga' => 'required|numeric|min:1',
-            'dp' => 'required|numeric|min:1',
+            // 'status_foto' => 'in:Pending,Editing,Complete',
+            'harga' => 'required|numeric|min:0',
+            'dp' => 'required|numeric|min:0',
             'kekurangan' => 'nullable|numeric|min:0',
             'pelunasan' => 'nullable|numeric|min:0',
             'total' => 'nullable|numeric|min:1',
@@ -204,7 +204,12 @@ class PesananController extends Controller
         $pesanan->save();
 
         $foto = Foto::where('pesanan_id',$pesanan->id_pesanan)->first();
-        $antrianFoto = Foto::where('status_foto', 'Editing')->orderBy('antrian','desc')->first()->antrian;
+        $antrianFoto = Foto::where('status_foto', 'Editing')->orderBy('antrian','desc')->first();
+        if ($antrianFoto) {
+            $antrianFoto = $antrianFoto->antrian;
+        } else {
+            $antrianFoto = Foto::count();
+        }
         if (!$foto) {
             $foto = new Foto();
             $foto->id_foto = 'FT' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
@@ -223,7 +228,15 @@ class PesananController extends Controller
         return redirect()->back()->with('success','Berhasil diperbarui');
         
     }
+    
+    public function delete($id)
+    {
+        $pesanan = Pesanan::find($id);
+        $pesanan->delete();
 
+        return redirect()->back()->with('success','Pesanan berhasil dihapus');
+    }
+    
     public function export(Request $request)
     {
         $bulan = $request->input('bulan');
@@ -236,10 +249,11 @@ class PesananController extends Controller
         return Excel::download(new PesananExport($bulan), 'Laporan_Pesanan_'. $formattedBulan .'.xlsx');
     }
 
-    public function faktur()
+    public function faktur($id)
     {
+        $pesanan = Pesanan::find($id);
         // Ambil HTML untuk invoice dari view
-        $html = view('exports.faktur')->render(); // pastikan 'invoice' adalah nama view Anda yang berisi HTML yang sudah disiapkan
+        $html = view('exports.faktur',compact('pesanan'))->render(); // pastikan 'invoice' adalah nama view Anda yang berisi HTML yang sudah disiapkan
 
         // Membuat PDF dari HTML
         $pdf = Pdf::loadHTML($html);

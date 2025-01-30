@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('total')->nullable();
             $table->string('status_pembayaran')->nullable();
             $table->integer('freelance')->nullable();
+            $table->string('faktur')->unique();
             
             $table->foreign('booking_id')->references('id_booking')->on('booking')->cascadeOnDelete();
             $table->foreign('fotografer_id')->references('id_fotografer')->on('fotografer')->cascadeOnDelete();

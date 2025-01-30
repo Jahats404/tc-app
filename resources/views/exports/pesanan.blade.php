@@ -102,7 +102,7 @@
                 <td>{{ $data->booking->lokasi_foto }}</td>
                 <td>{{ $data->booking->post_foto }}</td>
                 <td>{{ $data->keterangan }}</td>
-                <td>{{ $data->foto->status_foto }}</td>
+                <td>{{ $data->foto?->status_foto }}</td>
                 <td>{{ number_format($data->harga, 0, ',', '.') }}</td>
                 <td>{{ number_format($data->dp, 0, ',', '.') }}</td>
                 <td>{{ number_format($data->kekurangan, 0, ',', '.') }}</td>

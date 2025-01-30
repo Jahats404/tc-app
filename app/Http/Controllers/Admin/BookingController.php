@@ -150,6 +150,7 @@ class BookingController extends Controller
             $pesanan = new Pesanan();
             $pesanan->id_pesanan = 'PSN' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
             $pesanan->booking_id = $booking->id_booking;
+            $pesanan->faktur = 'TC' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
             $pesanan->save();
             
         }

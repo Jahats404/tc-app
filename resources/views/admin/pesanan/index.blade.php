@@ -108,13 +108,15 @@
                                         <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti TF">
                                             <i class="fas fa-file-image"></i>
                                         </a>
-                                        <a href="{{ route('admin.export.faktur') }}" target="_blank" class="btn btn-info btn-circle btn-sm mr-2" title="Faktur">
+                                        <a href="{{ route('admin.export.faktur',$item->id_pesanan) }}" target="_blank" class="btn btn-info btn-circle btn-sm mr-2" title="Faktur">
                                             <i class="fas fa-file"></i>
                                         </a>
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pesanan }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <form action="" method="POST" class="delete-form">
+                                        <form action="{{ route('admin.delete.pesanan',$item->id_pesanan) }}" method="POST" class="delete-form">
+                                            @csrf
+                                            @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>

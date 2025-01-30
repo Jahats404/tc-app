@@ -56,7 +56,7 @@
         }
 
         .items td {
-            text-align: right;
+            text-align: left;
         }
 
         .total {
@@ -102,16 +102,30 @@
                 <td><strong>Faktur #</strong></td>
             </tr>
             <tr>
-                <td>Siska Salis 1912, Ambar</td>
-                <td>TC1203</td>
+                <td>
+                    {{ 
+                        $pesanan->booking->universitas . ', ' . 
+                        $pesanan->booking->nama
+                    }}
+                </td>
+                <td>{{ $pesanan->faktur }}</td>
             </tr>
             <tr>
                 <td><strong>Telepon:</strong></td>
                 <td><strong>Tanggal</strong></td>
             </tr>
             <tr>
-                <td>+6282131125632</td>
-                <td>12 Desember 2014</td>
+                <td>
+                    @php
+                        $waNumber = $pesanan->booking->no_wa;
+                        // Cek jika nomor WA dimulai dengan '0', ubah menjadi '62'
+                        if ($waNumber !== '-' && substr($waNumber, 0, 1) === '0') {
+                            $waNumber = '+62' . substr($waNumber, 1);
+                        }
+                    @endphp
+                    {{ $waNumber }}
+                </td>
+                <td>{{ $formattedDate = \Carbon\Carbon::parse($pesanan->booking->tanggal)->translatedFormat('d F Y') }}</td>
             </tr>
         </table>
     </div>
@@ -127,51 +141,50 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $kuantitas = 1;
+                    $jumlahHargaTambahan = 0;
+                    $total = $pesanan->booking->harga_paket->harga * $kuantitas;
+                @endphp
                 <tr>
-                    <td>PRIVATE 3 JATENG-MALANG 2014</td>
+                    <td style="font-weight: bolder">{{ $pesanan->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $pesanan->booking->harga_paket->paket->nama_paket . ' ' . $pesanan->booking->kota }}</td>
                     <td>1</td>
-                    <td>Rp400.000</td>
-                    <td>Rp400.000</td>
+                    <td>{{ 'Rp ' . number_format($pesanan->booking->harga_paket->harga, 0, ',', '.') ?? '-' }}</td>
+                    <td>{{ 'Rp ' . number_format($total, 0, ',', '.') ?? '-' }}</td>
                 </tr>
+                @php
+                    $fiturs = json_decode($pesanan->booking->harga_paket->paket->fitur);
+                @endphp
+                @foreach ($fiturs as $item)
+                    <tr>
+                        <td>- {{ $item }}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                @endforeach
                 <tr>
-                    <td>- 1 Gradasi</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="4" style="font-weight: bold; text-align: center;">PAKET TAMBAHAN</td>
                 </tr>
-                <tr>
-                    <td>- 1 Harga Private Session</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>- 1 Lunch & Dinner</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>- 25 Photos Session</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>- 1 Photographer</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>- Location On Campus/Grad Venue</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                @foreach ($pesanan->booking->bookingPaketTambahan as $item)
+                    <tr>
+                        <td>- {{ $item->paketTambahan->jenis_tambahan }}</td>
+                        <td>1</td>
+                        <td>{{ 'Rp ' . number_format($item->paketTambahan->harga_tambahan, 0, ',', '.') ?? '-' }}</td>
+                        <td>{{ 'Rp ' . number_format($item->paketTambahan->harga_tambahan, 0, ',', '.') ?? '-' }}</td>
+                    </tr>
+                    @php
+                        $jumlahHargaTambahan += $item->paketTambahan->harga_tambahan; 
+                    @endphp
+                @endforeach
             </tbody>
         </table>
     </div>
+
+    @php
+        $jumlahSeluruh = $total + $jumlahHargaTambahan;
+        // dd($total);
+    @endphp
 
     <div class="payment-details">
         <table>
@@ -185,33 +198,43 @@
             <tbody>
                 <tr>
                     <td>Bank Mandiri: 1480210148102349 (Al Ahmad Riza Rifqi Arsy A)</td>
-                    <td>Rp400.000</td>
-                    <td>Rp400.000</td>
+                    <td>{{ 'Rp ' . number_format($jumlahSeluruh, 0, ',', '.') ?? '-' }}</td>
+                    <td>{{ 'Rp ' . number_format($jumlahSeluruh, 0, ',', '.') ?? '-' }}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <div class="total">
-        <p>Jumlah yang Harus Dibayar: Rp400.000</p>
+        <p>Jumlah yang Harus Dibayar: {{ 'Rp ' . number_format($jumlahSeluruh, 0, ',', '.') ?? '-' }}</p>
     </div>
 
     <div class="dp-section">
         <table class="dp-table">
             <thead>
                 <tr>
-                    <th>DP Rp 150.000</th>
+                    <th>{{ 'Rp ' . number_format($pesanan->booking->dp, 0, ',', '.') ?? '-' }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>- Siska Eko Utomo</td>
+                    <td>- {{ $pesanan->booking->nama }}</td>
                 </tr>
                 <tr>
-                    <td>- Tanggal 11 Desember 2014</td>
+                    <td>- Tanggal {{ $formattedDate = \Carbon\Carbon::parse($pesanan->booking->tanggal)->translatedFormat('d F Y') }}</td>
                 </tr>
                 <tr>
-                    <td>- 1 jam foto di Lokasi Fakultas Hukum Solo</td>
+                    <td>
+                        @php
+                            $jam_mulai = \Carbon\Carbon::parse($pesanan->booking->jam);
+                            $jam_selesai = \Carbon\Carbon::parse($pesanan->booking->jam_selesai);
+
+                            $selisih_menit = $jam_mulai->diffInMinutes($jam_selesai);
+                            $jam = floor($selisih_menit / 60); // Ambil jumlah jam dari menit
+                            $menit = $selisih_menit % 60; // Sisa menit setelah dikonversi ke jam
+                        @endphp 
+                        - {{ $jam . ' ' . ' jam ' . $menit . ' Menit ' . 'foto di Lokasi Fakultas ' . $pesanan->booking->fakultas }}
+                    </td>
                 </tr>
             </tbody>
         </table>

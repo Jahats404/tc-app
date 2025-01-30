@@ -12,7 +12,7 @@
             </button>
         </div>
 
-        {{-- @include('admin.booking.modal-tambah-booking',['hargaPaket' => $hargaPaket]) --}}
+        @include('client.booking.modal-tambah-booking',['hargaPaket' => $hargaPaket])
 
         {{-- Konten Card --}}
         <div class="card-body">
@@ -230,7 +230,7 @@
                                         <div class="form-group">
                                             <label for="kp_id" class="col-form-label">Pilih foto yang akan diedit</label>
                                             <select class="form-control js-example-tokenizer" 
-                                                {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete' ? 'disabled' : '' }} 
+                                                {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete' ? '' : '' }} 
                                                 style="width: 100%; height: 300px;" 
                                                 multiple="multiple" name="foto_edit[]">
                                                 @if ($item->pesanan?->foto?->foto_edit)
@@ -246,7 +246,11 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                        {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete' ? '' : '<button type="submit" class="btn btn-primary">Submit</button>' }} 
+                                        @if ($item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete')
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        @else
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        @endif
                                     </div>
                                 </form>
                             </div>
