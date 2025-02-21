@@ -8,6 +8,7 @@ use App\Models\BookingPaketTambahan;
 use App\Models\HargaPaket;
 use App\Models\PaketTambahan;
 use App\Models\Pesanan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -63,6 +64,9 @@ class BookingController extends Controller
 
     public function update(Request $request,$id)
     {
+        
+        $request->merge(['dp' => str_replace('.', '', $request->dp)]);
+        
         $rules = Booking::$rules = ['status_booking' => 'nullable'];
         $validator = Validator::make($request->all(), $rules, Booking::$messages);
     
@@ -79,6 +83,7 @@ class BookingController extends Controller
         $b->event = $request->event;
         $b->tanggal = $request->tanggal;
         $b->jam = $request->jam;
+        $b->kota = $request->kota;
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;
         $b->lokasi_foto = $request->lokasi_foto;
@@ -90,6 +95,12 @@ class BookingController extends Controller
         // $b->status_booking = $request->status_booking;
         // $b->user_id = Auth::user()->id;
         $b->harga_paket_id = $request->harga_paket_id;
+
+        // untuk memberi tanggal dibuatnya faktur
+        if ($b->dp != $request->dp || $b->dp == null ) {
+            $b->tanggal_dp = Carbon::now()->toDate();
+        }
+        
         $b->dp = $request->dp;
 
         

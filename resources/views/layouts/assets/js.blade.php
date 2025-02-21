@@ -17,6 +17,11 @@
 <!-- Page level plugins -->
 <script src="{{ asset('/') }}vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ asset('/') }}vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/5.0.4/js/dataTables.fixedColumns.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/5.0.4/js/fixedColumns.bootstrap4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- Page level custom scripts -->
 <script src="{{ asset('/') }}js/demo/datatables-demo.js"></script>

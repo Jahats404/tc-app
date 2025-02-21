@@ -66,7 +66,7 @@
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="">Tanggal Foto</label>
-                                        <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                                        <input type="date" class="form-control" id="tanggal" name="tanggal">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
@@ -78,13 +78,13 @@
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="">Area *</label>
-                                        {{-- <input type="text" class="form-control" id="wilayah" name="wilayah" placeholder="Asal Kota" required> --}}
-                                        <select class="form-control" name="kota" id="kota">
+                                        <input type="text" class="form-control" id="kota" name="kota" placeholder="Asal Kota" required>
+                                        {{-- <select class="form-control" name="kota" id="kota">
                                             <option value="">-- Pilih Area --</option>
                                             @foreach ($wilayah as $item)
                                                 <option value="{{ $item->nama_wilayah }}">{{ $item->nama_wilayah }}</option>
                                             @endforeach
-                                        </select>
+                                        </select> --}}
                                     </div>
                                 </div>
                                 <div class="col-12">

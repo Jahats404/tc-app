@@ -6,78 +6,85 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalEditLabel">Edit Booking</h5>
+                    <h5 class="modal-title" id="modalEditLabel">Lengkapi Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="nama" class="col-form-label">Nama</label>
-                            <input type="text" value="{{ old('nama',$item->nama) }}" name="nama" class="form-control @error('nama') is-invalid @enderror" id="nama">
+                            <label for="nama" class="col-form-label">Nama <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                name="nama" 
+                                id="nama" 
+                                class="form-control @error('nama') is-invalid @enderror" 
+                                value="{{ old('nama', $item->nama ?? '') }}" 
+                                required 
+                                autocomplete="off">
                             @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="email" class="col-form-label">Email</label>
+                            <label for="email" class="col-form-label">Email <span class="text-danger">*</span></label>
                             <input type="email" value="{{ old('email',$item->email) }}" name="email" class="form-control @error('email') is-invalid @enderror" id="email">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="no_wa" class="col-form-label">No. WA</label>
+                            <label for="no_wa" class="col-form-label">No. WA <span class="text-danger">*</span></label>
                             <input type="text" value="{{ old('no_wa',$item->no_wa) }}" name="no_wa" class="form-control @error('no_wa') is-invalid @enderror" id="no_wa">
                             @error('no_wa')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="event" class="col-form-label">Event</label>
+                            <label for="event" class="col-form-label">Event <span class="text-danger">*</span></label>
                             <input type="text" value="{{ old('event',$item->event) }}" name="event" class="form-control @error('event') is-invalid @enderror" id="event">
                             @error('event')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="tanggal" class="col-form-label">Tanggal</label>
+                            <label for="tanggal" class="col-form-label">Tanggal <span class="text-danger">*</span></label>
                             <input type="date" value="{{ old('tanggal',$item->tanggal) }}" name="tanggal" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal">
                             @error('tanggal')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="jam" class="col-form-label">Jam</label>
+                            <label for="jam" class="col-form-label">Jam <span class="text-danger">*</span></label>
                             <input type="time" value="{{ old('jam',$item->jam) }}" name="jam" class="form-control @error('jam') is-invalid @enderror" id="jam">
                             @error('jam')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="universitas" class="col-form-label">Universitas</label>
+                            <label for="universitas" class="col-form-label">Universitas <span class="text-danger">*</span></label>
                             <input type="text" value="{{ old('universitas',$item->universitas) }}" name="universitas" class="form-control @error('universitas') is-invalid @enderror" id="universitas">
                             @error('universitas')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="fakultas" class="col-form-label">Fakultas</label>
+                            <label for="fakultas" class="col-form-label">Fakultas <span class="text-danger">*</span></label>
                             <input type="text" value="{{ old('fakultas',$item->fakultas) }}" name="fakultas" class="form-control @error('fakultas') is-invalid @enderror" id="fakultas">
                             @error('fakultas')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="lokasi_foto" class="col-form-label">Lokasi Foto</label>
+                            <label for="lokasi_foto" class="col-form-label">Lokasi Foto <span class="text-danger">*</span></label>
                             <input type="text" value="{{ old('lokasi_foto',$item->lokasi_foto) }}" name="lokasi_foto" class="form-control @error('lokasi_foto') is-invalid @enderror" id="lokasi_foto">
                             @error('lokasi_foto')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="harga_paket_id" class="col-form-label">Paket</label>
-                            <select id="harga_paket_id" name="harga_paket_id" class="form-control @error('harga_paket_id') is-invalid @enderror">
+                            <label for="harga_paket_id" class="col-form-label">Paket <span class="text-danger">*</span></label>
+                            <select id="harga_paket_id" name="harga_paket_id" data-id="{{ $item->id_booking }}" class="form-control js-example-basic-single-update @error('harga_paket_id') is-invalid @enderror">
                                 <option selected disabled value="">--Pilih Paket--</option>
                                 @foreach ($hargaPaket as $harga)
                                     <option value="{{ $harga->id_harga_paket }}" 
@@ -98,15 +105,15 @@
                             @enderror
                         </div>
                         
-                        <div class="form-group">
-                            <label for="ig_vendor" class="col-form-label">IG Vendor</label>
+                        {{-- <div class="form-group">
+                            <label for="ig_vendor" class="col-form-label">{{ \App\Models\Booking::$mua }}</label>
                             <input type="text" value="{{ old('ig_vendor',$item->ig_vendor) }}" name="ig_vendor" class="form-control @error('ig_vendor') is-invalid @enderror" id="ig_vendor">
                             @error('ig_vendor')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="form-group">
-                            <label for="ig_client" class="col-form-label">IG Client</label>
+                            <label for="ig_client" class="col-form-label">Instagram</label>
                             <input type="text" value="{{ old('ig_client',$item->ig_client) }}" name="ig_client" class="form-control @error('ig_client') is-invalid @enderror" id="ig_client">
                             @error('ig_client')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -116,8 +123,8 @@
                             <label for="post_foto" class="col-form-label">Post Foto</label>
                             <select id="post_foto" name="post_foto" class="form-control @error('post_foto') is-invalid @enderror">
                                 <option selected disabled value="">--Pilih--</option>
-                                <option value="yes" {{ old('post_foto',$item->post_foto) == 'yes' ? 'selected' : '' }}>yes</option>
-                                <option value="no" {{ old('post_foto',$item->post_foto) == 'no' ? 'selected' : '' }}>no</option>
+                                <option value="Bersedia" {{ old('post_foto',$item->post_foto) == 'Bersedia' ? 'selected' : '' }}>Bersedia</option>
+                                <option value="Tidak Bersedia" {{ old('post_foto',$item->post_foto) == 'Tidak Bersedia' ? 'selected' : '' }}>Tidak Bersedia</option>
                             </select>
                             @error('post_foto')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -137,14 +144,14 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="jumlah_anggota" class="col-form-label">Jumlah Anggota</label>
+                            <label for="jumlah_anggota" class="col-form-label">Jumlah Anggota <span class="text-danger">*</span></label>
                             <input type="text" value="{{ old('jumlah_anggota',$item->jumlah_anggota) }}" name="jumlah_anggota" class="form-control @error('jumlah_anggota') is-invalid @enderror" id="jumlah_anggota">
                             @error('jumlah_anggota')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="req_khusus" class="col-form-label">Req Khusus</label>
+                            <label for="req_khusus" class="col-form-label">Catatan</label>
                             <textarea name="req_khusus" class="form-control @error('req_khusus') is-invalid @enderror" id="req_khusus" rows="3">{{ old('req_khusus',$item->req_khusus) }}</textarea>
                             @error('req_khusus')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -164,7 +171,14 @@
                         </div> --}}
                         <div class="form-group">
                             <label for="dp" class="col-form-label">DP</label>
-                            <input type="number" value="{{ old('dp',$item->dp) }}" name="dp" min="0" class="form-control @error('dp') is-invalid @enderror" id="dp">
+                            <input 
+                                type="text" 
+                                value="{{ old('dp', number_format($item->dp ?? 0, 0, ',', '.')) }}" 
+                                name="dp" 
+                                class="form-control @error('dp') is-invalid @enderror" 
+                                id="dp" 
+                                oninput="formatNumber(this)"
+                                autocomplete="off">
                             @error('dp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -196,3 +210,16 @@
         </div>
     </div>
 </form>
+
+<script>
+    function formatNumber(input) {
+        // Menghapus semua karakter selain angka
+        let value = input.value.replace(/\D/g, '');
+    
+        // Menambahkan titik setiap 3 digit
+        let formattedValue = new Intl.NumberFormat('id-ID').format(value);
+    
+        // Mengatur kembali nilai input
+        input.value = formattedValue;
+    }
+</script>

@@ -31,7 +31,8 @@ return new class extends Migration
 
             $table->string('negara')->nullable();
             $table->string('kota')->nullable();
-            $table->string('dp')->nullable();
+            $table->integer('dp')->nullable();
+            $table->date('tanggal_dp')->nullable();
             $table->text('file_dp')->nullable();
             $table->string('jam_selesai')->nullable();  
             

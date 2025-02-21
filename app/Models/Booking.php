@@ -50,7 +50,7 @@ class Booking extends Model
         'lokasi_foto' => 'required|string|max:255',
         'ig_vendor' => 'nullable|string|max:255',
         'ig_client' => 'nullable|string|max:255',
-        'post_foto' => 'required|in:yes,no',
+        'post_foto' => 'required|in:Bersedia,Tidak Bersedia',
         'jumlah_anggota' => 'required|integer|min:1',
         'req_khusus' => 'nullable|string|max:1000',
         'status_booking' => 'in:Pending,Diterima,Ditolak,Dibatalkan',
@@ -87,4 +87,6 @@ class Booking extends Model
         'file_dp.mimes' => 'File DP harus berupa file dengan format: jpg, jpeg, png, gif, atau pdf.',
         'file_dp.max' => 'File DP tidak boleh lebih dari 2MB.',
     ];
+
+    public static $mua = 'IG MUA';
 }

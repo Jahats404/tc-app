@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\Foto;
 use App\Models\HargaPaket;
 use App\Models\Pesanan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,8 +19,18 @@ class BookingController extends Controller
 {
     public function index(){
         
-        $hargaPaket = HargaPaket::all();
-        $booking = Booking::all();
+        // THIS IS OLD CODE
+        // $hargaPaket = HargaPaket::whereHas('paket', function ($query) {
+        //     $query->orderBy('nama_paket','asc');
+        // })->get();
+        
+        $hargaPaket = HargaPaket::join('paket', 'harga_paket.paket_id', '=', 'paket.id_paket')
+            ->join('kategori_paket', 'paket.kp_id', '=', 'kategori_paket.id_kp')
+            ->orderBy('kategori_paket.nama_kategori', 'asc')
+            ->select('harga_paket.*') // Ambil semua kolom dari harga_paket
+            ->get();
+
+        $booking = Booking::orderByDesc('created_at')->get();
 
         
         return view('admin.booking.index',compact('hargaPaket','booking'));
@@ -26,7 +38,7 @@ class BookingController extends Controller
 
     public function store(Request $request)
     {
-    
+        
         $validator = Validator::make($request->all(), Booking::$rules, Booking::$messages);
     
         if ($validator->fails()) {
@@ -76,6 +88,8 @@ class BookingController extends Controller
 
     public function update(Request $request,$id)
     {
+        $request->merge(['dp' => str_replace('.', '', $request->dp)]);
+
         $rules = Booking::$rules = ['status_booking' => 'nullable'];
         $validator = Validator::make($request->all(), Booking::$rules, Booking::$messages);
     
@@ -104,6 +118,12 @@ class BookingController extends Controller
         // $b->status_booking = $request->status_booking;
         // $b->user_id = Auth::user()->id;
         $b->harga_paket_id = $request->harga_paket_id;
+        
+        if ($b->dp != $request->dp || $b->dp == null ) {
+            $b->tanggal_dp = Carbon::now()->toDate();
+        }
+        $b->dp = $request->dp;
+
 
         // Cek jika file ada di request
         if ($request->hasFile('file_dp')) {
@@ -142,7 +162,12 @@ class BookingController extends Controller
     {
         $cekPesanan = Pesanan::where('booking_id',$id)->first();
         $booking = Booking::find($id);
-
+        
+        if ($booking && $booking->status_booking == 'Accepted') {
+            if ($request->status_booking == 'Rejected') {
+                return redirect()->back()->with('warning','Booking yang sudah diterima tidak bisa Ditolak/Reject!');
+            }
+        }
         if (!$cekPesanan && $request->status_booking == 'Accepted') {
             $booking->status_booking = $request->status_booking;
             $booking->save();
@@ -151,7 +176,34 @@ class BookingController extends Controller
             $pesanan->id_pesanan = 'PSN' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
             $pesanan->booking_id = $booking->id_booking;
             $pesanan->faktur = 'TC' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+            // $pesanan->save();
+            
+            // INSERT FOTO JIKA BELUM ADA DAN BUAT ANTRIAN
+            $foto = Foto::where('pesanan_id',$pesanan->id_pesanan)->first();
+            $antrianFoto = Foto::orderBy('antrian', 'desc')->first();
+            // $antrianFoto = Foto::where('status_foto', 'Editing')->orderBy('antrian','desc')->first();
+            if ($antrianFoto) {
+                $antrianFoto = $antrianFoto->antrian;
+            } else {
+                $antrianFoto = Foto::count();
+            }
+            
+            if (!$foto) {
+                $foto = new Foto();
+                $foto->id_foto = 'FT' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
+                $foto->status_foto = $request->status_foto;
+                $foto->link = $request->link;
+                $foto->pesanan_id = $pesanan->id_pesanan;
+                $foto->antrian = $antrianFoto + 1;
+                // $foto->save();
+            } 
+            else {
+                $foto->status_foto = $request->status_foto;
+                $foto->link = $request->link;
+                // $foto->save();
+            }
             $pesanan->save();
+            $foto->save();
             
         }
         else {

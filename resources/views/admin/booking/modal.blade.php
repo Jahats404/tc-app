@@ -1,6 +1,6 @@
 {{-- EDIT --}}
 <div class="modal fade" id="modalEdit{{ $item->id_booking }}" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modalEditLabel">Edit Booking</h5>
@@ -84,10 +84,23 @@
                     </div>
                     <div class="form-group">
                         <label for="harga_paket_id" class="col-form-label">Paket</label>
-                        <select id="harga_paket_id" name="harga_paket_id" class="form-control @error('harga_paket_id') is-invalid @enderror">
+                        <select id="harga_paket_id" name="harga_paket_id" class="form-control js-example-basic-single-update @error('harga_paket_id') is-invalid @enderror">
                             <option selected disabled value="">--Pilih Paket--</option>
-                            @foreach ($hargaPaket as $harga)
+                            {{-- @foreach ($hargaPaket as $harga)
                                 <option value="{{ $harga->id_harga_paket }}" {{ old('harga_paket_id',$item->harga_paket_id) == $harga->id_harga_paket ? 'selected' : '' }}>{{ $harga->paket->kategori_paket->nama_kategori . ' ' . $harga->paket->nama_paket }}, {{ $harga->golongan == 'W1' ? 'Wilayah 1' : 'Wilayah 2' }}</option>
+                            @endforeach --}}
+                            @foreach ($hargaPaket as $harga)
+                                <option value="{{ $harga->id_harga_paket }}" 
+                                    {{ old('harga_paket_id',$item->harga_paket_id) == $harga->id_harga_paket ? 'selected' : '' }}>
+                                    
+                                    {{ $harga->paket->kategori_paket->nama_kategori . ' ' . $harga->paket->nama_paket . ' | ' }}
+                                    
+                                    @php
+                                        $namaWilayah = \App\Models\Wilayah::where('kode', $harga->golongan)->pluck('nama_wilayah')->toArray();
+                                    @endphp
+                    
+                                    {{ implode(', ', $namaWilayah) }}
+                                </option>
                             @endforeach
                         </select>
                         @error('harga_paket_id')
@@ -95,7 +108,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="ig_vendor" class="col-form-label">IG Vendor</label>
+                        <label for="ig_vendor" class="col-form-label">{{ \App\Models\Booking::$mua }}</label>
                         <input type="text" value="{{ old('ig_vendor',$item->ig_vendor) }}" name="ig_vendor" class="form-control @error('ig_vendor') is-invalid @enderror" id="ig_vendor">
                         @error('ig_vendor')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -112,8 +125,8 @@
                         <label for="post_foto" class="col-form-label">Post Foto</label>
                         <select id="post_foto" name="post_foto" class="form-control @error('post_foto') is-invalid @enderror">
                             <option selected disabled value="">--Pilih--</option>
-                            <option value="yes" {{ old('post_foto',$item->post_foto) == 'yes' ? 'selected' : '' }}>yes</option>
-                            <option value="no" {{ old('post_foto',$item->post_foto) == 'no' ? 'selected' : '' }}>no</option>
+                            <option value="Bersedia" {{ old('post_foto',$item->post_foto) == 'Bersedia' ? 'selected' : '' }}>Bersedia</option>
+                            <option value="Tidak Bersedia" {{ old('post_foto',$item->post_foto) == 'Tidak Bersedia' ? 'selected' : '' }}>Tidak Bersedia</option>
                         </select>
                         @error('post_foto')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -127,7 +140,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="req_khusus" class="col-form-label">Req Khusus</label>
+                        <label for="req_khusus" class="col-form-label">Catatan</label>
                         <textarea name="req_khusus" class="form-control @error('req_khusus') is-invalid @enderror" id="req_khusus" rows="3">{{ old('req_khusus',$item->req_khusus) }}</textarea>
                         @error('req_khusus')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -147,7 +160,14 @@
                     </div> --}}
                     <div class="form-group">
                         <label for="dp" class="col-form-label">DP</label>
-                        <input type="number" value="{{ old('dp',$item->dp) }}" name="dp" min="0" class="form-control @error('dp') is-invalid @enderror" id="dp">
+                        <input 
+                            type="text" 
+                            value="{{ old('dp', number_format($item->dp ?? 0, 0, ',', '.')) }}" 
+                            name="dp" 
+                            class="form-control @error('dp') is-invalid @enderror" 
+                            id="dp" 
+                            oninput="formatNumber(this)"
+                            autocomplete="off">
                         @error('dp')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -179,3 +199,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function formatNumber(input) {
+        // Menghapus semua karakter selain angka
+        let value = input.value.replace(/\D/g, '');
+    
+        // Menambahkan titik setiap 3 digit
+        let formattedValue = new Intl.NumberFormat('id-ID').format(value);
+    
+        // Mengatur kembali nilai input
+        input.value = formattedValue;
+    }
+</script>

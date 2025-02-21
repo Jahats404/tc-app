@@ -149,8 +149,8 @@
                             <label for="post_foto" class="col-form-label">Upload IG</label>
                             <select id="post_foto" name="post_foto" class="form-control @error('post_foto') is-invalid @enderror">
                                 <option selected disabled value="">--Pilih--</option>
-                                <option value="Bersedia" {{ old('post_foto') == 'Bersedia' ? 'selected' : '' }}>Bersedia</option>
-                                <option value="Tidak Bersedia" {{ old('post_foto') == 'Tidak Bersedia' ? 'selected' : '' }}>Tidak Bersedia</option>
+                                <option value="Bersedia" {{ old('post_foto',$item->booking->post_foto) == 'Bersedia' ? 'selected' : '' }}>Bersedia</option>
+                                <option value="Tidak Bersedia" {{ old('post_foto',$item->booking->post_foto) == 'Tidak Bersedia' ? 'selected' : '' }}>Tidak Bersedia</option>
                             </select>
                             @error('post_foto')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -190,16 +190,32 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="harga" class="col-form-label">Harga Paket</label>
-                            <input type="number" value="{{ old('harga', $item->booking->harga_paket->harga) }}" min="1" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga" readonly>
+                            <input 
+                                type="text" 
+                                value="{{ old('harga', number_format($item->booking->harga_paket->harga ?? 0, 0, ',', '.')) }}" 
+                                name="harga" 
+                                class="form-control @error('harga') is-invalid @enderror" 
+                                id="harga" 
+                                readonly
+                                oninput="formatNumber(this)"
+                                autocomplete="off">
                             @error('harga')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     
                         <div class="form-group col-md-6">
-                            <label for="harga" class="col-form-label">Harga Paket Tambahan</label>
-                            <input type="number" value="{{ old('harga', $jumlahHargaTambahan) }}" min="1" name="harga" class="form-control @error('harga') is-invalid @enderror" id="harga" readonly>
-                            @error('harga')
+                            <label for="harga_paket_tambahan" class="col-form-label">Harga Paket Tambahan</label>
+                            <input 
+                                type="text" 
+                                value="{{ old('harga_paket_tambahan', number_format($jumlahHargaTambahan ?? 0, 0, ',', '.')) }}" 
+                                name="harga_paket_tambahan" 
+                                class="form-control @error('harga_paket_tambahan') is-invalid @enderror" 
+                                id="harga_paket_tambahan" 
+                                oninput="formatNumber(this)"
+                                readonly
+                                autocomplete="off">
+                            @error('harga_paket_tambahan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -208,7 +224,15 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="dp" class="col-form-label">DP</label>
-                            <input type="number" value="{{ old('dp', $item->booking->dp) }}" min="1" name="dp" class="form-control @error('dp') is-invalid @enderror" id="dp">
+                            <input 
+                                type="text" 
+                                value="{{ old('dp', number_format($item->booking->dp ?? 0, 0, ',', '.')) }}" 
+                                name="dp" 
+                                class="form-control @error('dp') is-invalid @enderror" 
+                                id="dp" 
+                                readonly
+                                oninput="formatNumber(this)"
+                                autocomplete="off">
                             @error('dp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -216,7 +240,15 @@
                     
                         <div class="form-group col-md-6">
                             <label for="kekurangan" class="col-form-label">Kekurangan</label>
-                            <input type="number" value="{{ old('kekurangan', $item->kekurangan) }}" min="0" name="kekurangan" class="form-control @error('kekurangan') is-invalid @enderror" id="kekurangan" readonly>
+                            <input 
+                                type="text" 
+                                value="{{ old('kekurangan', number_format($item->kekurangan ?? 0, 0, ',', '.')) }}" 
+                                name="kekurangan" 
+                                class="form-control @error('kekurangan') is-invalid @enderror" 
+                                id="kekurangan" 
+                                readonly
+                                oninput="formatNumber(this)"
+                                autocomplete="off">
                             @error('kekurangan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -226,7 +258,14 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="pelunasan" class="col-form-label">Pelunasan</label>
-                            <input type="number" value="{{ old('pelunasan', $item->pelunasan) }}" min="0" name="pelunasan" class="form-control @error('pelunasan') is-invalid @enderror" id="pelunasan">
+                            <input 
+                                type="text" 
+                                value="{{ old('pelunasan', number_format($item->pelunasan ?? 0, 0, ',', '.')) }}" 
+                                name="pelunasan" 
+                                class="form-control @error('pelunasan') is-invalid @enderror" 
+                                id="pelunasan" 
+                                oninput="formatNumber(this)"
+                                autocomplete="off">
                             @error('pelunasan')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -234,7 +273,15 @@
                     
                         <div class="form-group col-md-6">
                             <label for="total" class="col-form-label">Total</label>
-                            <input type="number" value="{{ old('total', $item->total) }}" min="1" name="total" class="form-control @error('total') is-invalid @enderror" id="total" readonly>
+                            <input 
+                                type="text" 
+                                value="{{ old('total', number_format($item->total ?? 0, 0, ',', '.')) }}" 
+                                name="total" 
+                                class="form-control @error('total') is-invalid @enderror" 
+                                id="total" 
+                                readonly
+                                oninput="formatNumber(this)"
+                                autocomplete="off">
                             @error('total')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -256,7 +303,15 @@
                     
                         <div class="form-group col-md-6">
                             <label for="freelance" class="col-form-label">Freelance</label>
-                            <input type="number" value="{{ old('freelance', $item->freelance) }}" min="1" name="freelance" class="form-control @error('freelance') is-invalid @enderror" id="freelance">
+                            <input 
+                                type="text" 
+                                value="{{ old('freelance', number_format($item->freelance ?? 0, 0, ',', '.')) }}" 
+                                name="freelance" 
+                                class="form-control @error('freelance') is-invalid @enderror" 
+                                id="freelance" 
+                                readonly
+                                oninput="formatNumber(this)"
+                                autocomplete="off">
                             @error('freelance')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -271,6 +326,8 @@
                         <label for="status_foto" class="col-form-label">Status Foto</label>
                         <select id="inputState" name="status_foto" class="form-control">
                             <option value="">-- Pilih Status Foto --</option>
+                            <option value="Sending" {{ old('status_foto', $item->foto?->status_foto) == 'Sending' ? 'selected' : '' }}>Sending</option>
+                            <option value="Listing" {{ old('status_foto', $item->foto?->status_foto) == 'Listing' ? 'selected' : '' }}>Listing</option>
                             <option value="Editing" {{ old('status_foto', $item->foto?->status_foto) == 'Editing' ? 'selected' : '' }}>Editing</option>
                             <option value="Complete" {{ old('status_foto', $item->foto?->status_foto) == 'Complete' ? 'selected' : '' }}>Complete</option>
                         </select>
@@ -295,3 +352,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    function formatNumber(input) {
+        // Menghapus semua karakter selain angka
+        let value = input.value.replace(/\D/g, '');
+    
+        // Menambahkan titik setiap 3 digit
+        let formattedValue = new Intl.NumberFormat('id-ID').format(value);
+    
+        // Mengatur kembali nilai input
+        input.value = formattedValue;
+    }
+</script>

@@ -29,6 +29,7 @@ class PesananController extends Controller
                         ->whereMonth('tanggal', date('m', strtotime($bulan)));
             }
         })
+        ->orderByDesc('created_at')
         ->get();
         
         // Mengembalikan hanya bagian body tabel untuk pembaruan AJAX
@@ -123,6 +124,17 @@ class PesananController extends Controller
 
     public function update(Request $request,$id)
     {
+        $request->merge(
+            [
+                    'harga' => str_replace('.', '', $request->harga),
+                    'dp' => str_replace('.', '', $request->dp),
+                    'kekurangan' => str_replace('.', '', $request->kekurangan),
+                    'pelunasan' => str_replace('.', '', $request->pelunasan),
+                    'total' => str_replace('.', '', $request->total),
+                    'freelance' => str_replace('.', '', $request->freelance),
+                ]
+        );
+
         $rules = [
             'tanggal' => 'required|date',
             'negara' => 'required|string|max:255',
@@ -141,8 +153,8 @@ class PesananController extends Controller
             'dp' => 'required|numeric|min:0',
             'kekurangan' => 'nullable|numeric|min:0',
             'pelunasan' => 'nullable|numeric|min:0',
-            'total' => 'nullable|numeric|min:1',
-            'freelance' => 'nullable|numeric|min:1',
+            'total' => 'nullable|numeric|min:0',
+            'freelance' => 'nullable|numeric|min:0',
             'no_wa' => 'required|string|regex:/^[0-9]+$/|min:10|max:15',
         ];
 
@@ -203,6 +215,7 @@ class PesananController extends Controller
         $pesanan->status_pembayaran = $request->status_pembayaran;
         $pesanan->save();
 
+        // INSERT FOTO JIKA BELUM ADA DAN BUAT ANTRIAN
         $foto = Foto::where('pesanan_id',$pesanan->id_pesanan)->first();
         $antrianFoto = Foto::where('status_foto', 'Editing')->orderBy('antrian','desc')->first();
         if ($antrianFoto) {
@@ -246,7 +259,11 @@ class PesananController extends Controller
                 ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
                 $formattedBulan
             );
-        return Excel::download(new PesananExport($bulan), 'Laporan_Pesanan_'. $formattedBulan .'.xlsx');
+        if ($bulan) {
+            return Excel::download(new PesananExport($bulan), 'Laporan_Pesanan_'. $formattedBulan .'.xlsx');
+        } else {
+            return Excel::download(new PesananExport($bulan), 'Laporan_Pesanan_Keseluruhan.xlsx');
+        }
     }
 
     public function faktur($id)
@@ -259,6 +276,6 @@ class PesananController extends Controller
         $pdf = Pdf::loadHTML($html);
         
         // Menampilkan PDF di browser sebagai preview (tidak langsung diunduh)
-        return $pdf->stream('faktur.pdf'); // Anda bisa mengganti nama file sesuai kebutuhan
+        return $pdf->stream('Faktur#' . $pesanan->faktur . '#' . $pesanan->booking->nama . '.pdf'); // Anda bisa mengganti nama file sesuai kebutuhan
     }
 }

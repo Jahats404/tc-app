@@ -27,7 +27,7 @@
                             <th>NO</th>
                             <th>CLIENT</th>
                             <th>STATUS FOTO</th>
-                            <th>ANTRIAN</th>
+                            {{-- <th>ANTRIAN</th> --}}
                             <th>AKSI</th>
                         </tr>
                     </thead>
@@ -37,18 +37,28 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->pesanan->booking->nama }}</td>
                                 <td>
-                                    @if ($item->status_foto == 'Editing')
-                                        <span class="badge badge-primary">{{ $item->status_foto }}</span>
-                                    @elseif ($item->status_foto == 'Complete')
-                                        <span class="badge badge-success">{{ $item->status_foto }}</span>
+                                    @php
+                                        $statusColors = [
+                                            'Sending' => 'secondary',
+                                            'Listing' => 'info',
+                                            'Editing' => 'primary',
+                                            'Complete' => 'success'
+                                        ];
+                                        $status = $item->status_foto ?? '-'; // Jika null, set default "-"
+                                        $badgeClass = $statusColors[$status] ?? 'dark'; // Gunakan 'dark' jika status tidak dikenali
+                                    @endphp
+                                    @if ($status !== '-')
+                                        <span class="badge badge-{{ $badgeClass }}">{{ $status }}</span>
+                                    @else
+                                        -
                                     @endif
                                 </td>
-                                <td>{{ $item->antrian ?? '-' }}</td>
+                                {{-- <td>{{ $item->antrian ?? '-' }}</td> --}}
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="#" class="btn btn-secondary btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalLink{{ $item->id_foto }}" title="Link">
+                                        {{-- <a href="#" class="btn btn-secondary btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalLink{{ $item->id_foto }}" title="Link">
                                             <i class="fas fa-link"></i>
-                                        </a>
+                                        </a> --}}
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_foto }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>

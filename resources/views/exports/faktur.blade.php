@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faktur</title>
+    <title>{{ 'Faktur#' . $pesanan->faktur . '#' . $pesanan->booking->nama }}</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,8 +22,9 @@
         }
 
         .invoice-details {
-            width: 100%;
+            width: 50%; /* Lebar tabel */
             margin-bottom: 20px;
+            float: right; /* Mengapung ke kanan */
         }
 
         .invoice-details td, .invoice-details th {
@@ -98,37 +99,42 @@
     <div class="invoice-details">
         <table>
             <tr>
-                <td><strong>Dikirim Kepada:</strong></td>
-                <td><strong>Faktur #</strong></td>
+                <th style="text-align: right;">Faktur #</th>
+                <th style="text-align: right;">Dikirim Kepada:</th>
             </tr>
             <tr>
-                <td>
+                <td style="text-align: right;">{{ $pesanan->faktur }}</td>
+                <td style="text-align: right;">
                     {{ 
-                        $pesanan->booking->universitas . ', ' . 
                         $pesanan->booking->nama
+                        . ', ' . 
+                        $pesanan->booking->universitas
                     }}
                 </td>
-                <td>{{ $pesanan->faktur }}</td>
             </tr>
             <tr>
-                <td><strong>Telepon:</strong></td>
-                <td><strong>Tanggal</strong></td>
+                <th style="text-align: right;">Tanggal</th>
+                <th style="text-align: right;">Telepon:</th>
             </tr>
             <tr>
-                <td>
+                <td style="text-align: right;">
+                    {{ \Carbon\Carbon::parse($pesanan->booking?->tanggal_dp)->translatedFormat('d F Y') }}
+                </td>
+                <td style="text-align: right;">
                     @php
                         $waNumber = $pesanan->booking->no_wa;
-                        // Cek jika nomor WA dimulai dengan '0', ubah menjadi '62'
                         if ($waNumber !== '-' && substr($waNumber, 0, 1) === '0') {
                             $waNumber = '+62' . substr($waNumber, 1);
                         }
                     @endphp
                     {{ $waNumber }}
                 </td>
-                <td>{{ $formattedDate = \Carbon\Carbon::parse($pesanan->booking->tanggal)->translatedFormat('d F Y') }}</td>
             </tr>
         </table>
     </div>
+
+    <!-- Clear float untuk memastikan elemen berikutnya tidak terpengaruh -->
+    <div style="clear: both;"></div>
 
     <div class="items">
         <table>
@@ -206,19 +212,19 @@
     </div>
 
     <div class="total">
-        <p>Jumlah yang Harus Dibayar: {{ 'Rp ' . number_format($jumlahSeluruh, 0, ',', '.') ?? '-' }}</p>
+        <p>Jumlah yang Harus Dibayar: {{ 'Rp ' . number_format($jumlahSeluruh - $pesanan->booking->dp, 0, ',', '.') ?? '-' }}</p>
     </div>
 
     <div class="dp-section">
         <table class="dp-table">
             <thead>
                 <tr>
-                    <th>{{ 'Rp ' . number_format($pesanan->booking->dp, 0, ',', '.') ?? '-' }}</th>
+                    <th>DP : {{ 'Rp. ' . number_format($pesanan->booking->dp, 0, ',', '.') ?? '-' }}</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>- {{ $pesanan->booking->nama }}</td>
+                    <td>- {{ $pesanan->booking->universitas }}</td>
                 </tr>
                 <tr>
                     <td>- Tanggal {{ $formattedDate = \Carbon\Carbon::parse($pesanan->booking->tanggal)->translatedFormat('d F Y') }}</td>

@@ -19,25 +19,25 @@
                 <table class="table table-bordered nowrap" id="booking" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>NAMA</th>
-                            <th>EMAIL</th>
-                            <th>NO. WA</th>
-                            <th>EVENT</th>
-                            <th>TANGGAL</th>
-                            <th>JAM</th>
-                            <th>UNIVERSITAS</th>
-                            <th>FAKULTAS</th>
-                            <th>LOKASI FOTO</th>
-                            <th>PAKET</th>
-                            <th>IG VENDOR</th>
-                            <th>IG CLIENT</th>
-                            <th>POST FOTO</th>
-                            <th>JML ANGGOTA</th>
-                            <th>REQ KHUSUS</th>
-                            <th>STATUS</th>
-                            <th>HARGA</th>
-                            <th>AKSI</th>
+                            <th style="text-align: center">NO</th>
+                            <th style="text-align: center">NAMA</th>
+                            <th style="text-align: center">EMAIL</th>
+                            <th style="text-align: center">NO. WA</th>
+                            <th style="text-align: center">EVENT</th>
+                            <th style="text-align: center">TANGGAL FOTO</th>
+                            <th style="text-align: center">JAM</th>
+                            <th style="text-align: center">UNIVERSITAS</th>
+                            <th style="text-align: center">FAKULTAS</th>
+                            <th style="text-align: center">LOKASI FOTO</th>
+                            <th style="text-align: center">PAKET</th>
+                            <th style="text-align: center">{{ \App\Models\Booking::$mua }}</th>
+                            <th style="text-align: center">IG CLIENT</th>
+                            <th style="text-align: center">POST FOTO</th>
+                            <th style="text-align: center">JML ANGGOTA</th>
+                            <th style="text-align: center">CATATAN</th>
+                            <th style="text-align: center">STATUS</th>
+                            <th style="text-align: center">HARGA</th>
+                            <th style="text-align: center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +46,7 @@
                                 <td style="max-width: 200px; width: 100px;">{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>
+                                <td style="text-align: left">
                                     <!-- Mengubah nomor WA jika dimulai dengan '0' -->
                                     @php
                                         $waNumber = $item->no_wa;
@@ -103,14 +103,14 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($item->post_foto == 'yes')
+                                    @if ($item->post_foto == 'Bersedia')
                                         <span class="badge badge-success">{{ $item->post_foto }}</span>
-                                    @elseif ($item->post_foto == 'no')
+                                    @elseif ($item->post_foto == 'Tidak Bersedia')
                                         <span class="badge badge-danger">{{ $item->post_foto }}</span>
                                     @else
                                         -
                                     @endif
-                                <td>{{ $item->jumlah_anggota }}</td>
+                                <td style="text-align: center">{{ $item->jumlah_anggota ?? '-' }}</td>
                                 <td>{{ $item->req_khusus ?? '-' }}</td>
                                 <td>
                                     @if ($item->status_booking == 'Pending')
@@ -118,9 +118,9 @@
                                     @elseif ($item->status_booking == 'Accepted')
                                         <span class="badge badge-success">{{ $item->status_booking }}</span>
                                     @elseif ($item->status_booking == 'Rejected')
-                                        <span class="badge badge-danger">{{ $item->status_booking }}</span>
-                                    @elseif ($item->status_booking == 'Cancelled')
                                         <span class="badge badge-warning">{{ $item->status_booking }}</span>
+                                    @elseif ($item->status_booking == 'Cancelled')
+                                        <span class="badge badge-danger">{{ $item->status_booking }}</span>
                                     @endif
                                 </td>
                                 <td>{{ 'Rp ' . number_format($item->harga_paket?->harga, 0, ',', '.') }}</td>
@@ -243,7 +243,7 @@ Proses edit akan berlangsung maksimal 3-10hari,
 Apabila Cancel secara sepihak maka DP akan hangus , untuk Reschedule Tanggal dan Jam dilakukan H-7 (*Dengan catatan Jam yang di inginkan masih kosong, apabila penuh maka sesuai dengan Booking awal*)
                 
 Terimakasih,
-See you on your happy day ka ✨😍`;
+See you on your happy day ka`;
 
                 // Encode pesan untuk URL (karena URL harus aman)
                 const encodedMessage = encodeURIComponent(message);
@@ -365,6 +365,26 @@ See you on your happy day ka ✨😍`;
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi Select2 saat modal ditampilkan
+            $('#modalTambah').on('shown.bs.modal', function () {
+                $('.js-example-basic-single').select2({
+                    dropdownParent: $('#modalTambah') // Pastikan dropdown berada dalam modal
+                });
+            });
+        });
+        $(document).ready(function() {
+            // Inisialisasi Select2 saat modal dengan ID yang dimulai dengan "modalEdit" ditampilkan
+            $('div[id^="modalEdit"]').on('shown.bs.modal', function () {
+                $(this).find('.js-example-basic-single-update').select2({
+                    dropdownParent: $(this) // Pastikan dropdown berada dalam modal yang benar
+                });
+            });
+        });
+    </script>
+
 @include('validasi.notifikasi')
 @include('validasi.notifikasi-error')
 @endsection

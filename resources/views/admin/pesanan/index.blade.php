@@ -26,33 +26,33 @@
         </div>
 
         <div class="card-body">
-            <div class="table-responsive" style="overflow-x: auto; white-space: nowrap;">
-                <table class="table table-bordered" id="pesanan" width="100%" cellspacing="0">
+            <div class="table-responsive">
+                <table class="table table-bordered nowrap" id="pesanan" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th style="min-width: 150px;">NO</th>
-                            <th style="min-width: 150px;">TANGGAL</th>
-                            <th style="min-width: 150px;">NEGARA</th>
-                            <th style="min-width: 150px;">KOTA</th>
-                            <th style="min-width: 150px;">UNIV</th>
-                            <th style="min-width: 150px;">NAMA</th>
-                            <th style="min-width: 150px;">WAKTU</th>
-                            <th style="min-width: 150px;">PAKET</th>
-                            <th style="min-width: 150px;">FG</th>
-                            <th style="min-width: 150px;">FAKULTAS</th>
-                            <th style="min-width: 150px;">LOKASI FOTO</th>
-                            <th style="min-width: 150px;">UPLOAD IG</th>
-                            <th style="min-width: 150px;">KETERANGAN</th>
-                            <th style="min-width: 150px;">STATUS FOTO</th>
-                            <th style="min-width: 150px;">HARGA</th>
-                            <th style="min-width: 150px;">TOTAL PAKET TAMBAHAN</th>
-                            <th style="min-width: 150px;">DP</th>
-                            <th style="min-width: 150px;">KEKURANGAN</th>
-                            <th style="min-width: 150px;">PELUNASAN</th>
-                            <th style="min-width: 150px;">TOTAL</th>
-                            <th style="min-width: 150px;">FREELANCE</th>
-                            <th style="min-width: 150px;">NOMOR WA</th>
-                            <th style="min-width: 150px;">AKSI</th>
+                            <th style="text-align: center;">NO</th>
+                            <th style="text-align: center;">TANGGAL</th>
+                            <th style="text-align: center;">NEGARA</th>
+                            <th style="text-align: center;">KOTA</th>
+                            <th style="text-align: center;">UNIV</th>
+                            <th style="text-align: center;">NAMA</th>
+                            <th style="text-align: center;">NOMOR WA</th>
+                            <th style="text-align: center;">WAKTU</th>
+                            <th style="text-align: center;">PAKET</th>
+                            <th style="text-align: center;">FG</th>
+                            <th style="text-align: center;">FAKULTAS</th>
+                            <th style="text-align: center;">LOKASI FOTO</th>
+                            <th style="text-align: center;">UPLOAD IG</th>
+                            <th style="text-align: center;">KETERANGAN</th>
+                            <th style="text-align: center;">STATUS FOTO</th>
+                            <th style="text-align: center;">HARGA</th>
+                            <th style="text-align: center;">TOTAL PAKET TAMBAHAN</th>
+                            <th style="text-align: center;">DP</th>
+                            <th style="text-align: center;">KEKURANGAN</th>
+                            <th style="text-align: center;">PELUNASAN</th>
+                            <th style="text-align: center;">TOTAL</th>
+                            <th style="text-align: center;">FREELANCE</th>
+                            <th style="text-align: center;">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,23 +67,7 @@
                                 <td>{{ $item->booking->kota ?? '-' }}</td>
                                 <td>{{ $item->booking->universitas ?? '-' }}</td>
                                 <td>{{ $item->booking->nama ?? '-' }}</td>
-                                <td>{{ $item->booking->jam . '-' . $item->booking->jam_selesai ?? '-' }}</td>
-                                <td>{{ $item->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $item->booking->harga_paket->paket->nama_paket }}</td>
-                                <td>{{ $item->fotografer->nama ?? '-' }}</td>
-                                <td>{{ $item->booking->fakultas ?? '-' }}</td>
-                                <td>{{ $item->booking->lokasi_foto ?? '-' }}</td>
-                                <td>{{ $item->booking->post_foto ?? '-' }}</td>
-                                <td>{{ $item->keterangan ?? '-' }}</td>
-
-                                <td>{{ $item->foto->status_foto ?? '-' }}</td>
-                                <td>{{ 'Rp ' . number_format($item->booking->harga_paket->harga, 0, ',', '.') ?? '-' }}</td>
-                                <td>{{ 'Rp ' . number_format($item->harga_paket_tambahan, 0, ',', '.') ?? '-' }}</td>
-                                <td>{{ 'Rp ' . number_format($item->booking->dp, 0, ',', '.') ?? '-' }}</td>
-                                <td>{{ 'Rp ' . number_format($item->kekurangan, 0, ',', '.') ?? '-' }}</td>
-                                <td>{{ 'Rp ' . number_format($item->pelunasan, 0, ',', '.') ?? '-' }}</td>
-                                <td>{{ 'Rp ' . number_format($item->total, 0, ',', '.') ?? '-' }}</td>
-                                <td>{{ 'Rp ' . number_format($item->freelance, 0, ',', '.') ?? '-' }}</td>
-                                <td>
+                                <td style="text-align: left">
                                     @php
                                         // Mendapatkan nomor WA
                                         $waNumber = $item->booking->no_wa ?? '-';
@@ -103,24 +87,69 @@
                                         -
                                     @endif
                                 </td>
+                                <td>{{ $item->booking->jam . '-' . $item->booking->jam_selesai ?? '-' }}</td>
+                                <td>{{ $item->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $item->booking->harga_paket->paket->nama_paket }}</td>
+                                <td>{{ $item->fotografer->nama ?? '-' }}</td>
+                                <td>{{ $item->booking->fakultas ?? '-' }}</td>
+                                <td>{{ $item->booking->lokasi_foto ?? '-' }}</td>
+                                <td>
+                                    @if ($item->booking->post_foto == 'Bersedia')
+                                        <span class="badge badge-success">{{ $item->booking->post_foto }}</span>
+                                    @elseif ($item->booking->post_foto == 'Tidak Bersedia')
+                                        <span class="badge badge-danger">{{ $item->booking->post_foto }}</span>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>{{ $item->keterangan ?? '-' }}</td>
+
+                                {{-- STATUS FOTO --}}
+                                <td>
+                                    @if ($item->foto)
+                                        @php
+                                            $statusColors = [
+                                                'Sending' => 'secondary',
+                                                'Listing' => 'info',
+                                                'Editing' => 'primary',
+                                                'Complete' => 'success'
+                                            ];
+                                            $status = $item->foto->status_foto ?? '-'; // Jika null, set default "-"
+                                            $badgeClass = $statusColors[$status] ?? 'dark'; // Gunakan 'dark' jika status tidak dikenali
+                                        @endphp
+                                        @if ($status !== '-')
+                                            <span class="badge badge-{{ $badgeClass }}">{{ $status }}</span>
+                                        @else
+                                            -
+                                        @endif
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>{{ 'Rp ' . number_format($item->booking->harga_paket->harga, 0, ',', '.') ?? '-' }}</td>
+                                <td>{{ 'Rp ' . number_format($item->harga_paket_tambahan, 0, ',', '.') ?? '-' }}</td>
+                                <td>{{ 'Rp ' . number_format($item->booking->dp, 0, ',', '.') ?? '-' }}</td>
+                                <td>{{ 'Rp ' . number_format($item->kekurangan, 0, ',', '.') ?? '-' }}</td>
+                                <td>{{ 'Rp ' . number_format($item->pelunasan, 0, ',', '.') ?? '-' }}</td>
+                                <td>{{ 'Rp ' . number_format($item->total, 0, ',', '.') ?? '-' }}</td>
+                                <td>{{ 'Rp ' . number_format($item->freelance, 0, ',', '.') ?? '-' }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti TF">
                                             <i class="fas fa-file-image"></i>
                                         </a>
-                                        <a href="{{ route('admin.export.faktur',$item->id_pesanan) }}" target="_blank" class="btn btn-info btn-circle btn-sm mr-2" title="Faktur">
+                                        <a href="{{ route('admin.export.faktur',$item->id_pesanan) }}" target="_blank" class="btn btn-info btn-circle btn-sm mr-2 {{ $item->booking?->dp ? '' : 'disabled' }}" title="Faktur">
                                             <i class="fas fa-file"></i>
                                         </a>
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pesanan }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <form action="{{ route('admin.delete.pesanan',$item->id_pesanan) }}" method="POST" class="delete-form">
+                                        {{-- <form action="{{ route('admin.delete.pesanan',$item->id_pesanan) }}" method="POST" class="delete-form">
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
-                                        </form>
+                                        </form> --}}
                                     </div>
                                 </td>
                             </tr>
@@ -217,16 +246,6 @@
             });
         }
     </script>
-    {{-- <style>
-        .table-responsive {
-            overflow-x: scroll !important;
-            white-space: nowrap;
-        }
-
-        #pesanan {
-            min-width: 1500px; /* Sesuaikan dengan kebutuhan */
-        }
-    </style> --}}
     
 @include('validasi.notifikasi')
 @include('validasi.notifikasi-error')

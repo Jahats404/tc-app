@@ -20,7 +20,7 @@ class FotoController extends Controller
     {
         $validateData = $request->validate(
             $rules = [
-                'status_foto' =>'required|in:Editing,Complete',
+                'status_foto' =>'required|in:Sending,Listing,Editing,Complete',
                 'link' => 'required',
             ],
             $messages = [

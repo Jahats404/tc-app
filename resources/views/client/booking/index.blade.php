@@ -12,7 +12,10 @@
             </button>
         </div>
 
+
+
         @include('client.booking.modal-tambah-booking',['hargaPaket' => $hargaPaket])
+        
 
         {{-- Konten Card --}}
         <div class="card-body">
@@ -26,7 +29,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <h5 class="card-title text-primary mb-0">{{ $item->nama ?? '-' }}</h5>
-                                    <span class="badge badge-{{ $item->status_booking == 'Accepted' ? 'success' : ($item->status_booking == 'Pending' ? 'info' : ($item->status_booking == 'Rejected' ? 'danger' : 'warning')) }}">
+                                    <span class="badge badge-{{ $item->status_booking == 'Accepted' ? 'success' : ($item->status_booking == 'Pending' ? 'info' : ($item->status_booking == 'Rejected' ? 'warning' : ($item->status_booking == 'Cancelled' ? 'danger' : 'warning' ))) }}">
                                         {{ $item->status_booking }}
                                     </span>
                                 </div>
@@ -37,7 +40,9 @@
                                     <strong>Fotograger:</strong> {{ $item->pesanan?->fotografer?->nama ?? '-' }} <br>
                                     @if ($item?->pesanan?->foto)
                                         <strong>Status Foto:</strong> 
-                                        @if ($item->pesanan?->foto?->status_foto == 'Pending')
+                                        @if ($item->pesanan?->foto?->status_foto == 'Sending')
+                                            <span class="badge badge-secondary">{{ $item->pesanan?->foto?->status_foto }}</span>
+                                        @elseif ($item->pesanan?->foto?->status_foto == 'Listing')
                                             <span class="badge badge-info">{{ $item->pesanan?->foto?->status_foto }}</span>
                                         @elseif ($item->pesanan?->foto?->status_foto == 'Editing')
                                             <span class="badge badge-primary">{{ $item->pesanan?->foto?->status_foto }}</span>
@@ -70,28 +75,45 @@
                                             $antrianSekarang = $jumlahAntrian;
                                         }
                                     @endphp
-                                    @if ($item?->pesanan?->foto)
+                                    @if ($item?->pesanan?->foto->status_foto == 'Editing')
                                         <strong>Antrian Anda:</strong> <span class="badge badge-dark">{{ $antrianAnda }}</span> <br>
                                         <strong>Antrian Sekarang:</strong> <span class="badge badge-dark">{{ $antrianSekarang . '/' . $jumlahAntrian }}</span>
                                     @endif
                                 </p>
-                                <div class="d-flex justify-content-center flex-wrap">
-                                    <!-- Tombol File -->
-                                    <a href="{{ asset('storage/' . $item->file_dp) }}" class="btn btn-sm btn-info mt-3 mr-2" data-toggle="modal" data-target="#fileModal{{ $item->id_booking }}">
-                                        Bukti DP
-                                    </a>
-                                
+                            </div>
+                            <div class="d-flex justify-content-center flex-wrap mb-4">
+                                @if ($item->status_booking != 'Accepted')
                                     <!-- Tombol Update -->
                                     <button class="btn btn-sm btn-warning mt-3 mr-2" {{ $item->pesanan?->foto?->status_foto == 'Complete' ? 'disabled' : '' }} data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}">
                                         Lengkapi Data
                                     </button>
-                                
-                                    <!-- Tombol Lihat Detail -->
-                                    <button class="btn btn-sm btn-success mt-3 mr-2" data-toggle="modal" data-target="#detailModal{{ $item->id_booking }}">
-                                        Lihat Detail
+                                @endif
+                            
+                                <!-- Tombol File -->
+                                <a href="{{ asset('storage/' . $item->file_dp) }}" class="btn btn-sm btn-info mt-3 mr-2" data-toggle="modal" data-target="#fileModal{{ $item->id_booking }}">
+                                    Bukti DP
+                                </a>
+                            
+                                <button class="btn btn-sm btn-dark mt-3 mr-2" data-toggle="modal" data-target="#modalPelunasan{{ $item->id_booking }}">
+                                    Pelunasan
+                                </button>
+                            
+                                @if ($item->pesanan)
+                                    <!-- Tombol Pilih foto edit -->
+                                    <button class="btn btn-sm btn-primary mt-3 mr-2"  data-toggle="modal" 
+                                        {{ $item->pesanan->foto?->status_foto == 'Editing' || $item->pesanan->foto?->status_foto == 'Complete' ? '' : '' }} 
+                                        data-target="#modalEditFoto{{ $item->id_booking }}">
+                                            Pilih Foto Edit
                                     </button>
-                                
-                                    <!-- Form Delete -->
+                                @endif
+                            
+                                <!-- Tombol Lihat Detail -->
+                                <button class="btn btn-sm btn-success mt-3 mr-2" data-toggle="modal" data-target="#detailModal{{ $item->id_booking }}">
+                                    Lihat Detail
+                                </button>
+                            
+                                @if ($item->status_booking != 'Accepted')
+                                    <!-- Form cancle -->
                                     <form action="{{ route('client.ubah.status.booking', $item->id_booking) }}" method="POST" class="mt-3 mr-2" class="cancel-form">
                                         @csrf
                                         @method('put')
@@ -103,32 +125,20 @@
                                             title="Cancel"> Cancel
                                         </button>
                                     </form>
+                                @endif
                                 
-                                    @if ($item->pesanan)
-                                        <!-- Tombol Pilih foto edit -->
-                                        <button class="btn btn-sm btn-primary mt-3 mr-2"  data-toggle="modal" data-target="#modalEditFoto{{ $item->id_booking }}">
-                                            Pilih Foto Edit
-                                        </button>
-                                    @endif
-
-                                    <button class="btn btn-sm btn-dark mt-3 mr-2" data-toggle="modal" data-target="#modalPelunasan{{ $item->id_booking }}">
-                                        Pelunasan
+                                <!-- Form Delete -->
+                                {{-- <form action="{{ route('client.delete.booking', $item->id_booking) }}" method="POST" class="mt-3 me-2" class="delete-form">
+                                    @csrf
+                                    @method('delete')
+                                    <button 
+                                        type="submit" 
+                                        {{ $item->status_booking == 'Accepted' ? 'disabled' : '' }} 
+                                        class="btn btn-danger btn-sm delete-btn" 
+                                        title="Delete">
+                                        <i class="fas fa-trash"></i>
                                     </button>
-                                
-                                    <!-- Form Delete -->
-                                    {{-- <form action="{{ route('client.delete.booking', $item->id_booking) }}" method="POST" class="mt-3 me-2" class="delete-form">
-                                        @csrf
-                                        @method('delete')
-                                        <button 
-                                            type="submit" 
-                                            {{ $item->status_booking == 'Accepted' ? 'disabled' : '' }} 
-                                            class="btn btn-danger btn-sm delete-btn" 
-                                            title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
-                                    </form> --}}
-                                </div>
-                                
+                                </form> --}}
                             </div>
                         </div>
                     </div>
@@ -229,8 +239,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="kp_id" class="col-form-label">Pilih foto yang akan diedit</label>
-                                            <select class="form-control js-example-tokenizer" 
-                                                {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete' ? '' : '' }} 
+                                            <select class="form-control js-example-tokenizer"
+                                                {{ $item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete' ? 'disabled' : '' }} 
                                                 style="width: 100%; height: 300px;" 
                                                 multiple="multiple" name="foto_edit[]">
                                                 @if ($item->pesanan?->foto?->foto_edit)
@@ -247,7 +257,7 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                         @if ($item->pesanan?->foto?->status_foto == 'Editing' || $item->pesanan?->foto?->status_foto == 'Complete')
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        {{-- <button type="submit" class="btn btn-primary">Submit</button> --}}
                                         @else
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         @endif
@@ -289,9 +299,9 @@
                                         <li class="list-group-item"><strong>DP:</strong> {{ 'Rp ' . number_format($item->dp, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Jumlah Anggota:</strong> {{ $item->jumlah_anggota ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Request Khusus:</strong> {{ $item->req_khusus ?? '-' }}</li>
-                                        <li class="list-group-item"><strong>Instagram Vendor:</strong> {{ $item->ig_vendor ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>{{ \App\Models\Booking::$mua }}:</strong> {{ $item->ig_vendor ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Instagram Client:</strong> {{ $item->ig_client ?? '-' }}</li>
-                                        <li class="list-group-item"><strong>Post Foto:</strong> {{ $item->post_foto == 'yes' ? 'Yes' : 'No' }}</li>
+                                        <li class="list-group-item"><strong>Post Foto:</strong> {{ $item->post_foto == 'Bersedia' ? 'Bersedia' : 'Tidak Bersedia' }}</li>
                                     </ul>
                                 </div>
                                 <div class="modal-footer">
@@ -363,6 +373,7 @@
                 tags: true,                 // Mengizinkan input custom
                 allowClear: true,           // Mengizinkan penghapusan semua pilihan
                 placeholder: "-- Pilih Foto --", // Placeholder untuk dropdown
+                // maximumSelectionLength: 2,
                 createTag: function(params) {
                     var term = $.trim(params.term); // Menghapus spasi ekstra
                     if (term === '') {
@@ -377,7 +388,7 @@
                 tokenSeparators: [] // Menghapus pemisah token, memungkinkan input spasi
             });
             $(".js-paket-tambahan").select2({
-                tags: true,                 // Mengizinkan input custom
+                // tags: true,                 // Mengizinkan input custom
                 allowClear: true,           // Mengizinkan penghapusan semua pilihan
                 placeholder: "-- Pilih Paket Tambahan --", // Placeholder untuk dropdown
                 createTag: function(params) {
@@ -394,6 +405,25 @@
                 tokenSeparators: [] // Menghapus pemisah token, memungkinkan input spasi
             });
         // });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Inisialisasi Select2 saat modal ditampilkan
+            $('#modalTambah').on('shown.bs.modal', function () {
+                $('.js-example-basic-single').select2({
+                    dropdownParent: $('#modalTambah') // Pastikan dropdown berada dalam modal
+                });
+            });
+        });
+        $(document).ready(function() {
+            // Inisialisasi Select2 saat modal dengan ID yang dimulai dengan "modalEdit" ditampilkan
+            $('div[id^="modalEdit"]').on('shown.bs.modal', function () {
+                $(this).find('.js-example-basic-single-update').select2({
+                    dropdownParent: $(this) // Pastikan dropdown berada dalam modal yang benar
+                });
+            });
+        });
     </script>
 
 @include('validasi.notifikasi')

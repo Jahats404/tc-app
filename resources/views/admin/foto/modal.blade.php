@@ -41,6 +41,8 @@
                         <label for="status_foto" class="col-form-label">Status Foto</label>
                         <select id="inputState" name="status_foto" class="form-control">
                             <option value="">-- Pilih Status Foto --</option>
+                            <option value="Sending" {{ old('status_foto', $item->status_foto) == 'Sending' ? 'selected' : '' }}>Sending</option>
+                            <option value="Listing" {{ old('status_foto', $item->status_foto) == 'Listing' ? 'selected' : '' }}>Listing</option>
                             <option value="Editing" {{ old('status_foto', $item->status_foto) == 'Editing' ? 'selected' : '' }}>Editing</option>
                             <option value="Complete" {{ old('status_foto', $item->status_foto) == 'Complete' ? 'selected' : '' }}>Complete</option>
                         </select>
@@ -55,6 +57,20 @@
                         @error('link')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="list_foto">List Foto Edit</label>
+                        @php
+                            $fotoEdit = json_decode($item->foto_edit);
+                            // dd($fotoEdit);
+                        @endphp
+                        @if ($item->foto_edit)
+                            <ul class="list-group">
+                                @foreach ($fotoEdit as $list)
+                                    <li class="list-group-item">{{ $list }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </div>
                 <div class="modal-footer">

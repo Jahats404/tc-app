@@ -2,7 +2,7 @@
 <form action="{{ route('admin.store.booking') }}" method="POST">
     @csrf
     <div class="modal fade" id="modalTambah" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="modalTambahLabel">Tambah Booking</h5>
@@ -88,7 +88,7 @@
                     </div> --}}
                     <div class="form-group">
                         <label for="harga_paket_id" class="col-form-label">Paket</label>
-                        <select id="harga_paket_id" name="harga_paket_id" class="form-control @error('harga_paket_id') is-invalid @enderror">
+                        <select id="harga_paket_id" name="harga_paket_id" class="form-control js-example-basic-single @error('harga_paket_id') is-invalid @enderror">
                             <option selected disabled value="">--Pilih Paket--</option>
                             @foreach ($hargaPaket as $harga)
                                 <option value="{{ $harga->id_harga_paket }}" 
@@ -109,7 +109,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="ig_vendor" class="col-form-label">IG Vendor</label>
+                        <label for="ig_vendor" class="col-form-label">{{ \App\Models\Booking::$mua }}</label>
                         <input type="text" value="{{ old('ig_vendor') }}" name="ig_vendor" class="form-control @error('ig_vendor') is-invalid @enderror" id="ig_vendor">
                         @error('ig_vendor')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -126,8 +126,8 @@
                         <label for="post_foto" class="col-form-label">Post Foto</label>
                         <select id="post_foto" name="post_foto" class="form-control @error('post_foto') is-invalid @enderror">
                             <option selected disabled value="">--Pilih--</option>
-                            <option value="yes" {{ old('post_foto') == 'yes' ? 'selected' : '' }}>yes</option>
-                            <option value="no" {{ old('post_foto') == 'no' ? 'selected' : '' }}>no</option>
+                            <option value="Bersedia" {{ old('post_foto') == 'Bersedia' ? 'selected' : '' }}>Bersedia</option>
+                            <option value="Tidak Bersedia" {{ old('post_foto') == 'Tidak Bersedia' ? 'selected' : '' }}>Tidak Bersedia</option>
                         </select>
                         @error('post_foto')
                             <div class="invalid-feedback">{{ $message }}</div>
@@ -141,7 +141,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="req_khusus" class="col-form-label">Req Khusus</label>
+                        <label for="req_khusus" class="col-form-label">Catatan</label>
                         <textarea name="req_khusus" class="form-control @error('req_khusus') is-invalid @enderror" id="req_khusus" rows="3">{{ old('req_khusus') }}</textarea>
                         @error('req_khusus')
                             <div class="invalid-feedback">{{ $message }}</div>

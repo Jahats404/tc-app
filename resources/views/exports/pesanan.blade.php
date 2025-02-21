@@ -70,6 +70,7 @@
             <th>KOTA</th>
             <th>UNIVERSITAS / VENUE</th>
             <th>NAMA</th>
+            <th>NOMOR WA</th>
             <th>WAKTU</th>
             <th>PAKET</th>
             <th>FOTOGRAFER</th>
@@ -84,7 +85,6 @@
             <th>PELUNASAN</th>
             <th>TOTAL</th>
             <th>FREELANCE</th>
-            <th>NOMOR WA</th>
         </tr>
         <!-- Data -->
         @foreach ($pesanan as $key => $data)
@@ -95,6 +95,7 @@
                 <td>{{ $data->booking->kota }}</td>
                 <td>{{ $data->booking->universitas }}</td>
                 <td>{{ $data->booking->nama }}</td>
+                <td>{{ '+' . $data->booking->no_wa }}</td>
                 <td>{{ $data->booking->jam }} - {{ $data->booking->jam_selesai }}</td>
                 <td>{{ $data->booking->harga_paket->paket->kategori_paket->nama_kategori }} {{ $data->booking->harga_paket->paket->nama_paket }}</td>
                 <td>{{ $data->fotografer->nama ?? '-' }}</td>
@@ -109,7 +110,6 @@
                 <td>{{ number_format($data->pelunasan, 0, ',', '.') }}</td>
                 <td>{{ number_format($data->total, 0, ',', '.') }}</td>
                 <td>{{ number_format($data->freelance, 0, ',', '.') }}</td>
-                <td>{{ $data->booking->no_wa }}</td>
             </tr>
         @endforeach
     </table>

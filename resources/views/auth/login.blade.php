@@ -73,6 +73,10 @@
                                         <a class="small" href="{{ route('register') }}">Buat Akun!</a>
                                         {{-- <a class="small" href="">Buat Akun!</a> --}}
                                     </div>
+                                    <div class="text-center">
+                                        <a class="small" href="/">Kembali ke Halaman Utama</a>
+                                        {{-- <a class="small" href="">Lupa Password?</a> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
