@@ -32,6 +32,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
 use App\Exports\PesananExport;
+use App\Http\Controllers\Admin\FotoLandingController;
 use Maatwebsite\Excel\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
@@ -50,9 +51,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 // Route::get('/', [AdminDashboardController::class, 'landing'])->name('landing');
 
-Route::get('select', function () {
-    return view('auth.selec2');
-});
+
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('authenticate', [AuthController::class, 'authenticate'])->name('authenticate');
@@ -83,6 +82,12 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->name('admin.')->middleware('CekUserLogin:1')->group(function () {
         //DASHBOARD
         Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        
+        //FOTO HOME
+        Route::get('foto-home', [FotoLandingController::class, 'index'])->name('foto.landing');
+        Route::post('foto-home/store', [FotoLandingController::class, 'store'])->name('store.foto.landing');
+        Route::put('foto-home/update/{id}', [FotoLandingController::class, 'update'])->name('update.foto.landing');
+        Route::delete('foto-home/delete/{id}', [FotoLandingController::class, 'delete'])->name('delete.foto.landing');
         
         //ROLES
         Route::get('roles', [RolesController::class, 'index'])->name('roles');

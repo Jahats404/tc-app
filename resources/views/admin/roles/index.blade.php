@@ -14,17 +14,17 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>No</th>
-                            <th>ID ROLES</th>
-                            <th>NAMA LEVEL</th>
+                            <th class="text-center">No</th>
+                            <th class="text-center">ID ROLES</th>
+                            <th class="text-center">NAMA LEVEL</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($role as $item)
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->id_role }}</td>
-                                <td>{{ $item->level }}</td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->id_role }}</td>
+                                <td class="text-center">{{ $item->level }}</td>
                             </tr>
                         @endforeach
                     </tbody>

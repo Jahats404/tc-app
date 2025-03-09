@@ -4,104 +4,22 @@
 <!-- ***** Hero Area Start ***** -->
 <section class="hero-area">
     <div class="hero-slides owl-carousel">
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url(landing/img/bg-img/ugm1.jpg);">
-            <div class="container h-100">
-                <div class="row h-100 align-items-end">
-                    <div class="col-12">
-                        <div class="hero-slides-content">
-                            <div class="line"></div>
-                            <h2>Universitas Gadjah Mada</h2>
-                            <p>Kebahagiaan bersama keluarga di jantung Yogyakarta.</p>
+        @foreach ($foto as $item)
+            <!-- Single Hero Slide -->
+            <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url({{ asset('storage/' . $item->foto) }});">
+                <div class="container h-100">
+                    <div class="row h-100 align-items-end">
+                        <div class="col-12">
+                            <div class="hero-slides-content">
+                                <div class="line"></div>
+                                <h2>{{ $item->univ }}</h2>
+                                <p>{{ $item->keterangan }}.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url(landing/img/bg-img/ui1.jpg);">
-            <div class="container h-100">
-                <div class="row h-100 align-items-end">
-                    <div class="col-12">
-                        <div class="hero-slides-content">
-                            <div class="line"></div>
-                            <h2>Universitas Indonesia</h2>
-                            <p>Mengabadikan momen kelulusan di tempat yang penuh kenangan, UI.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url(landing/img/bg-img/uii1.jpg);">
-            <div class="container h-100">
-                <div class="row h-100 align-items-end">
-                    <div class="col-12">
-                        <div class="hero-slides-content">
-                            <div class="line"></div>
-                            <h2>Universitas Islam Indonesia</h2>
-                            <p>Wisuda adalah tentang merayakan pencapaian bersama teman-teman terbaik.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url(landing/img/bg-img/unpad1.jpg);">
-            <div class="container h-100">
-                <div class="row h-100 align-items-end">
-                    <div class="col-12">
-                        <div class="hero-slides-content">
-                            <div class="line"></div>
-                            <h2>Universitas Padjadjaran</h2>
-                            <p>Tangkap momen kemenangan penuh ekspresi kebahagiaan di UNPAD.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url(landing/img/bg-img/unair1.jpg);">
-            <div class="container h-100">
-                <div class="row h-100 align-items-end">
-                    <div class="col-12">
-                        <div class="hero-slides-content">
-                            <div class="line"></div>
-                            <h2>Universitas Airlangga</h2>
-                            <p>Gerbang utama kampus yang menjadi saksi perjalanan akademis Anda.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url(landing/img/bg-img/undip1.jpg);">
-            <div class="container h-100">
-                <div class="row h-100 align-items-end">
-                    <div class="col-12">
-                        <div class="hero-slides-content">
-                            <div class="line"></div>
-                            <h2>Universitas Diponegoro</h2>
-                            <p>Memperlihatkan kebanggaan atas pencapaian bersama UNDIP.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Single Hero Slide -->
-        <div class="single-hero-slide bg-img slide-background-overlay" style="background-image: url(landing/img/bg-img/uns1.jpg);">
-            <div class="container h-100">
-                <div class="row h-100 align-items-end">
-                    <div class="col-12">
-                        <div class="hero-slides-content">
-                            <div class="line"></div>
-                            <h2>Universitas Sebelas Maret</h2>
-                            <p>Persahabatan seumur hidup dimulai dari sini, UNS.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
 </section>
 <!-- ***** Hero Area End ***** -->

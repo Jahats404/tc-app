@@ -26,6 +26,12 @@
             <span>Dashboard</span>
         </a>
     </li>
+    <li class="nav-item {{ Request::routeIs('admin.foto.landing') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.foto.landing') }}">
+            <i class="fas fa-fw fa-image"></i>
+            <span>Foto Home</span>
+        </a>
+    </li>
     <hr class="sidebar-divider d-none d-md-block">
     <div class="sidebar-heading">
         Master
