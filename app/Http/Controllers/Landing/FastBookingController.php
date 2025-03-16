@@ -21,7 +21,6 @@ class FastBookingController extends Controller
     {
         $rules = [
             'email' => 'email',
-            'tanggal' => 'date',
         ];
 
         $validate = $request->validate($rules);

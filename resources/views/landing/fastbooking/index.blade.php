@@ -41,25 +41,25 @@
                             <div class="row">
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Nama *</label>
+                                        <label for="">Nama*</label>
                                         <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Anda" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Email *</label>
+                                        <label for="">Email*</label>
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Email Anda" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">No.WA *</label>
+                                        <label for="">No.WA*</label>
                                         <input type="number" class="form-control" id="no_wa" name="no_wa" placeholder="No. WhatsApp" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Instagram *</label>
+                                        <label for="">Instagram</label>
                                         <input type="text" class="form-control" id="ig_client" name="ig_client" placeholder="Instagram Anda">
                                     </div>
                                 </div>
@@ -71,13 +71,13 @@
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Universitas *</label>
+                                        <label for="">Universitas*</label>
                                         <input type="text" class="form-control" id="universitas" name="universitas" placeholder="Asal Universitas" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Area *</label>
+                                        <label for="">Area*</label>
                                         <input type="text" class="form-control" id="kota" name="kota" placeholder="Asal Kota" required>
                                         {{-- <select class="form-control" name="kota" id="kota">
                                             <option value="">-- Pilih Area --</option>
@@ -110,7 +110,7 @@
             const kota = document.getElementById('kota').value;
     
             // Validasi form
-            if (!nama || !email || !noWa || !tanggal || !universitas || !kota) {
+            if (!nama || !email || !noWa || !universitas || !kota) {
                 alert('Harap lengkapi semua field yang bertanda *');
                 return;
             }

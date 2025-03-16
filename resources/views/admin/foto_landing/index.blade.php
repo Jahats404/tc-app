@@ -12,6 +12,21 @@
             </button>
         </div>
 
+        <style>
+            .modal-body {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+        
+            #preview_foto {
+                max-width: 100%;
+                height: auto;
+                max-height: 200px;
+                display: none;
+                object-fit: contain;
+            }
+        </style>
+
         <div class="modal fade" id="modalTambah" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
@@ -45,6 +60,7 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            
                             <div class="form-group">
                                 <label for="foto" class="col-form-label">Upload Foto</label>
                                 <input 

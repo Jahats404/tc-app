@@ -34,6 +34,28 @@
     </li>
     <hr class="sidebar-divider d-none d-md-block">
     <div class="sidebar-heading">
+        PEMESANAN
+    </div>
+    <li class="nav-item {{ Request::routeIs('admin.booking') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.booking') }}">
+            <i class="fas fa-fw fa-location-arrow"></i>
+            <span>Booking</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::routeIs('admin.pesanan') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.pesanan') }}">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>Pesanan</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::routeIs('admin.foto') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.foto') }}">
+            <i class="fas fa-fw fa-camera-retro"></i>
+            <span>Foto</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <div class="sidebar-heading">
         Master
     </div>
     <li class="nav-item {{ Request::routeIs('admin.roles') ? 'active' : '' }}">
@@ -86,28 +108,6 @@
         <a class="nav-link" href="{{ route('admin.paket-tambahan') }}">
             <i class="fas fa-fw fa-gifts"></i>
             <span>Paket Tambahan</span>
-        </a>
-    </li>
-    <hr class="sidebar-divider d-none d-md-block">
-    <div class="sidebar-heading">
-        PEMESANAN
-    </div>
-    <li class="nav-item {{ Request::routeIs('admin.booking') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.booking') }}">
-            <i class="fas fa-fw fa-location-arrow"></i>
-            <span>Booking</span>
-        </a>
-    </li>
-    <li class="nav-item {{ Request::routeIs('admin.pesanan') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.pesanan') }}">
-            <i class="fas fa-fw fa-money-bill"></i>
-            <span>Pesanan</span>
-        </a>
-    </li>
-    <li class="nav-item {{ Request::routeIs('admin.foto') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.foto') }}">
-            <i class="fas fa-fw fa-camera-retro"></i>
-            <span>Foto</span>
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
