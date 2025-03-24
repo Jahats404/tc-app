@@ -6,8 +6,10 @@
                 <div class="menu-area d-flex justify-content-between">
                     <!-- Logo Area  -->
                     <div class="logo-area">
-                        <a href="{{ route('home') }}">Tersimpan Cerita</a>
-                    </div>
+                        <a href="{{ route('home') }}">
+                            <img src="landing/img/core-img/logotc.png" alt="Tersimpan Cerita" style="height: 40px;">
+                        </a>
+                    </div>                    
 
                     <div class="menu-content-area d-flex align-items-center">
                         <!-- Header Social Area -->

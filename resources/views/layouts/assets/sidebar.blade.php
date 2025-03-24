@@ -5,7 +5,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Tersimpan Cerita </div>
+        <img src="landing/img/core-img/logotc.png" alt="Tersimpan Cerita" class="sidebar-brand-text mx-3" style="height: 40px;">
     </a>
 
     <!-- Divider -->

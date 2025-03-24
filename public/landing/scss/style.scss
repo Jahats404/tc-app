@@ -1,5 +1,6 @@
 /* [ -- Master Stylesheet -- ] */
 
+
 /* ----------------------------------------------------------
 :: Template Name: Sonar - Photography Template
 :: Author: Colorlib
@@ -125,7 +126,6 @@ a {
 @-webkit-keyframes sonar {
     0% {
         @include transform(rotate(0deg));
-
     }
     100% {
         @include transform(rotate(360deg));
@@ -135,7 +135,6 @@ a {
 @keyframes sonar {
     0% {
         @include transform(rotate(0deg));
-
     }
     100% {
         @include transform(rotate(360deg));
@@ -531,6 +530,7 @@ img {
     }
 }
 
+
 /* :: Header Area CSS */
 
 .header-area {
@@ -684,11 +684,13 @@ img {
     }
 }
 
+
 /* :: Menu Open CSS */
 
 .menu-open .mainMenu {
     right: 0;
 }
+
 
 /* :: Hero Slides Area CSS */
 
@@ -759,6 +761,7 @@ img {
         }
     }
 }
+
 
 /* :: Portfolio Area CSS */
 
@@ -928,6 +931,7 @@ img {
     }
 }
 
+
 /* :: Call to Action Area CSS */
 
 .call-to-action-content {
@@ -985,6 +989,7 @@ img {
     }
 }
 
+
 /* :: Footer CSS */
 
 .footer-area {
@@ -1038,6 +1043,7 @@ img {
     }
 }
 
+
 /* :: Hero Area CSS */
 
 .hero-area {
@@ -1056,7 +1062,6 @@ img {
             @include transform(translateY(-50%));
         }
     }
-
     .hero-thumbnail,
     .hero-content {
         @include flex(0 0 50%);
@@ -1128,6 +1133,7 @@ img {
     }
 }
 
+
 /* :: Service Area CSS */
 
 .single-services-area {
@@ -1145,6 +1151,7 @@ img {
         margin-bottom: 0;
     }
 }
+
 
 /* :: Testimonials Area CSS */
 
@@ -1218,6 +1225,7 @@ img {
     }
 }
 
+
 /* :: Portfolio Area CSS */
 
 .sonar-projects-area {
@@ -1282,6 +1290,7 @@ img {
         bottom: 20px;
     }
 }
+
 
 /* :: Blog Area CSS */
 
@@ -1431,6 +1440,7 @@ img {
     }
 }
 
+
 /* :: Contact Area CSS */
 
 .contact-form {
@@ -1502,6 +1512,7 @@ img {
         margin: 0 20px;
     }
 }
+
 
 /* :: About Area CSS */
 
@@ -1606,6 +1617,7 @@ img {
     }
 }
 
+
 /* :: Shortcode Area CSS */
 
 .elements-title {
@@ -1621,6 +1633,7 @@ img {
         }
     }
 }
+
 
 /* Accordians */
 
@@ -1689,6 +1702,7 @@ img {
     }
 }
 
+
 /* Cool Facts CSS */
 
 .single-cool-fact-area {
@@ -1711,6 +1725,7 @@ img {
     }
 }
 
+
 /* Barfiller */
 
 .single_progress_bar {
@@ -1720,7 +1735,6 @@ img {
     }
     p {
         margin-bottom: 0;
-
     }
     .barfiller {
         background-color: #e0e0e0;
@@ -1768,5 +1782,6 @@ img {
         margin-bottom: 30px;
     }
 }
+
 
 /* The end */

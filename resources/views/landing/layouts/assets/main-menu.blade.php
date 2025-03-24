@@ -6,10 +6,12 @@
     </div>
     <!-- Logo Area -->
     <div class="logo-area">
-        <a href="{{ route('home') }}">Tersimpan Cerita</a>
-    </div>
+        <a href="{{ route('home') }}">
+            <img src="landing/img/core-img/logotc.png" alt="Tersimpan Cerita" style="height: 40px;">
+        </a>
+    </div>  
     <!-- Nav -->
-    <div class="sonarNav wow fadeInUp" data-wow-delay="1s">
+    <div class="sonarNav fadeInUp" data-wow-delay="1s">
         <nav>
             <ul>
                 <li class="nav-item active">
@@ -29,6 +31,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('fastbooking') }}">Fast Booking</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('login') }}" class="nav-link">Login</a>
                 </li>
             </ul>
         </nav>

@@ -607,6 +607,12 @@ img {
     -o-border-radius: 20;
 }
 
+@media (max-width: 768px) {
+    .login-btn {
+        display: none !important;
+    }
+}
+
 .login-btn:hover,
 .login-btn:focus {
     background-color: #2f2f2f;
@@ -1101,7 +1107,7 @@ img {
 /* :: Portfolio Area CSS */
 
 .portfolio-area {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .portfolio-area .portfolio-title h2 {
