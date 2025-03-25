@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-dark">
 
     <div class="container">
 
@@ -42,7 +42,7 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center bg-login-image">
-                                <img src="{{ asset('/') }}img/almawa.png" alt="" class="img-fluid ml-3">
+                                <img src="img/tc-hitam.png" alt="" class="img-fluid ml-5">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">

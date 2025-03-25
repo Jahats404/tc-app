@@ -35,49 +35,49 @@
                     <div class="contact-form text-center">
 
                         <h2>Fast Book Now</h2>
-
+                        <br>
                         <form id="fastBookingForm" action="{{ route('store.fastbooking') }}" method="post">
                             @csrf
                             <div class="row">
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Nama*</label>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Nama*</label>
                                         <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Anda" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Email*</label>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Email*</label>
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Email Anda" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">No.WA*</label>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">No.WA*</label>
                                         <input type="number" class="form-control" id="no_wa" name="no_wa" placeholder="No. WhatsApp" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Instagram</label>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Instagram</label>
                                         <input type="text" class="form-control" id="ig_client" name="ig_client" placeholder="Instagram Anda">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Tanggal Foto</label>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Tanggal Foto</label>
                                         <input type="date" class="form-control" id="tanggal" name="tanggal">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Universitas*</label>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Universitas*</label>
                                         <input type="text" class="form-control" id="universitas" name="universitas" placeholder="Asal Universitas" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="">Area*</label>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Area*</label>
                                         <input type="text" class="form-control" id="kota" name="kota" placeholder="Asal Kota" required>
                                         {{-- <select class="form-control" name="kota" id="kota">
                                             <option value="">-- Pilih Area --</option>
@@ -100,49 +100,79 @@
 
     <script>
         document.getElementById('submitForm').addEventListener('click', function () {
-            // Ambil data dari form
-            const nama = document.getElementById('nama').value;
-            const email = document.getElementById('email').value;
-            const noWa = document.getElementById('no_wa').value;
-            const igClient = document.getElementById('ig_client').value || '-';
-            const tanggal = document.getElementById('tanggal').value;
-            const universitas = document.getElementById('universitas').value;
-            const kota = document.getElementById('kota').value;
-    
-            // Validasi form
-            if (!nama || !email || !noWa || !universitas || !kota) {
-                alert('Harap lengkapi semua field yang bertanda *');
-                return;
-            }
-    
-            // Format pesan WhatsApp
-            const message = `Halo kak, saya dengan biodata berikut:
+    // Ambil data dari form
+    const nama = document.getElementById('nama').value;
+    const email = document.getElementById('email').value;
+    const noWa = document.getElementById('no_wa').value;
+    const igClient = document.getElementById('ig_client').value || '-';
+    const tanggalRaw = document.getElementById('tanggal').value;
+    const universitas = document.getElementById('universitas').value;
+    const kota = document.getElementById('kota').value;
 
-Nama: ${nama}
-Email: ${email}
-No. WA: ${noWa}
-Instagram: ${igClient}
-Tanggal Foto: ${tanggal}
-Universitas: ${universitas}
-Area: ${kota}
+    // Validasi form
+    if (!nama || !email || !noWa || !universitas || !kota) {
+        alert('Harap lengkapi semua field yang bertanda *');
+        return;
+    }
 
-Saya ingin meminta price list.
-                        `.trim();
-    
-            // Encode pesan untuk URL
-            const encodedMessage = encodeURIComponent(message);
-    
-            // Nomor tujuan WhatsApp
-            const whatsappNumber = '6285878653934';
-    
-            // Buat URL WhatsApp
-            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-    
-            // Redirect ke WhatsApp
-            window.open(whatsappUrl, '_blank');
-    
-            // Submit form ke server
-            document.getElementById('fastBookingForm').submit();
+    // Ubah format tanggal dari yyyy-mm-dd ke dd/mm/yyyy
+    let tanggalFormatted = '-';
+    if (tanggalRaw) {
+        const dateObj = new Date(tanggalRaw);
+        tanggalFormatted = dateObj.toLocaleDateString('id-ID', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+    }
+
+    // Format pesan WhatsApp
+    const message = `Halo kak, saya dengan biodata berikut:
+
+*Nama:* ${nama}
+*Email:* ${email}
+*No. WA:* ${noWa}
+*Instagram:* ${igClient}
+*Tanggal Foto:* ${tanggalFormatted}
+*Universitas:* ${universitas}
+*Area:* ${kota}
+
+Saya ingin meminta price list.`.trim();
+
+    // Encode pesan untuk URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // Nomor tujuan WhatsApp
+    const whatsappNumber = '6285156272866';
+
+    // Buat URL WhatsApp
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    // Redirect ke WhatsApp
+    window.open(whatsappUrl, '_blank');
+
+    // Submit form ke server
+    document.getElementById('fastBookingForm').submit();
+});
+
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector('a[href="#fastbooking"]').addEventListener("click", function(e) {
+                e.preventDefault();
+                let target = document.querySelector("#fastbooking");
+
+                if (target) {
+                    let offset = 80; // Sesuaikan jika ada header tetap
+                    let targetPosition = target.getBoundingClientRect().top + window.scrollY - offset;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
         });
     </script>
 

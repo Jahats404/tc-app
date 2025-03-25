@@ -12,7 +12,7 @@
                     <div class="col-12 col-md-8">
                         <div class="line"></div>
                         <h2>I provide top quality packages</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
+                        <p>Choose the perfect photo package that suits your needs. We offer a variety of options with the best quality to capture your special graduation moment.</p>
                     </div>
                 </div>
             </div>
@@ -93,7 +93,7 @@
                         <div class="testimonial-slides owl-carousel">
 
                             <div class="single-tes-slide">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui. Suspendisse sit amet laoreet neque. Fusce sagittis suscipit sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui. Suspendisse sit amet laoreet neque.</p>
+                                <p style="color: black">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui. Suspendisse sit amet laoreet neque. Fusce sagittis suscipit sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui. Suspendisse sit amet laoreet neque.</p>
                                 <h6>Maria Smith, Bride</h6>
                             </div>
 
@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div class="cool-facts-area section-padding-100-0">
+    {{-- <div class="cool-facts-area section-padding-100-0">
         <div class="container">
             <div class="row align-items-center">
                 <!-- Single Cool Fact-->
@@ -176,7 +176,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- ***** Call to Action Area Start ***** -->
     <div class="sonar-call-to-action-area bg-gray section-padding-100">

@@ -1,11 +1,8 @@
-<ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <img src="landing/img/core-img/logotc.png" alt="Tersimpan Cerita" class="sidebar-brand-text mx-3" style="height: 40px;">
+        <img src="{{ asset('landing/img/core-img/logotc.png') }}" alt="Tersimpan Cerita" class="sidebar-brand-text mx-3" style="height: 40px;">
     </a>
 
     <!-- Divider -->
@@ -29,7 +26,7 @@
     <li class="nav-item {{ Request::routeIs('admin.foto.landing') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.foto.landing') }}">
             <i class="fas fa-fw fa-image"></i>
-            <span>Foto Home</span>
+            <span>Foto Landing</span>
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">

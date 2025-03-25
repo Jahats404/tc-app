@@ -43,12 +43,12 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/2.jpg" alt="">
+                        <img src="landing/img/home-sample/binus.jpg" alt="">
                     </div>
-                    <div class="portfolio-meta">
+                    {{-- <div class="portfolio-meta">
                         <p class="portfolio-date">Sep 06, 2024</p>
                         <h2>Graduation Group photoshoot</h2>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <!-- Single Portfoio Area -->
@@ -58,11 +58,7 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/2.jpg" alt="">
-                    </div>
-                    <div class="portfolio-meta">
-                        <p class="portfolio-date">Sep 06, 2024</p>
-                        <h2>Graduation Group photoshoot</h2>
+                        <img src="landing/img/home-sample/presiden.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -74,14 +70,9 @@
                 <div class="single-portfolio-item mt-100 portfolio-item-3 wow fadeIn">
                     <div class="backend-content">
                         <img class="dots" src="img/core-img/dots.png" alt="">
-                        <h2>Photography</h2>
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/3.jpg" alt="">
-                    </div>
-                    <div class="portfolio-meta">
-                        <p class="portfolio-date">Jan 21, 2025</p>
-                        <h2>Morning graduation photoshoot</h2>
+                        <img src="landing/img/home-sample/trisakti.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -95,11 +86,7 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/4.jpg" alt="">
-                    </div>
-                    <div class="portfolio-meta">
-                        <p class="portfolio-date">Jan 20, 2025</p>
-                        <h2>Morning graduation photoshoot</h2>
+                        <img src="landing/img/home-sample/ui.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -111,14 +98,9 @@
                 <div class="single-portfolio-item portfolio-item-5 wow fadeIn">
                     <div class="backend-content">
                         <img class="dots" src="img/core-img/dots.png" alt="">
-                        <h2>Hope</h2>
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/5.jpg" alt="">
-                    </div>
-                    <div class="portfolio-meta">
-                        <p class="portfolio-date">Jan 19, 2025</p>
-                        <h2>Two session graduation photoshoot</h2>
+                        <img src="landing/img/home-sample/undip.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -130,14 +112,10 @@
                 <div class="single-portfolio-item portfolio-item-7 wow fadeIn">
                     <div class="backend-content">
                         <img class="dots" src="img/core-img/dots.png" alt="">
-                        <h2>Future</h2>
+                        {{-- <h2>Future</h2> --}}
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/bg-img/7.jpg" alt="">
-                    </div>
-                    <div class="portfolio-meta">
-                        <p class="portfolio-date">Jan 17, 2025</p>
-                        <h2>Pre-graduation photoshoot</h2>
+                        <img src="landing/img/home-sample/unes.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -148,9 +126,6 @@
 
 <!-- ***** Call to Action Area Start ***** -->
 <div class="sonar-call-to-action-area section-padding-0-100">
-    <div class="backEnd-content">
-        <h2>Dream</h2>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-12">

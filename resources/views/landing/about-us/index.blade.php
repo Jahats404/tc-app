@@ -8,7 +8,7 @@
         </div>
 
         <!-- Hero Thumbnail -->
-        <div class="hero-thumbnail aboutUs equalize bg-img" style="background-image: url(landing/img/bg-img/about1.jpg);"></div>
+        <div class="hero-thumbnail aboutUs equalize bg-img" style="background-image: url(landing/img/home-sample/unpad.jpg);"></div>
         
         <!-- Hero Content -->
         <div class="hero-content aboutUs equalize">
@@ -26,11 +26,7 @@
     </div>
     <!-- ***** Hero Area End ***** -->
 
-    <div class="sonar-about-us-area bg-img" style="background-image: url(landing/img/bg-img/1.jpg);">
-        <!-- Back End Content -->
-        <div class="backEnd-content">
-            <h2>Dream</h2>
-        </div>
+    <div class="sonar-about-us-area bg-img" style="background-image: url(landing/img//home-sample/unpad.jpg);">
 
         <div class="container-fluid">
             <div class="row">
@@ -41,44 +37,11 @@
                             <h2>Look at our qualities</h2>
                         </div>
                         <p style="color: black">Our team is dedicated to capturing moments with precision and creativity, ensuring that each project meets the highest standards of quality. We pride ourselves on being a reliable partner, committed to bringing your vision to life through our photography.</p>
+                        <p style="color: black">We look forward to the opportunity to work with you and demonstrate why we are considered one of the best in the industry.</p>
                         <!-- Progress Bar Content Area -->
-                        <div class="services-progress-bar mt-50 wow fadeInUp" data-wow-delay="900ms">
-                            <!-- Single Progress Bar -->
-                            <div class="single_progress_bar">
-                                <div id="bar1" class="barfiller">
-                                    <div class="tipWrap">
-                                        <span class="tip"></span>
-                                    </div>
-                                    <span class="fill" data-percentage="80"></span>
-                                </div>
-                                <p>Pacience</p>
-                            </div>
-                            <!-- Single Progress Bar -->
-                            <div class="single_progress_bar">
-                                <div id="bar2" class="barfiller">
-                                    <div class="tipWrap">
-                                        <span class="tip"></span>
-                                    </div>
-                                    <span class="fill" data-percentage="90"></span>
-                                </div>
-                                <p>Creativity</p>
-                            </div>
-                            <!-- Single Progress Bar -->
-                            <div class="single_progress_bar">
-                                <div id="bar3" class="barfiller">
-                                    <div class="tipWrap">
-                                        <span class="tip"></span>
-                                    </div>
-                                    <span class="fill" data-percentage="100"></span>
-                                </div>
-                                <p>Commited</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-   
 @endsection
