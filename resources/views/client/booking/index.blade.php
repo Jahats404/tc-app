@@ -299,7 +299,7 @@
                                         <li class="list-group-item"><strong>DP:</strong> {{ 'Rp ' . number_format($item->dp, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Jumlah Anggota:</strong> {{ $item->jumlah_anggota ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Request Khusus:</strong> {{ $item->req_khusus ?? '-' }}</li>
-                                        <li class="list-group-item"><strong>{{ \App\Models\Booking::$mua }}:</strong> {{ $item->ig_vendor ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>{{ \App\Models\Booking::$mua }}:</strong> {{ $item->mua ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Instagram Client:</strong> {{ $item->ig_client ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Post Foto:</strong> {{ $item->post_foto == 'Bersedia' ? 'Bersedia' : 'Tidak Bersedia' }}</li>
                                     </ul>

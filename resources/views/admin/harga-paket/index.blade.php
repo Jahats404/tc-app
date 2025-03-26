@@ -6,7 +6,7 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-wrap align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Paket</h6>
+            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Harga Paket</h6>
             <button type="button" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0" data-toggle="modal" data-target="#modalTambah">
                 <i class="fas fa-solid fa-folder-plus fa-sm text-white-50"></i> Tambah Harga
             </button>
@@ -71,21 +71,21 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>NAMA PAKET</th>
-                            <th>GOLONGAN WILAYAH</th>
-                            <th>HARGA PAKET</th>
-                            <th>AKSI</th>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">NAMA PAKET</th>
+                            <th class="text-center">GOLONGAN WILAYAH</th>
+                            <th class="text-center">HARGA PAKET</th>
+                            <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($hargaPaket as $item)
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->paket->kategori_paket->nama_kategori . ' ' . $item->paket->nama_paket }}</td>
-                                <td>{{ $item->golongan }}</td>
-                                <td>{{ 'Rp ' . number_format($item->harga, 0, ',', '.') }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->paket->kategori_paket->nama_kategori . ' ' . $item->paket->nama_paket }}</td>
+                                <td class="text-center">{{ $item->golongan }}</td>
+                                <td class="text-center">{{ 'Rp ' . number_format($item->harga, 0, ',', '.') }}</td>
+                                <td class="text-center">
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-success btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id_harga_paket }}"  title="Detail">
                                             <i class="fas fa-solid fa-eye"></i>

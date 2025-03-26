@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <img src="{{ asset('landing/img/core-img/logotc.png') }}" alt="Tersimpan Cerita" class="sidebar-brand-text mx-3" style="height: 40px;">
     </a>
 
@@ -21,12 +21,6 @@
         <a class="nav-link" href="{{ route('admin.dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
-        </a>
-    </li>
-    <li class="nav-item {{ Request::routeIs('admin.foto.landing') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.foto.landing') }}">
-            <i class="fas fa-fw fa-image"></i>
-            <span>Foto Landing</span>
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
@@ -51,28 +45,7 @@
             <span>Foto</span>
         </a>
     </li>
-    <hr class="sidebar-divider d-none d-md-block">
-    <div class="sidebar-heading">
-        Master
-    </div>
-    <li class="nav-item {{ Request::routeIs('admin.roles') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.roles') }}">
-            <i class="fas fa-fw fa-crown"></i>
-            <span>Roles</span>
-        </a>
-    </li>
-    <li class="nav-item {{ Request::routeIs('admin.users') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.users') }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>Users</span>
-        </a>
-    </li>
-    <li class="nav-item {{ Request::routeIs('admin.fotografer') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.fotografer') }}">
-            <i class="fas fa-fw fa-camera"></i>
-            <span>Fotografer</span>
-        </a>
-    </li>
+    
     <hr class="sidebar-divider d-none d-md-block">
     <div class="sidebar-heading">
         PAKET
@@ -105,6 +78,34 @@
         <a class="nav-link" href="{{ route('admin.paket-tambahan') }}">
             <i class="fas fa-fw fa-gifts"></i>
             <span>Paket Tambahan</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <div class="sidebar-heading">
+        Master
+    </div>
+    <li class="nav-item {{ Request::routeIs('admin.roles') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.roles') }}">
+            <i class="fas fa-fw fa-crown"></i>
+            <span>Roles</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::routeIs('admin.users') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.users') }}">
+            <i class="fas fa-fw fa-user"></i>
+            <span>Users</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::routeIs('admin.fotografer') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.fotografer') }}">
+            <i class="fas fa-fw fa-camera"></i>
+            <span>Fotografer</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::routeIs('admin.foto.landing') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.foto.landing') }}">
+            <i class="fas fa-fw fa-image"></i>
+            <span>Foto Landing</span>
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">

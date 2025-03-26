@@ -77,13 +77,13 @@
                                 <td>
                                     <!-- IG Vendor, menghapus '@' jika ada -->
                                     @php
-                                        $igVendor = $item->ig_vendor;
-                                        if ($igVendor && substr($igVendor, 0, 1) === '@') {
-                                            $igVendor = substr($igVendor, 1); // Hapus '@' di depan
+                                        $igMua = $item->mua;
+                                        if ($igMua && substr($igMua, 0, 1) === '@') {
+                                            $igMua = substr($igMua, 1); // Hapus '@' di depan
                                         }
                                     @endphp
-                                    @if ($igVendor)
-                                        <a href="https://instagram.com/{{ $igVendor }}" target="_blank">{{ $igVendor }}</a>
+                                    @if ($igMua)
+                                        <a href="https://instagram.com/{{ $igMua }}" target="_blank">{{ $igMua }}</a>
                                     @else
                                         -
                                     @endif
@@ -129,6 +129,11 @@
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
+                                        <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti TF">
+                                            <i class="fas fa-file-image"></i>
+                                        </a>
+
+                                        
                                         {{-- <form action="{{ route('admin.ubah.status.booking',$item->id_booking) }}" method="post">
                                             @csrf
                                             @method('put')
@@ -314,7 +319,7 @@ Proses edit akan berlangsung maksimal 3-10hari,
 Apabila Cancel secara sepihak maka DP akan hangus , untuk Reschedule Tanggal dan Jam dilakukan H-7 (*Dengan catatan Jam yang di inginkan masih kosong, apabila penuh maka sesuai dengan Booking awal*)
                 
 Terimakasih,
-See you on your happy day ka ✨😍`;
+See you on your happy day kaa`;
                             
                                                 // Encode pesan untuk URL (karena URL harus aman)
                                                 const encodedMessage = encodeURIComponent(message);
@@ -384,6 +389,38 @@ See you on your happy day ka ✨😍`;
             });
         });
     </script>
+
+    <!-- Modal file -->
+    <div class="modal fade" id="modalDP{{ $item->id_pesanan }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel{{ $item->id_booking }}">Bukti DP <span class="font-weight-bold">{{ $item->nama }}</span> </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @if ($item->file_dp)
+                        <span class="text-muted text-center">Bukti DP</span> <br>
+                        <img src="{{ asset('storage/' . $item->file_dp) }}" class="card-img-top" alt="...">
+                    @else
+                        <p class="text-muted text-center">Bukti DP Tidak ditemukan!</p>
+                    @endif
+                    <hr>
+                    @if ($item->file_pelunasan)
+                        <span class="text-muted text-center">Bukti Pelunasan</span> <br>
+                        <img src="{{ asset('storage/' . $item->file_pelunasan) }}" class="card-img-top" alt="...">
+                    @else
+                        <p class="text-muted text-center">Bukti Pelunasan Tidak ditemukan!</p>
+                    @endif
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @include('validasi.notifikasi')
 @include('validasi.notifikasi-error')

@@ -87,20 +87,20 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>NAMA</th>
-                            <th>EMAIL</th>
-                            <th>LEVEL</th>
-                            <th>AKSI</th>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">NAMA</th>
+                            <th class="text-center">EMAIL</th>
+                            <th class="text-center">LEVEL</th>
+                            <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($user as $item)
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->role->level }}</td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->name }}</td>
+                                <td class="text-center">{{ $item->email }}</td>
+                                <td class="text-center">{{ $item->role->level }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <a href="#" class="btn btn-success btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id }}"  title="Detail">

@@ -55,7 +55,7 @@
                                 <td>{{ $item->fakultas ?? '-' }}</td>
                                 <td>{{ $item->lokasi_foto ?? '-' }}</td>
                                 <td>{{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket ?? '-' }}</td>
-                                <td>{{ $item->ig_vendor ?? '-' }}</td>
+                                <td>{{ $item->mua ?? '-' }}</td>
                                 <td>{{ $item->ig_client ?? '-' }}</td>
                                 <td>
                                     @if ($item->post_foto)

@@ -116,9 +116,9 @@
                         @enderror
                     </div>
                     {{-- <div class="form-group">
-                        <label for="ig_vendor" class="col-form-label">{{ \App\Models\Booking::$mua }}</label>
-                        <input type="text" value="{{ old('ig_vendor') }}" name="ig_vendor" class="form-control @error('ig_vendor') is-invalid @enderror" id="ig_vendor">
-                        @error('ig_vendor')
+                        <label for="mua" class="col-form-label">{{ \App\Models\Booking::$mua }}</label>
+                        <input type="text" value="{{ old('mua') }}" name="mua" class="form-control @error('mua') is-invalid @enderror" id="mua">
+                        @error('mua')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div> --}}

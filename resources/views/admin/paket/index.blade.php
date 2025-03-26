@@ -28,7 +28,7 @@
     </style>
 
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">KELOLA HARGA PAKET</h1>
+        <h1 class="h3 mb-0 text-gray-800">KELOLA PAKET</h1>
     </div>
 
     <div class="card shadow mb-4">
@@ -102,19 +102,19 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>NAMA PAKET</th>
-                            <th>KATEGORI PAKET</th>
-                            <th>FITUR PAKET</th>
-                            <th>AKSI</th>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">NAMA PAKET</th>
+                            <th class="text-center">KATEGORI PAKET</th>
+                            <th class="text-center">FITUR PAKET</th>
+                            <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($paket as $item)
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nama_paket }}</td>
-                                <td>{{ $item->kategori_paket->nama_kategori }}</td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->nama_paket }}</td>
+                                <td class="text-center">{{ $item->kategori_paket->nama_kategori }}</td>
                                 <td class="text-left">
                                     @php
                                         $fiturs = json_decode($item->fitur);

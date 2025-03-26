@@ -66,19 +66,19 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>NAMA</th>
-                            <th>NOMOR WA</th>
-                            <th>AKSI</th>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">NAMA</th>
+                            <th class="text-center">NOMOR WA</th>
+                            <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($fg as $item)
                             
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->no_wa }}</td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->nama }}</td>
+                                <td class="text-center">{{ $item->no_wa }}</td>
                                 
                                 <td>
                                     <div class="d-flex justify-content-center">

@@ -48,7 +48,7 @@ class Booking extends Model
         'universitas' => 'required|string|max:255',
         'fakultas' => 'required|string|max:255',
         'lokasi_foto' => 'required|string|max:255',
-        'ig_vendor' => 'nullable|string|max:255',
+        'mua' => 'nullable|string|max:255',
         'ig_client' => 'nullable|string|max:255',
         'post_foto' => 'required|in:Bersedia,Tidak Bersedia',
         'jumlah_anggota' => 'required|integer|min:1',

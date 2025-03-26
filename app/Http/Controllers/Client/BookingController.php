@@ -48,7 +48,7 @@ class BookingController extends Controller
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;
         $b->lokasi_foto = $request->lokasi_foto;
-        $b->ig_vendor = $request->ig_vendor;
+        $b->mua = $request->mua;
         $b->ig_client = $request->ig_client;
         $b->post_foto = $request->post_foto;
         $b->jumlah_anggota = $request->jumlah_anggota;
@@ -87,7 +87,7 @@ class BookingController extends Controller
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;
         $b->lokasi_foto = $request->lokasi_foto;
-        $b->ig_vendor = $request->ig_vendor;
+        $b->mua = $request->mua;
         $b->ig_client = $request->ig_client;
         $b->post_foto = $request->post_foto;
         $b->jumlah_anggota = $request->jumlah_anggota;

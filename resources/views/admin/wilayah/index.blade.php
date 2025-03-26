@@ -67,21 +67,19 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>ID WILAYAH</th>
-                            <th>NAMA WILAYAH</th>
-                            <th>GOLONGAN</th>
-                            {{-- <th>HARGA</th> --}}
-                            <th>AKSI</th>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">NAMA WILAYAH</th>
+                            <th class="text-center">GOLONGAN</th>
+                            {{-- <th class="text-center">HARGA</th> --}}
+                            <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($wilayah as $item)
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->id_wilayah }}</td>
-                                <td>{{ $item->nama_wilayah }}</td>
-                                <td>{{ $item->kode }}</td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->nama_wilayah }}</td>
+                                <td class="text-center">{{ $item->kode }}</td>
                                 {{-- <td>{{ 'Rp ' . number_format($item->harga, 0, ',', '.') }}</td> --}}
                                     <td>
                                         <div class="d-flex justify-content-center">

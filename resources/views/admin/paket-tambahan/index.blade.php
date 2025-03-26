@@ -55,20 +55,20 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>JENIS TAMBAHAN</th>
-                            <th>HARGA</th>
-                            <th>AKSI</th>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">JENIS TAMBAHAN</th>
+                            <th class="text-center">HARGA</th>
+                            <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($paketTambahan as $item)
                             
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->jenis_tambahan }}</td>
-                                <td>{{ 'Rp. ' . number_format($item->harga_tambahan, 0, ',', '.') }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->jenis_tambahan }}</td>
+                                <td class="text-center">{{ 'Rp. ' . number_format($item->harga_tambahan, 0, ',', '.') }}</td>
+                                <td class="text-center">
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_paket_tambahan }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>

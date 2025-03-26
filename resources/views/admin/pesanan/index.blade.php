@@ -134,9 +134,9 @@
                                 <td>{{ 'Rp ' . number_format($item->freelance, 0, ',', '.') ?? '-' }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
-                                        <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti TF">
+                                        {{-- <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti TF">
                                             <i class="fas fa-file-image"></i>
-                                        </a>
+                                        </a> --}}
                                         <a href="{{ route('admin.export.faktur',$item->id_pesanan) }}" target="_blank" class="btn btn-info btn-circle btn-sm mr-2 {{ $item->booking?->dp ? '' : 'disabled' }}" title="Faktur">
                                             <i class="fas fa-file"></i>
                                         </a>
@@ -154,7 +154,7 @@
                                 </td>
                             </tr>
                         
-                            <!-- Modal file -->
+                            {{-- <!-- Modal file -->
                             <div class="modal fade" id="modalDP{{ $item->id_pesanan }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable modal-lg">
                                     <div class="modal-content">
@@ -184,7 +184,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             {{-- SweetAlert Delete --}}
                             <script>
                                 // Pilih semua tombol dengan kelas delete-btn

@@ -24,6 +24,12 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             FotoLandingSeeder::class,
+            WilayahSeeder::class,
+            KategoriSeeder::class,
+            PaketSeeder::class,
+            HargaSeeder::class,
+            PaketTambahanSeeder::class,
+            FotograferSeeder::class,
         ]);
     }
 }

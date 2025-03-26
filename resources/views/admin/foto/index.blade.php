@@ -24,19 +24,19 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
-                            <th>NO</th>
-                            <th>CLIENT</th>
-                            <th>STATUS FOTO</th>
-                            {{-- <th>ANTRIAN</th> --}}
-                            <th>AKSI</th>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">CLIENT</th>
+                            <th class="text-center">STATUS FOTO</th>
+                            {{-- <th class="text-center">ANTRIAN</th> --}}
+                            <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($foto as $item)
                             <tr class="text-center">
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->pesanan->booking->nama }}</td>
-                                <td>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td class="text-center">{{ $item->pesanan->booking->nama }}</td>
+                                <td class="text-center">
                                     @php
                                         $statusColors = [
                                             'Sending' => 'secondary',
