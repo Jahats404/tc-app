@@ -281,10 +281,13 @@
                                         <li class="list-group-item"><strong>Nama:</strong> {{ $item->nama ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Email:</strong> {{ $item->email ?? '-' }}</li>
                                         <li class="list-group-item"><strong>No. WA:</strong> {{ $item->no_wa ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>Instagram Client:</strong> {{ $item->ig_client ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>Paket:</strong> {{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Universitas:</strong> {{ $item->universitas ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Fakultas:</strong> {{ $item->fakultas ?? '-' }}</li>
+                                        <<li class="list-group-item"><strong>Tanggal:</strong> {{ $item->tanggal ? \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') : '-' }}</li>
+                                        <li class="list-group-item"><strong>Jam:</strong> {{ $item->jam ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Lokasi Foto:</strong> {{ $item->lokasi_foto ?? '-' }}</li>
-                                        <li class="list-group-item"><strong>Paket:</strong> {{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Paket Tambahan:</strong>
                                             @php
                                             // dd($item->paketTambahan);
@@ -299,8 +302,10 @@
                                         <li class="list-group-item"><strong>DP:</strong> {{ 'Rp ' . number_format($item->dp, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Jumlah Anggota:</strong> {{ $item->jumlah_anggota ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Request Khusus:</strong> {{ $item->req_khusus ?? '-' }}</li>
-                                        <li class="list-group-item"><strong>{{ \App\Models\Booking::$mua }}:</strong> {{ $item->mua ?? '-' }}</li>
-                                        <li class="list-group-item"><strong>Instagram Client:</strong> {{ $item->ig_client ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>IG Vendor MUA:</strong> {{ $item->ig_mua ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>IG Vendor Kebaya/Jass:</strong> {{ $item->ig_dress ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>IG Vendor Nailart:</strong> {{ $item->ig_nailart ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>IG Vendor Hijabdo/Hairdo:</strong> {{ $item->ig_hijab ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Post Foto:</strong> {{ $item->post_foto == 'Bersedia' ? 'Bersedia' : 'Tidak Bersedia' }}</li>
                                     </ul>
                                 </div>

@@ -22,7 +22,10 @@ return new class extends Migration
             $table->string('universitas');
             $table->string('fakultas')->nullable();
             $table->string('lokasi_foto')->nullable();
-            $table->string('mua')->nullable();
+            $table->string('ig_mua')->nullable();
+            $table->string('ig_dress')->nullable();
+            $table->string('ig_nailart')->nullable();
+            $table->string('ig_hijab')->nullable();
             $table->string('ig_client')->nullable();
             $table->string('post_foto')->nullable();
             $table->string('jumlah_anggota')->nullable();

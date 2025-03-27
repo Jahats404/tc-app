@@ -33,43 +33,19 @@
         <div class="container">
             <div class="row">
                 <!-- Single Services Area -->
+                @foreach ($paket as $item)
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
-                        <h4>Private I</h4>
-                            <li>For 1 Graduated</li>
-                            <li>30 Minute Photo Session</li>
-                            <li>Unlimited Shots</li>
-                            <li>15 Photo Edited</li>
-                            <li>All File on G-Drive <span class="expired">*Expired 14 Day</span></li>
-                            <li>Location on Campus <span class="expired">*If outside campus, additional fees apply</span></li>
+                        <h4>{{ $item->nama_paket }}</h4>
+                        @php
+                            $fiturs = json_decode($item->fitur);
+                        @endphp
+                        @foreach ($fiturs as $fitur)
+                            <li>{{ $fitur }}</li>
+                        @endforeach
                     </div>
                 </div>
-                <!-- Single Services Area -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
-                        <h4>Couple or Partner</h4>
-                            <li>For 2 Graduated</li>
-                            <li>1 Hours Photo Session</li>
-                            <li>Unlimited Shots</li>
-                            <li>30 Photo Edited</li>
-                            <li>Included Self Potrait <span class="expired">*in last 15 minutes of the photoshoot session</span></li>
-                            <li>All File on G-Drive <span class="expired">*Expired 14 Day</span></li>
-                            <li>Location on Campus <span class="expired">*If outside campus, additional fees apply</span></li>
-                    </div>
-                </div>
-                <!-- Single Services Area -->
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
-                        <h4>Group I</h4>
-                            <li>For 3-5 Graduated</li>
-                            <li>1 Hours Photo Session</li>
-                            <li>Unlimited Shots</li>
-                            <li>30 Photo Edited</li>
-                            <li>Group Photo Only</li>
-                            <li>All File on G-Drive <span class="expired">*Expired 14 Day</span></li>
-                            <li>Location on Campus <span class="expired">*If outside campus, additional fees apply</span></li>
-                    </div>
-                </div>
+                @endforeach
                 <div class="col-12">
                     <div class="call-to-action-content">
                         <a href="{{ route('fastbooking') }}" class="btn sonar-btn ">More</a>

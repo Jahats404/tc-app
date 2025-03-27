@@ -138,6 +138,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('booking', [BookingController::class, 'index'])->name('booking');
         Route::post('store/booking', [BookingController::class, 'store'])->name('store.booking');
         Route::put('update/booking/{id}', [BookingController::class, 'update'])->name('update.booking');
+        Route::put('update/dpbooking/{id}', [BookingController::class, 'updateDp'])->name('update.dpbooking');
         Route::delete('delete/booking/{id}', [BookingController::class, 'delete'])->name('delete.booking');
         Route::put('update-status/booking/{id}', [BookingController::class, 'ubah_status'])->name('ubah.status.booking');
         

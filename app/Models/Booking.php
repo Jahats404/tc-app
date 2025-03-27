@@ -48,7 +48,10 @@ class Booking extends Model
         'universitas' => 'required|string|max:255',
         'fakultas' => 'required|string|max:255',
         'lokasi_foto' => 'required|string|max:255',
-        'mua' => 'nullable|string|max:255',
+        'ig_mua' => 'nullable|string|max:255',
+        'ig_dress' => 'nullable|string|max:255',
+        'ig_nailart' => 'nullable|string|max:255',
+        'ig_hijab' => 'nullable|string|max:255',
         'ig_client' => 'nullable|string|max:255',
         'post_foto' => 'required|in:Bersedia,Tidak Bersedia',
         'jumlah_anggota' => 'required|integer|min:1',
@@ -88,5 +91,8 @@ class Booking extends Model
         'file_dp.max' => 'File DP tidak boleh lebih dari 2MB.',
     ];
 
-    public static $mua = 'IG MUA';
+    public static $ig_mua = 'IG MUA';
+    public static $ig_dress = 'IG KEBAYA/JASS';
+    public static $ig_nailart = 'IG NAILART';
+    public static $ig_hijab = 'IG HIJABDO/HAIRDO';
 }

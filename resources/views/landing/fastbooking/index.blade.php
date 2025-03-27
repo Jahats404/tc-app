@@ -13,7 +13,7 @@
                     <div class="col-12 col-md-8">
                         <div class="line"></div>
                         <h2>Fast Booking</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui.</p>
+                        <p>Enjoy the convenience of Fast Booking for quick and easy reservations! No hassle, just a few clicks, and your order is processed instantly. Flexible anytime, anywhere, with the best service for a more efficient experience!</p>
                         <a href="#fastbooking" class="btn sonar-btn white-btn">Book Now <span class="fa fa-arrow-down"></span> </a>
                     </div>
                 </div>

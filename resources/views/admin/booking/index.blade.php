@@ -21,21 +21,23 @@
                         <tr class="text-center">
                             <th style="text-align: center">NO</th>
                             <th style="text-align: center">NAMA</th>
-                            <th style="text-align: center">EMAIL</th>
-                            <th style="text-align: center">NO. WA</th>
-                            <th style="text-align: center">EVENT</th>
-                            <th style="text-align: center">TANGGAL FOTO</th>
-                            <th style="text-align: center">JAM</th>
+                            <th style="text-align: center">WHATSAPP</th>
+                            <th style="text-align: center">STATUS</th>
+                            <th style="text-align: center">IG CLIENT</th>
                             <th style="text-align: center">UNIVERSITAS</th>
                             <th style="text-align: center">FAKULTAS</th>
+                            <th style="text-align: center">TANGGAL FOTO</th>
+                            <th style="text-align: center">JAM</th>
+                            <th style="text-align: center">EVENT</th>
                             <th style="text-align: center">LOKASI FOTO</th>
                             <th style="text-align: center">PAKET</th>
-                            <th style="text-align: center">{{ \App\Models\Booking::$mua }}</th>
-                            <th style="text-align: center">IG CLIENT</th>
+                            <th style="text-align: center">{{ \App\Models\Booking::$ig_mua }}</th>
+                            <th style="text-align: center">{{ \App\Models\Booking::$ig_dress }}</th>
+                            <th style="text-align: center">{{ \App\Models\Booking::$ig_nailart }}</th>
+                            <th style="text-align: center">{{ \App\Models\Booking::$ig_hijab }}</th>
                             <th style="text-align: center">POST FOTO</th>
                             <th style="text-align: center">JML ANGGOTA</th>
                             <th style="text-align: center">CATATAN</th>
-                            <th style="text-align: center">STATUS</th>
                             <th style="text-align: center">HARGA</th>
                             <th style="text-align: center">AKSI</th>
                         </tr>
@@ -43,9 +45,8 @@
                     <tbody>
                         @foreach ($booking as $item)
                             <tr class="text-center">
-                                <td style="max-width: 200px; width: 100px;">{{ $loop->iteration }}</td>
+                                <td style="max-width: 200px; width: 100px; text-align: center">{{ $loop->iteration }}</td>
                                 <td>{{ $item->nama }}</td>
-                                <td>{{ $item->email }}</td>
                                 <td style="text-align: left">
                                     <!-- Mengubah nomor WA jika dimulai dengan '0' -->
                                     @php
@@ -61,31 +62,15 @@
                                         <i class="fab fa-whatsapp"></i> {{ $waNumber }}
                                     </a>
                                 </td>
-                                <td>{{ $item->event }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') ?? '-' }}</td>
                                 <td>
-                                    @if ($item->jam_selesai)
-                                        {{ $item->jam . '-' . $item->jam_selesai }}
-                                    @else
-                                        {{ $item->jam ?? '-' }}
-                                    @endif
-                                </td>
-                                <td>{{ $item->universitas }}</td>
-                                <td>{{ $item->fakultas }}</td>
-                                <td>{{ $item->lokasi_foto }}</td>
-                                <td>{{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket }}</td>
-                                <td>
-                                    <!-- IG Vendor, menghapus '@' jika ada -->
-                                    @php
-                                        $igMua = $item->mua;
-                                        if ($igMua && substr($igMua, 0, 1) === '@') {
-                                            $igMua = substr($igMua, 1); // Hapus '@' di depan
-                                        }
-                                    @endphp
-                                    @if ($igMua)
-                                        <a href="https://instagram.com/{{ $igMua }}" target="_blank">{{ $igMua }}</a>
-                                    @else
-                                        -
+                                    @if ($item->status_booking == 'Pending')
+                                        <span class="badge badge-info">{{ $item->status_booking }}</span>
+                                    @elseif ($item->status_booking == 'Accepted')
+                                        <span class="badge badge-success">{{ $item->status_booking }}</span>
+                                    @elseif ($item->status_booking == 'Rejected')
+                                        <span class="badge badge-warning">{{ $item->status_booking }}</span>
+                                    @elseif ($item->status_booking == 'Cancelled')
+                                        <span class="badge badge-danger">{{ $item->status_booking }}</span>
                                     @endif
                                 </td>
                                 <td>
@@ -97,7 +82,82 @@
                                         }
                                     @endphp
                                     @if ($igClient)
-                                        <a href="https://instagram.com/{{ $igClient }}" target="_blank">{{ $igClient }}</a>
+                                        <a href="https://instagram.com/{{ $igClient }}" target="_blank">
+                                            <i class="fab fa-instagram"></i> {{ $igClient }}
+                                        </a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>{{ $item->universitas }}</td>
+                                <td>{{ $item->fakultas }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') ?? '-' }}</td>
+                                <td>
+                                    @if ($item->jam_selesai)
+                                    {{ $item->jam . '-' . $item->jam_selesai }}
+                                    @else
+                                        {{ $item->jam ?? '-' }}
+                                        @endif
+                                </td>
+                                <td>{{ $item->event }}</td>
+                                <td>{{ $item->lokasi_foto }}</td>
+                                <td>{{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket }}</td>
+                                <td>
+                                    <!-- IG Vendor, menghapus '@' jika ada -->
+                                    @php
+                                        $igMua = $item->ig_mua;
+                                        if ($igMua && substr($igMua, 0, 1) === '@') {
+                                            $igMua = substr($igMua, 1); // Hapus '@' di depan
+                                        }
+                                    @endphp
+                                    @if ($igMua)
+                                        <a href="https://instagram.com/{{ $igMua }}" target="_blank">
+                                            <i class="fab fa-instagram"></i> {{ $igMua }}</a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    <!-- IG Vendor, menghapus '@' jika ada -->
+                                    @php
+                                        $igDress = $item->ig_dress;
+                                        if ($igDress && substr($igDress, 0, 1) === '@') {
+                                            $igDress = substr($igDress, 1); // Hapus '@' di depan
+                                        }
+                                    @endphp
+                                    @if ($igDress)
+                                        <a href="https://instagram.com/{{ $igDress }}" target="_blank">
+                                            <i class="fab fa-instagram"></i> {{ $igDress }}</a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    <!-- IG Vendor, menghapus '@' jika ada -->
+                                    @php
+                                        $igNailart = $item->ig_nailart;
+                                        if ($igNailart && substr($igNailart, 0, 1) === '@') {
+                                            $igNailart = substr($igNailart, 1); // Hapus '@' di depan
+                                        }
+                                    @endphp
+                                    @if ($igNailart)
+                                        <a href="https://instagram.com/{{ $igNailart }}" target="_blank">
+                                            <i class="fab fa-instagram"></i> {{ $igNailart }}</a>
+                                    @else
+                                        -
+                                    @endif
+                                </td>
+                                <td>
+                                    <!-- IG Vendor, menghapus '@' jika ada -->
+                                    @php
+                                        $igHijab = $item->ig_hijab;
+                                        if ($igHijab && substr($igHijab, 0, 1) === '@') {
+                                            $igHijab = substr($igHijab, 1); // Hapus '@' di depan
+                                        }
+                                    @endphp
+                                    @if ($igHijab)
+                                        <a href="https://instagram.com/{{ $igHijab }}" target="_blank">
+                                            <i class="fab fa-instagram"></i> {{ $igHijab }}</a>
                                     @else
                                         -
                                     @endif
@@ -112,25 +172,14 @@
                                     @endif
                                 <td style="text-align: center">{{ $item->jumlah_anggota ?? '-' }}</td>
                                 <td>{{ $item->req_khusus ?? '-' }}</td>
-                                <td>
-                                    @if ($item->status_booking == 'Pending')
-                                        <span class="badge badge-info">{{ $item->status_booking }}</span>
-                                    @elseif ($item->status_booking == 'Accepted')
-                                        <span class="badge badge-success">{{ $item->status_booking }}</span>
-                                    @elseif ($item->status_booking == 'Rejected')
-                                        <span class="badge badge-warning">{{ $item->status_booking }}</span>
-                                    @elseif ($item->status_booking == 'Cancelled')
-                                        <span class="badge badge-danger">{{ $item->status_booking }}</span>
-                                    @endif
-                                </td>
                                 <td>{{ 'Rp ' . number_format($item->harga_paket?->harga, 0, ',', '.') }}</td>
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti TF">
-                                            <i class="fas fa-file-image"></i>
+                                        <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti DP">
+                                            <i class="fas fa-money-bill"></i>
                                         </a>
 
                                         
@@ -145,7 +194,7 @@
                                             @csrf
                                             @method('put')
                                             <input type="hidden" name="status_booking" value="Accepted">
-                                            <button 
+                                            <button title="Terima"
                                                 class="btn btn-success btn-circle btn-acc btn-sm mr-2" 
                                                 type="button" 
                                                 data-phone="{{ $item->no_wa }}"
@@ -158,7 +207,7 @@
                                             @csrf
                                             @method('put')
                                             <input type="hidden" name="status_booking" value="Rejected">
-                                            <button class="btn btn-info btn-circle btn-reject btn-sm mr-2" type="submit"><i class="fas fa-times"></i></button>
+                                            <button title="Tolak/Cancel" class="btn btn-info btn-circle btn-reject btn-sm mr-2" type="submit"><i class="fas fa-times"></i></button>
                                         </form>
                                         <form action="{{ route('admin.delete.booking',$item->id_booking) }}" method="POST" class="delete-form">
                                             @csrf
@@ -363,6 +412,9 @@ See you on your happy day kaa`;
                                     });
                                 });
                             </script>
+
+                            
+
                             @include('admin.booking.modal',['item' => $item])
                         @endforeach
                     </tbody>
@@ -390,38 +442,7 @@ See you on your happy day kaa`;
         });
     </script>
 
-    <!-- Modal file -->
-    <div class="modal fade" id="modalDP{{ $item->id_pesanan }}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel{{ $item->id_booking }}">Bukti DP <span class="font-weight-bold">{{ $item->nama }}</span> </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @if ($item->file_dp)
-                        <span class="text-muted text-center">Bukti DP</span> <br>
-                        <img src="{{ asset('storage/' . $item->file_dp) }}" class="card-img-top" alt="...">
-                    @else
-                        <p class="text-muted text-center">Bukti DP Tidak ditemukan!</p>
-                    @endif
-                    <hr>
-                    @if ($item->file_pelunasan)
-                        <span class="text-muted text-center">Bukti Pelunasan</span> <br>
-                        <img src="{{ asset('storage/' . $item->file_pelunasan) }}" class="card-img-top" alt="...">
-                    @else
-                        <p class="text-muted text-center">Bukti Pelunasan Tidak ditemukan!</p>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
 @include('validasi.notifikasi')
 @include('validasi.notifikasi-error')
 @endsection

@@ -27,7 +27,7 @@ class BookingController extends Controller
         $hargaPaket = HargaPaket::join('paket', 'harga_paket.paket_id', '=', 'paket.id_paket')
             ->join('kategori_paket', 'paket.kp_id', '=', 'kategori_paket.id_kp')
             ->orderBy('kategori_paket.nama_kategori', 'asc')
-            ->select('harga_paket.*') // Ambil semua kolom dari harga_paket
+            ->select('harga_paket.*') // Ambil seig_mua kolom dari harga_paket
             ->get();
 
         $booking = Booking::orderByDesc('created_at')->get();
@@ -73,7 +73,10 @@ class BookingController extends Controller
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;
         $b->lokasi_foto = $request->lokasi_foto;
-        $b->mua = $request->mua;
+        $b->ig_mua = $request->ig_mua;
+        $b->ig_dress = $request->ig_dress;
+        $b->ig_nailart = $request->ig_nailart;
+        $b->ig_hijab = $request->ig_hijab;
         $b->ig_client = $request->ig_client;
         $b->post_foto = $request->post_foto;
         $b->jumlah_anggota = $request->jumlah_anggota;
@@ -110,7 +113,10 @@ class BookingController extends Controller
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;
         $b->lokasi_foto = $request->lokasi_foto;
-        $b->mua = $request->mua;
+        $b->ig_mua = $request->ig_mua;
+        $b->ig_dress = $request->ig_dress;
+        $b->ig_nailart = $request->ig_nailart;
+        $b->ig_hijab = $request->ig_hijab;
         $b->ig_client = $request->ig_client;
         $b->post_foto = $request->post_foto;
         $b->jumlah_anggota = $request->jumlah_anggota;
@@ -119,31 +125,57 @@ class BookingController extends Controller
         // $b->user_id = Auth::user()->id;
         $b->harga_paket_id = $request->harga_paket_id;
         
-        if ($b->dp != $request->dp || $b->dp == null ) {
-            $b->tanggal_dp = Carbon::now()->toDate();
-        }
-        $b->dp = $request->dp;
-
-
-        // Cek jika file ada di request
-        if ($request->hasFile('file_dp')) {
-            $file = $request->file('file_dp');
-
-            // Hapus file lama jika ada
-            if ($b->file_dp) {
-                // Menghapus file lama dari storage
-                Storage::disk('public')->delete($b->file_dp);
-            }
-
-            $path = 'uploads/dp';
-
-            // Simpan file baru
-            $b->file_dp = $file->store($path, 'public');
-        }
         $b->save();
 
         return redirect()->back()->with('success','Booking berhasil diperbarui');
     }
+
+    public function updateDp(Request $request, $id)
+{
+    $request->merge(['dp' => str_replace('.', '', $request->dp)]);
+
+    $rules = [
+        'dp' => 'required|numeric',
+        'file_dp' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
+    ];
+
+    $validator = Validator::make($request->all(), $rules);
+
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+    }
+
+    $b = Booking::findOrFail($id);
+
+    // Cek apakah nilai dp berubah atau masih null
+    if ($b->dp != $request->dp || $b->dp == null) {
+        $b->tanggal_dp = Carbon::now()->toDate();
+    }
+
+    $b->dp = $request->dp;
+
+    // Cek jika file ada di request
+    if ($request->hasFile('file_dp')) {
+        $file = $request->file('file_dp');
+
+        // Hapus file lama jika ada
+        if ($b->file_dp) {
+            Storage::disk('public')->delete($b->file_dp);
+        }
+
+        $path = 'uploads/dp';
+
+        // Simpan file baru
+        $b->file_dp = $file->store($path, 'public');
+    }
+
+    $b->save();
+
+    return redirect()->back()->with('success', 'DP berhasil diperbarui');
+}
+
 
     public function delete($id)
     {

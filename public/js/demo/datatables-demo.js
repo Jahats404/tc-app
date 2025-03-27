@@ -5,27 +5,39 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('#booking').DataTable({
-        ordering: false, // Menonaktifkan fitur pengurutan
+        ordering: true, // Mengaktifkan pengurutan
+        scrollX: true, // Mengaktifkan scroll horizontal
+        paging: true, // Mengaktifkan pagination
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ], // Pilihan entri per halaman
         fixedColumns: {
-            left: 6 // Mengunci 3 kolom pertama agar tetap terlihat saat di-scroll
+            leftColumns: 4 // Mengunci 4 kolom pertama
         },
-        paging: false,
-        scrollX: true, // Mengaktifkan horizontal scrolling
-        // scrollY: 300, // Mengatur tinggi tabel
+        // columnDefs: [
+        //     { orderable: false, targets: [0, 1, 2, 3] } // Menonaktifkan sorting hanya pada kolom tertentu
+        // ]
     });
 });
 
+
+
 $(document).ready(function() {
     $('#pesanan').DataTable({
-        ordering: false, // Menonaktifkan fitur pengurutan
+        ordering: true, // Menonaktifkan fitur pengurutan
+        scrollX: true, // Mengaktifkan horizontal scrolling
+        paging: true, // Mengaktifkan pagination
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
         fixedColumns: {
-            left: 7 // Mengunci 3 kolom pertama agar tetap terlihat saat di-scroll
+            left: 4 // Mengunci 3 kolom pertama agar tetap terlihat saat di-scroll
         },
         order: [
             [1, 'asc']
         ], // Urutan berdasarkan kolom kedua (No)
-        paging: false, // Mengaktifkan pagination
-        scrollX: true, // Mengaktifkan horizontal scrolling
         // scrollY: 300, // Mengatur tinggi tabel
     });
 });
