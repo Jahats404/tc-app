@@ -59,7 +59,8 @@ class Booking extends Model
         'status_booking' => 'in:Pending,Diterima,Ditolak,Dibatalkan',
         'harga_paket_id' => 'required|exists:harga_paket,id_harga_paket',
         'user_id' => 'exists:users,id',
-
+        
+        'dp' => 'nullable|min:0',
         'file_dp' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf',
     ];
 
@@ -87,6 +88,8 @@ class Booking extends Model
         'user_id.exists' => 'User ID tidak ditemukan.',
         'harga_paket_id.required' => 'Paket wajib diisi.',
         'harga_paket_id.exists' => 'Harga Paket tidak ditemukan.',
+
+        'dp.min' => 'Jumlah DP tidak valid.',
         'file_dp.mimes' => 'File DP harus berupa file dengan format: jpg, jpeg, png, gif, atau pdf.',
         'file_dp.max' => 'File DP tidak boleh lebih dari 2MB.',
     ];

@@ -73,7 +73,11 @@ class BookingController extends Controller
         
         $request->merge(['dp' => str_replace('.', '', $request->dp)]);
         
-        $rules = Booking::$rules = ['status_booking' => 'nullable'];
+        $rules = Booking::$rules = [
+            'status_booking' => 'nullable',
+            'dp' => 'nullable',
+            'file_dp' => 'nullable'
+        ];
         $validator = Validator::make($request->all(), $rules, Booking::$messages);
     
         if ($validator->fails()) {
@@ -106,11 +110,11 @@ class BookingController extends Controller
         $b->harga_paket_id = $request->harga_paket_id;
 
         // untuk memberi tanggal dibuatnya faktur
-        if ($b->dp != $request->dp || $b->dp == null ) {
-            $b->tanggal_dp = Carbon::now()->toDate();
-        }
+        // if ($b->dp != $request->dp || $b->dp == null ) {
+        //     $b->tanggal_dp = Carbon::now()->toDate();
+        // }
         
-        $b->dp = $request->dp;
+        // $b->dp = $request->dp;
 
         
         // Update paket tambahan jika ada
@@ -126,6 +130,50 @@ class BookingController extends Controller
             }
         }
         
+        // Cek jika file ada di request
+        // if ($request->hasFile('file_dp')) {
+        //     $file = $request->file('file_dp');
+
+        //     // Hapus file lama jika ada
+        //     if ($b->file_dp) {
+        //         // Menghapus file lama dari storage
+        //         Storage::disk('public')->delete($b->file_dp);
+        //     }
+
+        //     $path = 'uploads/dp';
+
+        //     // Simpan file baru
+        //     $b->file_dp = $file->store($path, 'public');
+        // }
+        $b->save();
+
+        return redirect()->back()->with('success','Booking berhasil diperbarui');
+    }
+
+    public function dp(Request $request, $id)
+    {
+        $request->merge(['dp' => str_replace('.', '', $request->dp)]);
+        // dd($request);
+        $rules = [
+            'dp' => 'nullable|min:0',
+            'file_dp' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf',
+        ];
+        $validator = Validator::make($request->all(), $rules, Booking::$messages);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $b = Booking::find($id);
+        // untuk memberi tanggal dibuatnya faktur
+        if ($b->dp != $request->dp || $b->dp == null ) {
+            $b->tanggal_dp = Carbon::now()->toDate();
+        }
+        
+        $b->dp = $request->dp;
+
         // Cek jika file ada di request
         if ($request->hasFile('file_dp')) {
             $file = $request->file('file_dp');
@@ -143,7 +191,7 @@ class BookingController extends Controller
         }
         $b->save();
 
-        return redirect()->back()->with('success','Booking berhasil diperbarui');
+        return redirect()->back()->with('success', 'DP berhasil ditambahkan');
     }
 
     public function delete($id)

@@ -169,7 +169,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div> --}}
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="dp" class="col-form-label">DP</label>
                             <input 
                                 type="text" 
@@ -200,7 +200,7 @@
                             @error('file_dp')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

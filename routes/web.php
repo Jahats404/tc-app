@@ -175,6 +175,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('update/booking/{id}', [ClientBookingController::class, 'update'])->name('update.booking');
         Route::delete('delete/booking/{id}', [ClientBookingController::class, 'delete'])->name('delete.booking');
         Route::put('ubah-status/booking/{id}', [ClientBookingController::class, 'ubah_status'])->name('ubah.status.booking');
+        // DP
+        Route::put('dp/{id}', [ClientBookingController::class, 'dp'])->name('add.dp');
         // PELUNASAN
         Route::put('pelunasan/{id}', [ClientBookingController::class, 'add_pelunasan'])->name('add.pelunasan');
         // FOTO

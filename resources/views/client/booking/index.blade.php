@@ -144,28 +144,65 @@
                     </div>
 
                     <!-- Modal file DP -->
-                    <div class="modal fade" id="fileModal{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalLabel{{ $item->id_booking }}">Bukti DP</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    @if ($item->file_dp)
-                                        <img src="{{ asset('storage/' . $item->file_dp) }}" class="card-img-top" alt="...">
-                                    @else
-                                        <p class="text-muted">Bukti DP Tidak ditemukan!</p>
-                                    @endif
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <form action="{{ route('client.add.dp', ['id' => $item->id_booking]) }}" method="post" enctype="multipart/form-data">
+                    @method('put')
+                    @csrf
+                        <div class="modal fade" id="fileModal{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel{{ $item->id_booking }}">Bukti DP</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="dp" class="col-form-label">DP</label>
+                                            <input 
+                                                type="text" 
+                                                value="{{ old('dp', number_format($item->dp ?? 0, 0, ',', '.')) }}" 
+                                                name="dp" 
+                                                class="form-control @error('dp') is-invalid @enderror" 
+                                                id="dp" 
+                                                oninput="formatNumber(this)"
+                                                autocomplete="off">
+                                            @error('dp')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="file_dp">Upload Bukti DP </label>
+                                            <input 
+                                                type="file" 
+                                                name="file_dp" 
+                                                id="file_dp" 
+                                                class="form-control @error('file_dp') is-invalid @enderror">
+                                            @if($item->file_dp)
+                                                <small class="form-text text-muted">
+                                                    File DP saat ini: 
+                                                    <a target="_blank" href="{{ asset('storage/' . $item->file_dp) }}">Lihat DP</a>.
+                                                    Biarkan kosong jika tidak ingin mengganti.
+                                                </small>
+                                            @endif
+                                            @error('file_dp')
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        @if ($item->file_dp)
+                                            <img src="{{ asset('storage/' . $item->file_dp) }}" class="card-img-top" alt="...">
+                                        @else
+                                            <p class="text-muted">Bukti DP Tidak ditemukan!</p>
+                                        @endif
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
 
                     <!-- Modal file Pelunasan -->
                     <div class="modal fade" id="modalPelunasan{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
@@ -285,7 +322,7 @@
                                         <li class="list-group-item"><strong>Paket:</strong> {{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Universitas:</strong> {{ $item->universitas ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Fakultas:</strong> {{ $item->fakultas ?? '-' }}</li>
-                                        <<li class="list-group-item"><strong>Tanggal:</strong> {{ $item->tanggal ? \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') : '-' }}</li>
+                                        <li class="list-group-item"><strong>Tanggal:</strong> {{ $item->tanggal ? \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') : '-' }}</li>
                                         <li class="list-group-item"><strong>Jam:</strong> {{ $item->jam ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Lokasi Foto:</strong> {{ $item->lokasi_foto ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Paket Tambahan:</strong>
