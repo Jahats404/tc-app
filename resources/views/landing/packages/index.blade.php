@@ -161,7 +161,7 @@
                 <div class="col-12">
                     <div class="call-to-action-content">
                         <h2>We are experienced photographer</h2>
-                        <h5>Let’s fast booking now</h5>
+                        <h2>Let’s fast booking now</h2>
                         <a href="{{ route('fastbooking') }}" class="btn sonar-btn mt-100">Book Now</a>
                     </div>
                 </div>

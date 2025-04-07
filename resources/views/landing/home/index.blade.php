@@ -131,7 +131,7 @@
             <div class="col-12">
                 <div class="call-to-action-content wow fadeInUp" data-wow-delay="0.5s">
                     <h2>We are experienced photographer</h2>
-                    <h5>Let’s fast book now</h5>
+                    <h2>Let’s fast book now</h2>
                     <a href="{{ route('fastbooking') }}" class="btn sonar-btn mt-100">Book Now</a>
                 </div>
             </div>

@@ -41,44 +41,44 @@
                             <div class="row">
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label style="font-style: italic; text-align: left; display: block;" for="">Nama*</label>
-                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Anda" required>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Name<span style="color: red;">*</span></label>
+                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Full name" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label style="font-style: italic; text-align: left; display: block;" for="">Email*</label>
-                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Anda" required>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Email<span style="color: red;">*</span></label>
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Active email" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label style="font-style: italic; text-align: left; display: block;" for="">No.WA*</label>
-                                        <input type="number" class="form-control" id="no_wa" name="no_wa" placeholder="No. WhatsApp" required>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">WhatsApp<span style="color: red;">*</span></label>
+                                        <input type="number" class="form-control" id="no_wa" name="no_wa" placeholder="WhatsApp number" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label style="font-style: italic; text-align: left; display: block;" for="">Instagram</label>
-                                        <input type="text" class="form-control" id="ig_client" name="ig_client" placeholder="Instagram Anda">
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Instagram<span style="color: red;">*</span></label>
+                                        <input type="text" class="form-control" id="ig_client" name="ig_client" placeholder="Instagram username">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label style="font-style: italic; text-align: left; display: block;" for="">Tanggal Foto</label>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Photo Date</span></label>
                                         <input type="date" class="form-control" id="tanggal" name="tanggal">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label style="font-style: italic; text-align: left; display: block;" for="">Universitas*</label>
-                                        <input type="text" class="form-control" id="universitas" name="universitas" placeholder="Asal Universitas" required>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">University<span style="color: red;">*</span></label>
+                                        <input type="text" class="form-control" id="universitas" name="universitas" placeholder="Your university" required>
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label style="font-style: italic; text-align: left; display: block;" for="">Area*</label>
-                                        <input type="text" class="form-control" id="kota" name="kota" placeholder="Asal Kota" required>
+                                        <label style="font-style: italic; text-align: left; display: block;" for="">Area<span style="color: red;">*</span></label>
+                                        <input type="text" class="form-control" id="kota" name="kota" placeholder="City" required>
                                         {{-- <select class="form-control" name="kota" id="kota">
                                             <option value="">-- Pilih Area --</option>
                                             @foreach ($wilayah as $item)
@@ -88,7 +88,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn sonar-btn" id="submitForm">Kirim</button>
+                                    <button type="submit" class="btn sonar-btn" id="submitForm">SEND</button>
                                 </div>
                             </div>
                         </form>

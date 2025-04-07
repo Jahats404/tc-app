@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             HargaSeeder::class,
             PaketTambahanSeeder::class,
             FotograferSeeder::class,
+            TestimoniSeeder::class,
         ]);
     }
 }
