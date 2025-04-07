@@ -1,14 +1,14 @@
 @extends('layouts.master')
 @section('content')
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">KELOLA WILAYAH</h1>
+        <h1 class="h3 mb-0 text-gray-800">KELOLA TESTIMONI</h1>
     </div>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-wrap align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Wilayah</h6>
+            <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Testimoni</h6>
             <button type="button" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0" data-toggle="modal" data-target="#modalTambah">
-                <i class="fas fa-solid fa-folder-plus fa-sm text-white-50"></i> Tambah Wilayah
+                <i class="fas fa-solid fa-comments fa-sm text-white-50"></i> Tambah Testimoni
             </button>
         </div>
 
@@ -17,41 +17,47 @@
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalTambahLabel">Tambah Wilayah</h5>
+                        <h5 class="modal-title" id="modalTambahLabel">Tambah Testimoni</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('admin.store.wilayah') }}" method="POST">
+                    <form action="{{ route('admin.store.testi') }}" method="POST">
                         @csrf
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="nama_wilayah" class="col-form-label">Nama Wilayah</label>
-                                <input type="text" name="nama_wilayah" class="form-control" id="nama_wilayah" value="{{ old('nama_wilayah') }}">
-                                @error('nama_wilayah')
+                                <label for="nama" class="col-form-label">Nama</label>
+                                <input type="text" name="nama" class="form-control" id="nama" value="{{ old('nama') }}">
+                                @error('nama')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         
                             <div class="form-group">
-                                <label for="golongan" class="col-form-label">Golongan</label>
-                                <select id="inputState" name="golongan" class="form-control">
-                                    <option value="">-- Pilih Wilayah --</option>
-                                    <option value="W1" {{ old('golongan') == 'W1' ? 'selected' : '' }}>Wilayah 1</option>
-                                    <option value="W2" {{ old('golongan') == 'W2' ? 'selected' : '' }}>Wilayah 2</option>
-                                </select>
-                                @error('golongan')
+                                <label for="event" class="col-form-label">Event</label>
+                                <input type="text" name="event" class="form-control" id="event" value="{{ old('event') }}">
+                                @error('event')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                         
-                            {{-- <div class="form-group">
-                                <label for="harga" class="col-form-label">Harga</label>
-                                <input type="text" name="harga" class="form-control" id="harga" value="{{ old('harga') }}">
-                                @error('harga')
+                            <div class="form-group">
+                                <label for="deskripsi" class="col-form-label">Deskripsi</label>
+                                <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" rows="3" placeholder="Masukkan catatan tambahan">{{ old('deskripsi') }}</textarea>
+                                @error('deskripsi')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                        
+                            <div class="form-group">
+                                <label for="status" class="col-form-label">Status</label>
+                                <select id="inputState" name="status" class="form-control">
+                                    <option value="">-- Pilih Status --</option>
+                                    <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="Posted" {{ old('status') == 'Posted' ? 'selected' : '' }}>Posted</option>
+                                </select>
+                                @error('status')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
-                            </div> --}}
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -68,25 +74,33 @@
                     <thead>
                         <tr class="text-center">
                             <th class="text-center">NO</th>
-                            <th class="text-center">NAMA WILAYAH</th>
-                            <th class="text-center">GOLONGAN</th>
-                            {{-- <th class="text-center">HARGA</th> --}}
+                            <th class="text-center">NAMA</th>
+                            <th class="text-center">EVENT</th>
+                            <th class="text-center">DESKRIPSI</th>
+                            <th class="text-center">STATUS</th>
                             <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($wilayah as $item)
+                        @foreach ($testimoni as $item)
                             <tr class="text-center">
                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center">{{ $item->nama_wilayah }}</td>
-                                <td class="text-center">{{ $item->kode }}</td>
-                                {{-- <td>{{ 'Rp ' . number_format($item->harga, 0, ',', '.') }}</td> --}}
+                                <td class="text-center">{{ $item->nama }}</td>
+                                <td class="text-center">{{ $item->event }}</td>
+                                <td class="text-center">{{ $item->deskripsi }}</td>
+                                <td class="text-center">
+                                    @if ($item->status == 'Pending')
+                                        <span class="badge badge-info">{{ $item->status }}</span>
+                                    @else
+                                        <span class="badge badge-success">{{ $item->status }}</span>
+                                    @endif
+                                </td>
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_wilayah }}" title="Update">
+                                            <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_testimoni }}" title="Update">
                                                 <i class="fas fa-exclamation-triangle"></i>
                                             </a>
-                                            <form action="{{ route('admin.delete.wilayah',['id' => $item->id_wilayah]) }}" method="POST" class="delete-form">
+                                            <form action="{{ route('admin.delete.testi',['id' => $item->id_testimoni]) }}" method="POST" class="delete-form">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
@@ -122,7 +136,7 @@
                                         });
                                     });
                                 </script>
-                                @include('admin.wilayah.modal', ['item' => $item])
+                                @include('admin.testimoni.modal', ['item' => $item])
                         @endforeach
                     </tbody>
                 </table>

@@ -31,7 +31,9 @@
         <div class="container">
             <div class="row">
                 <!-- Contact Form Area -->
-                <div class="col-12">
+
+                {{-- code old --}}
+                {{-- <div class="col-12">
                     <div class="contact-form text-center">
 
                         <h2>I am an experienced photographer</h2>
@@ -102,14 +104,90 @@
                         </script>
                         
                     </div>
+                </div> --}}
+
+                <div class="col-12">
+                    <div class="contact-form text-center">
+
+                        <h2>Share your feedback to help us do better</h2>
+
+                        <form action="{{ route('store.testi') }}" id="" method="POST">
+                            @csrf
+                            <div class="row">
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="contact-name" name="nama" placeholder="Your Name" required>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="contact-event" name="event" placeholder="Your Event" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" id="deskripsi" cols="30" name="deskripsi" rows="5" placeholder="Description" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn sonar-btn" id="sendMessage">Send</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sonar-testimonials-area bg-img" style="background-image: url(img/bg-img/tes.jpg);">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md-10 col-lg-7">
+                        <div class="testimonial-content bg-white">
+                            <div class="section-heading text-left">
+                                <div class="line"></div>
+                                <h2>Testimonials</h2>
+                            </div>
+    
+                            <div class="testimonial-slides owl-carousel">
+    
+                                @php
+                                    $testimoni = App\Models\Testimoni::where('status', 'Posted')->get();
+                                @endphp
+                                @foreach ($testimoni as $item)
+                                    <div class="single-tes-slide">
+                                        <p style="color: black">{{ $item->deskripsi }}</p>
+                                        <h6>{{ $item->nama }}, {{ $item->event }}</h6>
+                                    </div>
+                                @endforeach
+    
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Google Maps -->
-    <div class="map-area">
-        <div id="googleMap" class="googleMap"></div>
+    <!-- ***** Call to Action Area Start ***** -->
+    <div class="sonar-call-to-action-area bg-gray section-padding-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="call-to-action-content">
+                        <h2>We are experienced photographer</h2>
+                        <h5>Let’s fast booking now</h5>
+                        <a href="{{ route('fastbooking') }}" class="btn sonar-btn mt-100">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- ***** Call to Action Area End ***** -->
+
+    <!-- Google Maps -->
+    {{-- <div class="map-area">
+        <div id="googleMap" class="googleMap"></div>
+    </div> --}}
 
 @endsection

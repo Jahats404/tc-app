@@ -108,6 +108,12 @@
             <span>Foto Landing</span>
         </a>
     </li>
+    <li class="nav-item {{ Request::routeIs('admin.testi') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.testi') }}">
+            <i class="fas fa-fw fa-comments"></i>
+            <span>Testimoni</span>
+        </a>
+    </li>
     <hr class="sidebar-divider d-none d-md-block">
     @endif
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Booking;
 use App\Models\Foto;
 use App\Models\HargaPaket;
+use App\Models\PaketTambahan;
 use App\Models\Pesanan;
 use App\Models\User;
 use Carbon\Carbon;
@@ -23,6 +24,7 @@ class BookingController extends Controller
         // $hargaPaket = HargaPaket::whereHas('paket', function ($query) {
         //     $query->orderBy('nama_paket','asc');
         // })->get();
+        $paketTambahan = PaketTambahan::all();
         
         $hargaPaket = HargaPaket::join('paket', 'harga_paket.paket_id', '=', 'paket.id_paket')
             ->join('kategori_paket', 'paket.kp_id', '=', 'kategori_paket.id_kp')
@@ -33,14 +35,18 @@ class BookingController extends Controller
         $booking = Booking::orderByDesc('created_at')->get();
 
         
-        return view('admin.booking.index',compact('hargaPaket','booking'));
+        return view('admin.booking.index',compact('hargaPaket','booking','paketTambahan'));
     }
 
     public function store(Request $request)
     {
+        $rules = Booking::$rules = [
+            'kota' => 'required',
+        ];
         
-        $validator = Validator::make($request->all(), Booking::$rules, Booking::$messages);
-    
+        $validator = Validator::make($request->all(), $rules, Booking::$messages);
+        
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
@@ -81,10 +87,29 @@ class BookingController extends Controller
         $b->post_foto = $request->post_foto;
         $b->jumlah_anggota = $request->jumlah_anggota;
         $b->req_khusus = $request->req_khusus;
-        $b->status_booking = $request->status_booking;
+        $b->status_booking = 'Pending';
         // $b->user_id = Auth::user()->id;
         $b->harga_paket_id = $request->harga_paket_id;
+
+        $idBooking = $b->id_booking;
+        
         $b->save();
+
+        // code untuk paket tambahan
+        $book = Booking::find($idBooking);
+        // Update paket tambahan jika ada
+        if ($request->has('paket_tambahan')) {
+            // Hapus semua data pivot terkait
+            $book->paketTambahan()->detach();
+        
+            // Tambahkan kembali data dengan ID kustom
+            foreach ($request->paket_tambahan as $paketTambahanId) {
+                $book->paketTambahan()->attach($paketTambahanId, [
+                    'id_booking_paket_tambahan' => 'BPT' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT),
+                ]);
+            }
+        }
+        $book->save();
 
         return redirect()->back()->with('success','Booking berhasil ditambahkan');
     }
@@ -93,8 +118,10 @@ class BookingController extends Controller
     {
         $request->merge(['dp' => str_replace('.', '', $request->dp)]);
 
-        $rules = Booking::$rules = ['status_booking' => 'nullable'];
-        $validator = Validator::make($request->all(), Booking::$rules, Booking::$messages);
+        $rules = Booking::$rules = [
+            'kota' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules, Booking::$messages);
     
         if ($validator->fails()) {
             return redirect()->back()
@@ -124,6 +151,19 @@ class BookingController extends Controller
         // $b->status_booking = $request->status_booking;
         // $b->user_id = Auth::user()->id;
         $b->harga_paket_id = $request->harga_paket_id;
+
+        // Update paket tambahan jika ada
+        if ($request->has('paket_tambahan')) {
+            // Hapus semua data pivot terkait
+            $b->paketTambahan()->detach();
+        
+            // Tambahkan kembali data dengan ID kustom
+            foreach ($request->paket_tambahan as $paketTambahanId) {
+                $b->paketTambahan()->attach($paketTambahanId, [
+                    'id_booking_paket_tambahan' => 'BPT' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT),
+                ]);
+            }
+        }
         
         $b->save();
 

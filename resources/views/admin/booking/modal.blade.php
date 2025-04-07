@@ -57,13 +57,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group">
-                                <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
-                                <input type="time" value="{{ old('jam_selesai',$item->jam_selesai) }}" name="jam_selesai" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam_selesai">
-                                @error('jam_selesai')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
                         </div>
                         
                         <!-- Right Column -->
@@ -97,28 +90,6 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="harga_paket_id" class="col-form-label">Paket</label>
-                                <select id="harga_paket_id" name="harga_paket_id" class="form-control js-example-basic-single-update @error('harga_paket_id') is-invalid @enderror">
-                                    <option selected disabled value="">--Pilih Paket--</option>
-                                    @foreach ($hargaPaket as $harga)
-                                        <option value="{{ $harga->id_harga_paket }}" 
-                                            {{ old('harga_paket_id',$item->harga_paket_id) == $harga->id_harga_paket ? 'selected' : '' }}>
-                                            
-                                            {{ $harga->paket->kategori_paket->nama_kategori . ' ' . $harga->paket->nama_paket . ' | ' }}
-                                            
-                                            @php
-                                                $namaWilayah = \App\Models\Wilayah::where('kode', $harga->golongan)->pluck('nama_wilayah')->toArray();
-                                            @endphp
-                            
-                                            {{ implode(', ', $namaWilayah) }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('harga_paket_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
                                 <label for="jumlah_anggota" class="col-form-label">Jumlah Anggota</label>
                                 <input type="text" value="{{ old('jumlah_anggota',$item->jumlah_anggota) }}" name="jumlah_anggota" class="form-control @error('jumlah_anggota') is-invalid @enderror" id="jumlah_anggota" placeholder="Jumlah orang dalam foto">
                                 @error('jumlah_anggota')
@@ -126,13 +97,9 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="post_foto" class="col-form-label">Post Foto</label>
-                                <select id="post_foto" name="post_foto" class="form-control @error('post_foto') is-invalid @enderror">
-                                    <option selected disabled value="">--Pilih--</option>
-                                    <option value="Bersedia" {{ old('post_foto',$item->post_foto) == 'Bersedia' ? 'selected' : '' }}>Bersedia</option>
-                                    <option value="Tidak Bersedia" {{ old('post_foto',$item->post_foto) == 'Tidak Bersedia' ? 'selected' : '' }}>Tidak Bersedia</option>
-                                </select>
-                                @error('post_foto')
+                                <label for="jam_selesai" class="col-form-label">Jam Selesai</label>
+                                <input type="time" value="{{ old('jam_selesai',$item->jam_selesai) }}" name="jam_selesai" class="form-control @error('jam_selesai') is-invalid @enderror" id="jam_selesai">
+                                @error('jam_selesai')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -175,8 +142,68 @@
                         </div>
                     </div>
                     
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="kota" class="col-form-label">Kota/Kabupaten</label>
+                                <input type="text" value="{{ old('kota',$item->kota) }}" name="kota" class="form-control @error('kota') is-invalid @enderror" id="kota">
+                                @error('kota')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="post_foto" class="col-form-label">Post Foto</label>
+                                <select id="post_foto" name="post_foto" class="form-control @error('post_foto') is-invalid @enderror">
+                                    <option selected disabled value="">--Pilih--</option>
+                                    <option value="Bersedia" {{ old('post_foto',$item->post_foto) == 'Bersedia' ? 'selected' : '' }}>Bersedia</option>
+                                    <option value="Tidak Bersedia" {{ old('post_foto',$item->post_foto) == 'Tidak Bersedia' ? 'selected' : '' }}>Tidak Bersedia</option>
+                                </select>
+                                @error('post_foto')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    
                     <!-- Full Width Fields -->
                     
+                    <div class="form-group">
+                        <label for="harga_paket_id" class="col-form-label">Paket</label>
+                        <select id="harga_paket_id" name="harga_paket_id" class="form-control js-example-basic-single-update @error('harga_paket_id') is-invalid @enderror">
+                            <option selected disabled value="">--Pilih Paket--</option>
+                            @foreach ($hargaPaket as $harga)
+                                <option value="{{ $harga->id_harga_paket }}" 
+                                    {{ old('harga_paket_id',$item->harga_paket_id) == $harga->id_harga_paket ? 'selected' : '' }}>
+                                    
+                                    {{ $harga->paket->kategori_paket->nama_kategori . ' ' . $harga->paket->nama_paket . ' | ' }}
+                                    
+                                    @php
+                                        $namaWilayah = \App\Models\Wilayah::where('kode', $harga->golongan)->pluck('nama_wilayah')->toArray();
+                                    @endphp
+                    
+                                    {{ implode(', ', $namaWilayah) }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('harga_paket_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="kp_id" class="col-form-label">Pilih Paket Tambahan</label>
+                        <select class="form-control js-paket-tambahan" 
+                            style="width: 100%; height: 300px;" 
+                            multiple="multiple" name="paket_tambahan[]">
+                            @foreach ($paketTambahan as $pt)
+                                <option value="{{ $pt->id_paket_tambahan }}" 
+                                    @if (isset($item) && $item->paketTambahan->contains('id_paket_tambahan', $pt->id_paket_tambahan)) selected @endif>
+                                    {{ $pt->jenis_tambahan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     
                     <div class="form-group">
                         <label for="req_khusus" class="col-form-label">Catatan</label>

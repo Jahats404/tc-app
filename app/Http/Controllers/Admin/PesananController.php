@@ -41,6 +41,7 @@ class PesananController extends Controller
         foreach ($pesanan as $pes) {
             foreach ($pes->booking->paketTambahan as $pt) {
                 $jumlahHargaTambahan += $pt->harga_tambahan;
+                // dd($jumlahHargaTambahan);
             }
             $kekurangan = ($pes->booking->harga_paket->harga + $jumlahHargaTambahan) - ($pes->booking->dp + $pes->pelunasan);
             $total = $pes->booking->dp + $pes->pelunasan;

@@ -36,7 +36,13 @@
                                 <p class="card-text mt-2">
                                     <strong>Event:</strong> {{ $item->event ?? '-' }}<br>
                                     <strong>Tanggal:</strong> {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') ?? '-' }}<br>
-                                    <strong>Jam:</strong> {{ $item->jam_selesai ? $item->jam . '-' . $item->jam_selesai :  $item->jam ?? '-' }} <br>
+                                    
+                                    @php
+                                        $jamMulai = $item->jam ? Carbon\Carbon::parse($item->jam)->format('H:i') : null;
+                                        $jamSelesai = $item->jam_selesai ? Carbon\Carbon::parse($item->jam_selesai)->format('H:i') : null;
+                                    @endphp
+                                    <strong>Jam:</strong> {{ $jamSelesai ? $jamMulai . ' - ' . $jamSelesai : ($jamMulai ?? '-') }} <br>
+
                                     <strong>Fotograger:</strong> {{ $item->pesanan?->fotografer?->nama ?? '-' }} <br>
                                     @if ($item?->pesanan?->foto)
                                         <strong>Status Foto:</strong> 
@@ -127,18 +133,6 @@
                                     </form>
                                 @endif
                                 
-                                <!-- Form Delete -->
-                                {{-- <form action="{{ route('client.delete.booking', $item->id_booking) }}" method="POST" class="mt-3 me-2" class="delete-form">
-                                    @csrf
-                                    @method('delete')
-                                    <button 
-                                        type="submit" 
-                                        {{ $item->status_booking == 'Accepted' ? 'disabled' : '' }} 
-                                        class="btn btn-danger btn-sm delete-btn" 
-                                        title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form> --}}
                             </div>
                         </div>
                     </div>
@@ -325,17 +319,21 @@
                                         <li class="list-group-item"><strong>Tanggal:</strong> {{ $item->tanggal ? \Carbon\Carbon::parse($item->tanggal)->format('d/m/Y') : '-' }}</li>
                                         <li class="list-group-item"><strong>Jam:</strong> {{ $item->jam ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Lokasi Foto:</strong> {{ $item->lokasi_foto ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>Harga Paket:</strong> {{ 'Rp ' . number_format($item->harga_paket?->harga, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Paket Tambahan:</strong>
                                             @php
-                                            // dd($item->paketTambahan);
                                                 $paket_tambahan = [];
-                                                foreach ($item->paketTambahan as $pt) {
-                                                    $paket_tambahan[] = $pt->jenis_tambahan;
+                                                $hargaPaketTambahan = 0;
+                                                if ( $item->paketTambahan) {
+                                                    foreach ($item->paketTambahan as $pt) {
+                                                        $paket_tambahan[] = $pt->jenis_tambahan;
+                                                        $hargaPaketTambahan += $pt->harga_tambahan;
+                                                    }
                                                 }
                                             @endphp
                                             {{ !empty($paket_tambahan) ? implode(', ', $paket_tambahan) : '-' }}
                                         </li>
-                                        <li class="list-group-item"><strong>Harga Paket:</strong> {{ 'Rp ' . number_format($item->harga_paket?->harga, 0, ',', '.') ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>Harga Paket Tambahan:</strong> {{ 'Rp ' . number_format($hargaPaketTambahan, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>DP:</strong> {{ 'Rp ' . number_format($item->dp, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Jumlah Anggota:</strong> {{ $item->jumlah_anggota ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Request Khusus:</strong> {{ $item->req_khusus ?? '-' }}</li>
@@ -343,7 +341,7 @@
                                         <li class="list-group-item"><strong>IG Vendor Kebaya/Jass:</strong> {{ $item->ig_dress ?? '-' }}</li>
                                         <li class="list-group-item"><strong>IG Vendor Nailart:</strong> {{ $item->ig_nailart ?? '-' }}</li>
                                         <li class="list-group-item"><strong>IG Vendor Hijabdo/Hairdo:</strong> {{ $item->ig_hijab ?? '-' }}</li>
-                                        <li class="list-group-item"><strong>Post Foto:</strong> {{ $item->post_foto == 'Bersedia' ? 'Bersedia' : 'Tidak Bersedia' }}</li>
+                                        <li class="list-group-item"><strong>Post Foto:</strong> {{ $item->post_foto ?? '-' }}</li>
                                     </ul>
                                 </div>
                                 <div class="modal-footer">

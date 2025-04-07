@@ -56,7 +56,7 @@
     </div>
     <!-- ***** Services Area End ***** -->
 
-    <div class="sonar-testimonials-area bg-img" style="background-image: url(img/bg-img/tes.jpg);">
+    {{-- <div class="sonar-testimonials-area bg-img" style="background-image: url(img/bg-img/tes.jpg);">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12 col-md-10 col-lg-7">
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- <div class="cool-facts-area section-padding-100-0">
         <div class="container">

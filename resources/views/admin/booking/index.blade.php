@@ -38,7 +38,9 @@
                             <th style="text-align: center">POST FOTO</th>
                             <th style="text-align: center">JML ANGGOTA</th>
                             <th style="text-align: center">CATATAN</th>
-                            <th style="text-align: center">HARGA</th>
+                            <th style="text-align: center">HARGA PKT</th>
+                            <th style="text-align: center">HARGA PKT TMBHN</th>
+                            <th style="text-align: center">TOT HARGA</th>
                             <th style="text-align: center">AKSI</th>
                         </tr>
                     </thead>
@@ -173,6 +175,20 @@
                                 <td style="text-align: center">{{ $item->jumlah_anggota ?? '-' }}</td>
                                 <td>{{ $item->req_khusus ?? '-' }}</td>
                                 <td>{{ 'Rp ' . number_format($item->harga_paket?->harga, 0, ',', '.') }}</td>
+
+                                {{-- PKT TMBHN --}}
+                                @php
+                                    $paket_tambahan = [];
+                                    if ( $item->paketTambahan) {
+                                        foreach ($item->paketTambahan as $pt) {
+                                            $paket_tambahan[] = $pt->jenis_tambahan;
+                                        }
+                                    }
+                                    $hargaPaketTambahan = $item->paketTambahan->sum('harga_tambahan');
+                                @endphp
+                                <td>{{ 'Rp ' . number_format($hargaPaketTambahan, 0, ',', '.') ?? '-' }}</td>
+                                <td>{{ 'Rp ' . number_format($item->harga_paket?->harga + $hargaPaketTambahan, 0, ',', '.') ?? '-' }}</td>
+
                                 <td>
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}" title="Update">
@@ -389,6 +405,32 @@ See you on your happy day kaa`;
                             
                             <script>
                                 // Pilih semua tombol dengan kelas delete-btn
+                                document.querySelectorAll('.delete-btn').forEach(button => {
+                                    button.addEventListener('click', function (e) {
+                                        e.preventDefault(); // Mencegah pengiriman form langsung
+                            
+                                        const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+                            
+                                        Swal.fire({
+                                            title: 'Apakah booking ini akan dihapus?',
+                                            // text: "Data yang dihapus tidak dapat dikembalikan!",
+                                            icon: 'warning',
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#d33',
+                                            cancelButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ya, Tolak',
+                                            cancelButtonText: 'Batal'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                form.submit(); // Kirim form jika pengguna mengonfirmasi
+                                            }
+                                        });
+                                    });
+                                });
+                            </script>
+
+                            <script>
+                                // Pilih semua tombol dengan kelas delete-btn
                                 document.querySelectorAll('.btn-reject').forEach(button => {
                                     button.addEventListener('click', function (e) {
                                         e.preventDefault(); // Mencegah pengiriman form langsung
@@ -439,6 +481,26 @@ See you on your happy day kaa`;
                     dropdownParent: $(this) // Pastikan dropdown berada dalam modal yang benar
                 });
             });
+        });
+    </script>
+
+    <script>
+        $(".js-paket-tambahan").select2({
+            // tags: true,                 // Mengizinkan input custom
+            allowClear: true,           // Mengizinkan penghapusan semua pilihan
+            placeholder: "-- Pilih Paket Tambahan --", // Placeholder untuk dropdown
+            createTag: function(params) {
+                var term = $.trim(params.term); // Menghapus spasi ekstra
+                if (term === '') {
+                    return null; // Jangan tambahkan tag jika input kosong
+                }
+                return {
+                    id: term,
+                    text: term,
+                    newTag: true // Tandai bahwa ini adalah tag baru
+                };
+            },
+            tokenSeparators: [] // Menghapus pemisah token, memungkinkan input spasi
         });
     </script>
 

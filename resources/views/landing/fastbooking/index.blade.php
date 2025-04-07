@@ -144,6 +144,7 @@ Saya ingin meminta price list.`.trim();
 
     // Nomor tujuan WhatsApp
     const whatsappNumber = '6285156272866';
+    // const whatsappNumber = '6285878653934';
 
     // Buat URL WhatsApp
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;

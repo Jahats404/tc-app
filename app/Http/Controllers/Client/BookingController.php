@@ -63,20 +63,38 @@ class BookingController extends Controller
         // $b->user_id = Auth::user()->id;
         $b->harga_paket_id = $request->harga_paket_id;
         $b->user_id = Auth::user()->id;
+
+        $idBooking = $b->id_booking;
         $b->save();
+
+        // code untuk paket tambahan
+        $book = Booking::find($idBooking);
+        // Update paket tambahan jika ada
+        if ($request->has('paket_tambahan')) {
+            // Hapus semua data pivot terkait
+            $book->paketTambahan()->detach();
+        
+            // Tambahkan kembali data dengan ID kustom
+            foreach ($request->paket_tambahan as $paketTambahanId) {
+                $book->paketTambahan()->attach($paketTambahanId, [
+                    'id_booking_paket_tambahan' => 'BPT' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT),
+                ]);
+            }
+        }
+        $book->save();
 
         return redirect()->back()->with('success','Booking berhasil ditambahkan');
     }
 
     public function update(Request $request,$id)
     {
-        
         $request->merge(['dp' => str_replace('.', '', $request->dp)]);
         
         $rules = Booking::$rules = [
             'status_booking' => 'nullable',
             'dp' => 'nullable',
-            'file_dp' => 'nullable'
+            'file_dp' => 'nullable',
+            'kota' => 'required',
         ];
         $validator = Validator::make($request->all(), $rules, Booking::$messages);
     
@@ -130,21 +148,6 @@ class BookingController extends Controller
             }
         }
         
-        // Cek jika file ada di request
-        // if ($request->hasFile('file_dp')) {
-        //     $file = $request->file('file_dp');
-
-        //     // Hapus file lama jika ada
-        //     if ($b->file_dp) {
-        //         // Menghapus file lama dari storage
-        //         Storage::disk('public')->delete($b->file_dp);
-        //     }
-
-        //     $path = 'uploads/dp';
-
-        //     // Simpan file baru
-        //     $b->file_dp = $file->store($path, 'public');
-        // }
         $b->save();
 
         return redirect()->back()->with('success','Booking berhasil diperbarui');

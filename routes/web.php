@@ -33,6 +33,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Exports\PesananExport;
 use App\Http\Controllers\Admin\FotoLandingController;
+use App\Http\Controllers\Admin\TestimoniController;
+use App\Http\Controllers\Client\TestimoniController as ClientTestimoniController;
 use Maatwebsite\Excel\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
@@ -157,6 +159,12 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/export-faktur/{id}', [PesananController::class, 'faktur'])->name('export.faktur');
 
+
+        //TESTIMONI
+        Route::get('testimoni', [TestimoniController::class, 'index'])->name('testi');
+        Route::post('testimoni/store', [TestimoniController::class, 'store'])->name('store.testi');
+        Route::put('testimoni/update/{id}', [TestimoniController::class, 'update'])->name('update.testi');
+        Route::delete('testimoni/delete/{id}', [TestimoniController::class, 'delete'])->name('delete.testi');
     });
     
 
@@ -181,6 +189,11 @@ Route::middleware(['auth'])->group(function () {
         Route::put('pelunasan/{id}', [ClientBookingController::class, 'add_pelunasan'])->name('add.pelunasan');
         // FOTO
         Route::put('list/foto/{id}', [ClientFotoController::class, 'add_list_foto'])->name('add.list.foto');
+
+        //TESTIMONI
+        Route::get('testimoni', [ClientTestimoniController::class, 'index'])->name('testi');
     });
+    
+    Route::post('testimoni/store', [ClientTestimoniController::class, 'store'])->name('store.testi');
 
 });
