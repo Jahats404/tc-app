@@ -274,7 +274,7 @@ class PesananController extends Controller
         $html = view('exports.faktur',compact('pesanan'))->render(); // pastikan 'invoice' adalah nama view Anda yang berisi HTML yang sudah disiapkan
 
         // Membuat PDF dari HTML
-        $pdf = Pdf::loadHTML($html);
+        $pdf = Pdf::loadHTML($html)->setPaper('letter');
         
         // Menampilkan PDF di browser sebagai preview (tidak langsung diunduh)
         return $pdf->stream('Faktur#' . $pesanan->faktur . '#' . $pesanan->booking->nama . '.pdf'); // Anda bisa mengganti nama file sesuai kebutuhan
