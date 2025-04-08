@@ -90,12 +90,19 @@
             <tr>
                 <td style="width: 50%; vertical-align: top; background-color: #f0f2f2; padding: 10px; text-align: left;">
                     <strong>DITAGIH KEPADA</strong><br>
-                    Prof. Moestopo 14/05/25, Tata samantha<br>
-                    +6281288942654
+                    {{ $pesanan->booking->nama . ' ' . $pesanan->booking->tanggal . ', ' . $pesanan->booking->universitas }} <br>
+                    @php
+                        $waNumber = $pesanan->booking->no_wa;
+                        // Cek apakah nomor WA dimulai dengan '0'
+                        if (substr($waNumber, 0, 1) === '0') {
+                            $waNumber = '+62' . substr($waNumber, 1); // Ganti '0' dengan '62'
+                        }
+                    @endphp
+                    {{ $waNumber }}
                 </td>
                 <td style="width: 50%; vertical-align: top; background-color: #f0f2f2; padding: 10px; text-align: right;">
-                    <strong>Tersimpan Cerita #</strong> TC3659<br>
-                    <strong>Tanggal</strong> 3 Apr 2025
+                    <strong>Tersimpan Cerita #</strong> {{ $pesanan->faktur }}<br>
+                    <strong>Tanggal</strong> {{ \Carbon\Carbon::parse($pesanan->booking?->tanggal_dp)->translatedFormat('d F Y') }}
                 </td>
             </tr>
         </table>
@@ -111,22 +118,46 @@
             </tr>
         </thead>
         <tbody>
+            @php
+                $kuantitas = 1;
+                $jumlahHargaTambahan = 0;
+                $total = $pesanan->booking->harga_paket->harga * $kuantitas;
+            @endphp
             <tr>
                 <td>
-                    <strong>PRIVATE II '25 (JABODETABEK,BGD,SBY)</strong><br>
-                    JABODETABEK,BGD,SBY<br>
-                    - 1 Graduated<br>
-                    - 1 Hours Photo Session<br>
-                    - Unlimited Shots<br>
-                    - Photo Session with Family and Friends (Guest)<br>
-                    - 35 Photo Edit<br>
-                    - All File On G-drive<br>
-                    - Location On Campus/Grad Venue
+                    <strong>P{{ $pesanan->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $pesanan->booking->harga_paket->paket->nama_paket . ' ' . $pesanan->booking->kota }}</strong><br>
+                    @php
+                        $namaWilayah = \App\Models\Wilayah::where('kode', $pesanan->booking->harga_paket->golongan)->pluck('nama_wilayah')->toArray();
+                    @endphp
+
+                    {{ implode(', ', $namaWilayah) }}<br>
+                    
+                    @php
+                        $fiturs = json_decode($pesanan->booking->harga_paket->paket->fitur);
+                    @endphp
+                    @foreach ($fiturs as $item)
+                        - {{ $item }}<br>
+                    @endforeach
                 </td>
                 <td style="text-align: center">1</td>
-                <td>Rp550.000</td>
-                <td>Rp550.000</td>
+                <td>{{ 'Rp ' . number_format($pesanan->booking->harga_paket->harga, 0, ',', '.') ?? '-' }}</td>
+                <td>{{ 'Rp ' . number_format($total, 0, ',', '.') ?? '-' }}</td>
             </tr>
+            
+            <tr>
+                <td colspan="4" style="font-weight: bold; text-align: center;">PAKET TAMBAHAN</td>
+            </tr>
+            @foreach ($pesanan->booking->bookingPaketTambahan as $item)
+                <tr>
+                    <td>- {{ $item->paketTambahan->jenis_tambahan }}</td>
+                    <td>1</td>
+                    <td>{{ 'Rp ' . number_format($item->paketTambahan->harga_tambahan, 0, ',', '.') ?? '-' }}</td>
+                    <td>{{ 'Rp ' . number_format($item->paketTambahan->harga_tambahan, 0, ',', '.') ?? '-' }}</td>
+                </tr>
+                @php
+                    $jumlahHargaTambahan += $item->paketTambahan->harga_tambahan; 
+                @endphp
+            @endforeach
         </tbody>
     </table>
 
@@ -139,33 +170,47 @@
                 <div style="font-size: 16px; color: rgb(51, 51, 51);">Bank BluBCA : 0900-12011708 (A.N Ahmad Reza Rizky Setio Aji)</div>
             </td>
 
+            @php
+                $jumlahSeluruh = $total + $jumlahHargaTambahan;
+                // dd($total);
+            @endphp
+
             <td style="vertical-align: top; text-align: right;">
                 <div class="total" style="text-align: right; background-color: transparent; padding: 0;">
                     <table style="width: 100%; border-spacing: 0; margin-top: 0;">
                         <tr>
                             <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">Subtotal:</td>
-                            <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">Rp550.000</td>
+                            <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">{{ 'Rp. ' . number_format($jumlahSeluruh, 0, ',', '.') ?? '-' }}</td>
                         </tr>
                         <tr>
                             <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">Total:</td>
-                            <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">Rp550.000</td>
+                            <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">{{ 'Rp. ' . number_format($jumlahSeluruh, 0, ',', '.') ?? '-' }}</td>
                         </tr>
                     </table>
                     <div style="background-color: #f0f2f2; padding: 10px; margin-top: 10px;">
                         <div style="font-size: 16px; text-align: left">Jumlah yang Harus Dibayar</div>
-                        <div style="font-size: 24px;"><strong>Rp550.000</strong></div>
+                        <div style="font-size: 24px;"><strong>{{ 'Rp. ' . number_format($jumlahSeluruh - $pesanan->booking->dp, 0, ',', '.') ?? '-' }}</strong></div>
                     </div>
                 </div>
             </td>
         </tr>
     </table>
 
+    @php
+        $jam_mulai = \Carbon\Carbon::parse($pesanan->booking->jam);
+        $jam_selesai = \Carbon\Carbon::parse($pesanan->booking->jam_selesai);
+
+        $selisih_menit = $jam_mulai->diffInMinutes($jam_selesai);
+        $jam = floor($selisih_menit / 60); // Ambil jumlah jam dari menit
+        $menit = $selisih_menit % 60; // Sisa menit setelah dikonversi ke jam
+    @endphp 
+
     <div class="dp-info">
-        <strong style="text-decoration: underline;">DP RP 250.000</strong><br>
-        - Univ Prof. Moestopo JKT<br>
-        - Tanggal 14 Mei 2025<br>
-        - Jam 14.00-15.00<br>
-        - Lokasi Foto Taman Menteng
+        <strong style="text-decoration: underline;">DP {{ 'Rp. ' . number_format($pesanan->booking->dp, 0, ',', '.') ?? '-' }}</strong><br>
+        - {{ $pesanan->booking->universitas }}<br>
+        - Tanggal {{ $formattedDate = \Carbon\Carbon::parse($pesanan->booking->tanggal)->translatedFormat('d F Y') }}<br>
+        - {{ $jam . ' ' . ' jam ' . $menit . ' Menit ' . 'foto di Lokasi Fakultas ' . $pesanan->booking->fakultas }}<br>
+        - {{ $pesanan->booking->lokasi_foto }}
     </div>
 </body>
 </html>

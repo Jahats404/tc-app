@@ -151,6 +151,17 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <div class="alert alert-info">
+                                            <h6 class="mb-1"><strong><i class="fas fa-fw fa-credit-card"></i> Informasi Pembayaran DP</strong></h6>
+                                            <p class="mb-1">Silakan lakukan pembayaran <strong>DP minimal 50%</strong> dari total harga paket ke rekening berikut:</p>
+                                            <ul class="mb-1">
+                                                <li><strong>Bank Blu BCA</strong></li>
+                                                <li>No. Rekening: <strong>0900-12011708</strong></li>
+                                                <li>A.N: <strong>Ahmad Reza Rizky Setio Aji</strong></li>
+                                            </ul>
+                                            <p class="mb-0">Setelah melakukan transfer, silakan unggah bukti pembayaran DP di bawah ini.</p>
+                                        </div>
+                                    
                                         <div class="form-group">
                                             <label for="dp" class="col-form-label">DP</label>
                                             <input 
@@ -165,6 +176,7 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+                                    
                                         <div class="form-group">
                                             <label for="file_dp">Upload Bukti DP </label>
                                             <input 
@@ -183,12 +195,15 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                    
                                         @if ($item->file_dp)
-                                            <img src="{{ asset('storage/' . $item->file_dp) }}" class="card-img-top" alt="...">
+                                            <img src="{{ asset('storage/' . $item->file_dp) }}" class="card-img-top mt-2" alt="Bukti DP">
                                         @else
-                                            <p class="text-muted">Bukti DP Tidak ditemukan!</p>
+                                            <p class="text-muted mt-2">Bukti DP tidak ditemukan!</p>
                                         @endif
                                     </div>
+                                    
+                                    
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                         <button type="submit" class="btn btn-primary">Simpan</button>

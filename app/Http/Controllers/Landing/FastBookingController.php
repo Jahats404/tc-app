@@ -32,7 +32,7 @@ class FastBookingController extends Controller
             $user = User::create([
                 'name' => $request->nama,
                 'email' => $request->email,
-                'password' => Hash::make($request->email),
+                'password' => Hash::make(12345678),
                 'role_id' => '2',
             ]);
             $booking->user_id = $user->id;

@@ -31,10 +31,10 @@
                             <th style="text-align: center">EVENT</th>
                             <th style="text-align: center">LOKASI FOTO</th>
                             <th style="text-align: center">PAKET</th>
-                            <th style="text-align: center">{{ \App\Models\Booking::$ig_mua }}</th>
+                            {{-- <th style="text-align: center">{{ \App\Models\Booking::$ig_mua }}</th>
                             <th style="text-align: center">{{ \App\Models\Booking::$ig_dress }}</th>
                             <th style="text-align: center">{{ \App\Models\Booking::$ig_nailart }}</th>
-                            <th style="text-align: center">{{ \App\Models\Booking::$ig_hijab }}</th>
+                            <th style="text-align: center">{{ \App\Models\Booking::$ig_hijab }}</th> --}}
                             <th style="text-align: center">POST FOTO</th>
                             <th style="text-align: center">JML ANGGOTA</th>
                             <th style="text-align: center">CATATAN</th>
@@ -94,17 +94,20 @@
                                 <td>{{ $item->universitas }}</td>
                                 <td>{{ $item->fakultas }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('d F Y') ?? '-' }}</td>
+                                @php
+                                    $jamMulai = $item->jam ? Carbon\Carbon::parse($item->jam)->format('H:i') : null;
+                                @endphp
                                 <td>
                                     @if ($item->jam_selesai)
-                                    {{ $item->jam . '-' . $item->jam_selesai }}
+                                    {{ $jamMulai . '-' . $item->jam_selesai }}
                                     @else
-                                        {{ $item->jam ?? '-' }}
+                                        {{ $jamMulai ?? '-' }}
                                         @endif
                                 </td>
                                 <td>{{ $item->event }}</td>
                                 <td>{{ $item->lokasi_foto }}</td>
                                 <td>{{ $item->harga_paket?->paket->kategori_paket->nama_kategori . ' ' . $item->harga_paket?->paket->nama_paket }}</td>
-                                <td>
+                                {{-- <td>
                                     <!-- IG Vendor, menghapus '@' jika ada -->
                                     @php
                                         $igMua = $item->ig_mua;
@@ -163,7 +166,7 @@
                                     @else
                                         -
                                     @endif
-                                </td>
+                                </td> --}}
                                 <td>
                                     @if ($item->post_foto == 'Bersedia')
                                         <span class="badge badge-success">{{ $item->post_foto }}</span>
