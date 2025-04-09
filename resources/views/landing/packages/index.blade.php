@@ -3,7 +3,7 @@
     <!-- ***** Hero Area Start ***** -->
     <div class="hero-area d-flex align-items-center">
         <!-- Hero Thumbnail -->
-        <div class="hero-thumbnail equalize bg-img" style="background-image: url(landing/img/bg-img/serv.jpg);"></div>
+        <div class="hero-thumbnail equalize bg-img" style="background-image: url(landing/img/bg-img/pricelist.jpg);"></div>
         
         <!-- Hero Content -->
         <div class="hero-content equalize">

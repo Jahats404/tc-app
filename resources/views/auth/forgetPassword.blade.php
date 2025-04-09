@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Lupa Password</title>
+    <title>Tersimpan Cerita - Lupa Password</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body style="background-image: url('img/login-bg.png'); background-size: cover; background-position: center;" class="bg-white">
 
     <div class="container">
 
@@ -40,8 +40,8 @@
                         @endif
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center bg-login-image">
-                                <img src="{{ asset('/') }}img/almawa.png" alt="" class="img-fluid ml-3">
+                            <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('landing/img/bg-img/fastbooking.jpg'); background-size: cover; background-position: center;" class="col-lg-5 d-none d-lg-flex justify-content-center align-items-center bg-login-image">
+                                <img style="width: 80%" src="landing/img/core-img/logotc.png" alt="" class="img-fluid ml-5">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
@@ -56,7 +56,7 @@
                                                 id="emailInput" name="email" aria-describedby="emailHelp"
                                                 placeholder="Masukkan Alamat Email ..." value="{{ old('email') }}" required>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-user btn-block" style="background-color: #000; color: #fff;">
                                             Kirim Link Reset Password
                                         </button>
                                     </form>
@@ -72,11 +72,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
     <!-- Bootstrap core JavaScript-->

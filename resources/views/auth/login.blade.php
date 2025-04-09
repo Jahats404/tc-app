@@ -28,7 +28,7 @@
 
 </head>
 
-<body class="bg-gradient-dark">
+<body style="background-image: url('img/login-bg.png'); background-size: cover; background-position: center;" class="bg-white">
 
     <div class="container">
 
@@ -41,10 +41,11 @@
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
-                            <div class="col-lg-6 d-none d-lg-flex justify-content-center align-items-center bg-login-image">
-                                <img src="img/tc-hitam.png" alt="" class="img-fluid ml-5">
+                            <div style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('landing/img/bg-img/fastbooking.jpg'); background-size: cover; background-position: center;" class="col-lg-5 d-none d-lg-flex justify-content-center align-items-center bg-login-image">
+                                <img style="width: 80%" src="landing/img/core-img/logotc.png" alt="" class="img-fluid ml-5">
                             </div>
-                            <div class="col-lg-6">
+                            
+                            <div class="col-lg-7">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>
@@ -60,7 +61,7 @@
                                             <input type="password" class="form-control form-control-user" name="password"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">
+                                        <button type="submit" class="btn btn-user btn-block" style="background-color: #000; color: #fff;">
                                             Login
                                         </button>
                                     </form>
