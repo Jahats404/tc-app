@@ -113,7 +113,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="jumlah_anggota" class="col-form-label">Jumlah Anggota <span class="text-danger">*</span></label>
-                                    <input type="text" value="{{ old('jumlah_anggota',$item->jumlah_anggota) }}" name="jumlah_anggota" class="form-control @error('jumlah_anggota') is-invalid @enderror" id="jumlah_anggota">
+                                    <input type="number" value="{{ old('jumlah_anggota',$item->jumlah_anggota) }}" name="jumlah_anggota" class="form-control @error('jumlah_anggota') is-invalid @enderror" id="jumlah_anggota">
                                     @error('jumlah_anggota')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

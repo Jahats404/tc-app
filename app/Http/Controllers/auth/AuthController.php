@@ -58,7 +58,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.dashboard');
             }
             elseif ($user->role_id == '2') {
-                return redirect()->route('client.dashboard');
+                return redirect()->route('client.booking');
             }
         }
 

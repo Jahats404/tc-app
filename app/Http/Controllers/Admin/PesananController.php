@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Exports\PesananExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Storage;
 
 class PesananController extends Controller
 {
@@ -37,15 +38,17 @@ class PesananController extends Controller
             return view('admin.pesanan.table-body', compact('pesanan'));
         }
 
-        $jumlahHargaTambahan = 0;
+        // dd($pesanan);
         foreach ($pesanan as $pes) {
+            $jumlahHargaTambahan = 0;
+        
             foreach ($pes->booking->paketTambahan as $pt) {
                 $jumlahHargaTambahan += $pt->harga_tambahan;
-                // dd($jumlahHargaTambahan);
             }
-            $kekurangan = ($pes->booking->harga_paket->harga + $jumlahHargaTambahan) - ($pes->booking->dp + $pes->pelunasan);
+        
             $total = $pes->booking->dp + $pes->pelunasan;
-
+            $kekurangan = ($pes->booking->harga_paket->harga + $jumlahHargaTambahan) - $total;
+        
             // Update pesanan dengan nilai yang telah dihitung
             $pes->update([
                 'harga_paket_tambahan' => $jumlahHargaTambahan,
@@ -274,9 +277,37 @@ class PesananController extends Controller
         $html = view('exports.faktur',compact('pesanan'))->render(); // pastikan 'invoice' adalah nama view Anda yang berisi HTML yang sudah disiapkan
 
         // Membuat PDF dari HTML
-        $pdf = Pdf::loadHTML($html)->setPaper('A4');
+        $pdf = Pdf::loadHTML($html)->setPaper('legal');
         
         // Menampilkan PDF di browser sebagai preview (tidak langsung diunduh)
         return $pdf->stream('Faktur#' . $pesanan->faktur . '#' . $pesanan->booking->nama . '.pdf'); // Anda bisa mengganti nama file sesuai kebutuhan
+    }
+
+    public function add_pelunasan(Request $request,$id)
+    {
+        $request->merge(['pelunasan' => str_replace('.', '', $request->pelunasan)]);
+        // dd($request->pelunasan);
+
+        $pesanan = Pesanan::where('booking_id',$id)->first();
+
+        $pesanan->pelunasan = $request->pelunasan;
+        
+        if ($request->hasFile('file_pelunasan')) {
+            $file = $request->file('file_pelunasan');
+
+            // Hapus file lama jika ada
+            if ($pesanan->file_pelunasan) {
+                // Menghapus file lama dari storage
+                Storage::disk('public')->delete($pesanan->file_pelunasan);
+            }
+
+            $path = 'uploads/pelunasan';
+
+            // Simpan file baru
+            $pesanan->file_pelunasan = $file->store($path, 'public');
+        }
+        $pesanan->save();
+
+        return redirect()->back()->with('success','Pelunasan sedang diverifikasi oleh Admin');
     }
 }

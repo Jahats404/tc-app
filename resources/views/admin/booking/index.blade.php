@@ -16,7 +16,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered nowrap" id="booking" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover nowrap" id="booking" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
                             <th style="text-align: center">NO</th>
@@ -197,7 +197,7 @@
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
-                                        <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_pesanan }}" title="Bukti DP">
+                                        <a href="" class="btn btn-info btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDP{{ $item->id_booking }}" title="Bukti DP">
                                             <i class="fas fa-money-bill"></i>
                                         </a>
 
@@ -406,57 +406,7 @@ See you on your happy day kaa`;
                                 });
                             </script>
                             
-                            <script>
-                                // Pilih semua tombol dengan kelas delete-btn
-                                document.querySelectorAll('.delete-btn').forEach(button => {
-                                    button.addEventListener('click', function (e) {
-                                        e.preventDefault(); // Mencegah pengiriman form langsung
                             
-                                        const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
-                            
-                                        Swal.fire({
-                                            title: 'Apakah booking ini akan dihapus?',
-                                            // text: "Data yang dihapus tidak dapat dikembalikan!",
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#d33',
-                                            cancelButtonColor: '#3085d6',
-                                            confirmButtonText: 'Ya, Tolak',
-                                            cancelButtonText: 'Batal'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                form.submit(); // Kirim form jika pengguna mengonfirmasi
-                                            }
-                                        });
-                                    });
-                                });
-                            </script>
-
-                            <script>
-                                // Pilih semua tombol dengan kelas delete-btn
-                                document.querySelectorAll('.btn-reject').forEach(button => {
-                                    button.addEventListener('click', function (e) {
-                                        e.preventDefault(); // Mencegah pengiriman form langsung
-                            
-                                        const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
-                            
-                                        Swal.fire({
-                                            title: 'Apakah booking ini akan ditolak?',
-                                            // text: "Data yang dihapus tidak dapat dikembalikan!",
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#d33',
-                                            cancelButtonColor: '#3085d6',
-                                            confirmButtonText: 'Ya, Tolak',
-                                            cancelButtonText: 'Batal'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                form.submit(); // Kirim form jika pengguna mengonfirmasi
-                                            }
-                                        });
-                                    });
-                                });
-                            </script>
 
                             
 
@@ -467,6 +417,58 @@ See you on your happy day kaa`;
             </div>
         </div>
     </div>
+
+    <script>
+        // Pilih semua tombol dengan kelas delete-btn
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // Mencegah pengiriman form langsung
+    
+                const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+    
+                Swal.fire({
+                    title: 'Apakah booking ini akan dihapus?',
+                    // text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Kirim form jika pengguna mengonfirmasi
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        // Pilih semua tombol dengan kelas delete-btn
+        document.querySelectorAll('.btn-reject').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // Mencegah pengiriman form langsung
+    
+                const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+    
+                Swal.fire({
+                    title: 'Apakah booking ini akan ditolak?',
+                    // text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Tolak',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Kirim form jika pengguna mengonfirmasi
+                    }
+                });
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

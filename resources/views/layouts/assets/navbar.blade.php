@@ -59,7 +59,7 @@
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="{{ route('client.profile') }}">
+                <a class="dropdown-item" href="{{ route('profile') }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profile
                 </a>
@@ -74,10 +74,10 @@
                 <div class="dropdown-divider"></div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf
-                    <button class="dropdown-item">
+                    <button class="dropdown-item logout-btn">
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                         Logout
-                    </butt>
+                    </button>
                 </form>
             </div>
         </li>
@@ -85,3 +85,29 @@
     </ul>
 
 </nav>
+
+<script>
+    // Pilih semua tombol dengan kelas delete-btn
+    document.querySelectorAll('.logout-btn').forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault(); // Mencegah pengiriman form langsung
+
+            const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+
+            Swal.fire({
+                title: 'Apakah anda ingin logout?',
+                // text: "Ya,!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Ya, Logout!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); // Kirim form jika pengguna mengonfirmasi
+                }
+            });
+        });
+    });
+</script>

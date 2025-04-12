@@ -103,19 +103,35 @@
                                 <td class="text-center">{{ $item->role->level }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <a href="#" class="btn btn-success btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id }}"  title="Detail">
-                                                <i class="fas fa-solid fa-eye"></i>
-                                            </a>
-                                            <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id }}" title="Update">
-                                                <i class="fas fa-exclamation-triangle"></i>
-                                            </a>
-                                            <form action="{{ route('admin.delete.users', ['id' => $item->id]) }}" method="POST" class="delete-form">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
+                                            @if (Auth::user()->role->level == 'admin' && Auth::user()->id == $item->id)
+                                                <a href="#" class="btn btn-success btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id }}"  title="Detail">
+                                                    <i class="fas fa-solid fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-warning btn-circle btn-sm mr-2 disabled" data-toggle="modal" data-target="#modalEdit{{ $item->id }}" title="Update">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </a>
+                                                <form action="{{ route('admin.delete.users', ['id' => $item->id]) }}" method="POST" class="delete-form">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" disabled title="Delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <a href="#" class="btn btn-success btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalDetail{{ $item->id }}"  title="Detail">
+                                                    <i class="fas fa-solid fa-eye"></i>
+                                                </a>
+                                                <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id }}" title="Update">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </a>
+                                                <form action="{{ route('admin.delete.users', ['id' => $item->id]) }}" method="POST" class="delete-form">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

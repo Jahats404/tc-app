@@ -11,7 +11,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('client.profile.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -38,6 +38,7 @@
                             </span>
                         </div>
                     </div>
+                    <small class="text-danger text-sm">* Kosongkan jika tidak ingin mengganti password.</small>
                 </div>
 
                 <!-- Tambahkan Script -->

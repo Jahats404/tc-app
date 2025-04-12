@@ -51,7 +51,7 @@ class ForgotPasswordController extends Controller
             $message->subject('Reset Password');
         });
 
-        return back()->with('message', 'Kami telah mengirimkan tautan untuk mereset kata sandi Anda ke email!');
+        return back()->with('message', 'Kami telah mengirimkan tautan untuk mengatur ulang kata sandi Anda melalui email. Silakan periksa kotak masuk Anda, atau cek folder spam jika belum menerima email tersebut!');
     }
 
 

@@ -87,7 +87,10 @@
                                         -
                                     @endif
                                 </td>
-                                <td>{{ $item->booking->jam . '-' . $item->booking->jam_selesai ?? '-' }}</td>
+                                @php
+                                    $jamMulai = $item->booking->jam ? Carbon\Carbon::parse($item->booking->jam)->format('H:i') : null;
+                                @endphp
+                                <td>{{ $jamMulai . '-' . $item->booking->jam_selesai ?? '-' }}</td>
                                 <td>{{ $item->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $item->booking->harga_paket->paket->nama_paket }}</td>
                                 <td>{{ $item->fotografer->nama ?? '-' }}</td>
                                 <td>{{ $item->booking->fakultas ?? '-' }}</td>
@@ -140,6 +143,9 @@
                                         <a href="{{ route('admin.export.faktur',$item->id_pesanan) }}" target="_blank" class="btn btn-info btn-circle btn-sm mr-2 {{ $item->booking?->dp ? '' : 'disabled' }}" title="Faktur">
                                             <i class="fas fa-file"></i>
                                         </a>
+                                        <a href="" class="btn btn-success btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalPelunasan{{ $item->id_pesanan }}" title="Bukti Pesanan">
+                                            <i class="fas fa-money-bill"></i>
+                                        </a>
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pesanan }}" title="Update">
                                             <i class="fas fa-exclamation-triangle"></i>
                                         </a>
@@ -154,6 +160,57 @@
                                 </td>
                             </tr>
                         
+                            <!-- Modal file Pelunasan -->
+                            <div class="modal fade" id="modalPelunasan{{ $item->id_pesanan }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabel{{ $item->id_pesanan }}">Pelunasan</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ route('admin.add.pelunasan',$item->id_pesanan) }}" method="post" enctype="multipart/form-data">
+                                            @csrf
+                                            @method('put')
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="pelunasan" class="col-form-label">Jumlah Pelunasan</label>
+                                                    <input id="pelunasan" 
+                                                    oninput="formatNumberr(this)" 
+                                                    type="text" 
+                                                    value="{{ old('pelunasan',number_format($item->pelunasan ?? 0, 0, ',', '.')) }}" name="pelunasan" min="0" class="form-control @error('pelunasan') is-invalid @enderror" id="pelunasan">
+                                                    @error('pelunasan')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="file_dp">Upload Bukti Pelunasan </label>
+                                                    <input 
+                                                        type="file" 
+                                                        name="file_pelunasan" 
+                                                        id="file_pelunasan" 
+                                                        class="form-control @error('file_pelunasan') is-invalid @enderror">
+                                                    @if($item->file_pelunasan)
+                                                        <small class="form-text text-muted">
+                                                            File Pelunasan saat ini: 
+                                                            <a href="{{ asset('storage/' . $item->file_pelunasan) }}">Lihat DP</a>.
+                                                            Biarkan kosong jika tidak ingin mengganti.
+                                                        </small>
+                                                    @endif
+                                                    @error('file_pelunasan')
+                                                        <small class="text-danger">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                             {{-- <!-- Modal file -->
                             <div class="modal fade" id="modalDP{{ $item->id_pesanan }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable modal-lg">
@@ -185,32 +242,7 @@
                                     </div>
                                 </div>
                             </div> --}}
-                            {{-- SweetAlert Delete --}}
-                            <script>
-                                // Pilih semua tombol dengan kelas delete-btn
-                                document.querySelectorAll('.delete-btn').forEach(button => {
-                                    button.addEventListener('click', function (e) {
-                                        e.preventDefault(); // Mencegah pengiriman form langsung
                             
-                                        const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
-                            
-                                        Swal.fire({
-                                            title: 'Apakah data ini akan dihapus?',
-                                            text: "Data yang dihapus tidak dapat dikembalikan!",
-                                            icon: 'warning',
-                                            showCancelButton: true,
-                                            confirmButtonColor: '#d33',
-                                            cancelButtonColor: '#3085d6',
-                                            confirmButtonText: 'Ya, hapus!',
-                                            cancelButtonText: 'Batal'
-                                        }).then((result) => {
-                                            if (result.isConfirmed) {
-                                                form.submit(); // Kirim form jika pengguna mengonfirmasi
-                                            }
-                                        });
-                                    });
-                                });
-                            </script>
                             @include('admin.pesanan.modal',['item' => $item])
                         @endforeach
                     </tbody>
@@ -218,6 +250,33 @@
             </div>
         </div>
     </div>
+
+    {{-- SweetAlert Delete --}}
+    <script>
+        // Pilih semua tombol dengan kelas delete-btn
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // Mencegah pengiriman form langsung
+    
+                const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+    
+                Swal.fire({
+                    title: 'Apakah data ini akan dihapus?',
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Kirim form jika pengguna mengonfirmasi
+                    }
+                });
+            });
+        });
+    </script>
 
     <script>
         // Saat nilai bulan berubah, kirimkan data bulan dengan AJAX

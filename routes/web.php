@@ -150,6 +150,9 @@ Route::middleware(['auth'])->group(function () {
         Route::put('update/pesanan/{id}', [PesananController::class, 'update'])->name('update.pesanan');
         Route::delete('delete/pesanan/{id}', [PesananController::class, 'delete'])->name('delete.pesanan');
 
+        // PELUNASAN
+        Route::put('pelunasan/{id}', [BookingController::class, 'add_pelunasan'])->name('add.pelunasan');
+
         //FOTO
         Route::get('foto', [FotoController::class, 'index'])->name('foto');
         Route::put('update/foto/{id}', [FotoController::class, 'update'])->name('update.foto');
@@ -167,15 +170,14 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('testimoni/delete/{id}', [TestimoniController::class, 'delete'])->name('delete.testi');
     });
     
+    //PROFILE
+    Route::get('profile', [ProfileController::class, 'index'])->name('profile');
+    Route::put('update/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //CLIENT
     Route::prefix('client')->name('client.')->middleware('CekUserLogin:2')->group(function () {
         //DASHBOARD
         Route::get('dashboard', [ClientDashboardController::class, 'dashboard_client'])->name('dashboard');
-
-        //PROFILE
-        Route::get('profile', [ProfileController::class, 'index'])->name('profile');
-        Route::put('update/profile', [ProfileController::class, 'update'])->name('profile.update');
 
         // BOOKING
         Route::get('booking', [ClientBookingController::class, 'index'])->name('booking');
@@ -187,6 +189,9 @@ Route::middleware(['auth'])->group(function () {
         Route::put('dp/{id}', [ClientBookingController::class, 'dp'])->name('add.dp');
         // PELUNASAN
         Route::put('pelunasan/{id}', [ClientBookingController::class, 'add_pelunasan'])->name('add.pelunasan');
+
+        Route::get('/export-faktur/{id}', [PesananController::class, 'faktur'])->name('export.faktur');
+
         // FOTO
         Route::put('list/foto/{id}', [ClientFotoController::class, 'add_list_foto'])->name('add.list.foto');
 

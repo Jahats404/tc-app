@@ -19,7 +19,7 @@ class BookingController extends Controller
     public function index()
     {
         $userId = Auth::user()->id;
-        $booking = Booking::where('user_id',Auth::user()->id)->get();
+        $booking = Booking::where('user_id',Auth::user()->id)->orderByDesc('created_at')->get();
         $hargaPaket = HargaPaket::orderBy('paket_id')->get();
         $paketTambahan = PaketTambahan::all();
         
@@ -29,8 +29,13 @@ class BookingController extends Controller
     public function store(Request $request)
     {
     
-        $validator = Validator::make($request->all(), Booking::$rules, Booking::$messages);
-    
+        $rules = Booking::$rules = [
+            'status_booking' => 'nullable',
+            'dp' => 'nullable',
+            'file_dp' => 'nullable',
+            'kota' => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules, Booking::$messages);
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
@@ -45,6 +50,7 @@ class BookingController extends Controller
         $b->event = $request->event;
         $b->tanggal = $request->tanggal;
         $b->jam = $request->jam;
+        $b->kota = $request->kota;
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;
         $b->lokasi_foto = $request->lokasi_foto;
@@ -155,8 +161,9 @@ class BookingController extends Controller
 
     public function dp(Request $request, $id)
     {
+        // dd($request->file('file_dp'));
         $request->merge(['dp' => str_replace('.', '', $request->dp)]);
-        // dd($request);
+        // dd($request->dp);
         $rules = [
             'dp' => 'nullable|min:0',
             'file_dp' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf',
@@ -221,8 +228,13 @@ class BookingController extends Controller
 
     public function add_pelunasan(Request $request,$id)
     {
+        $request->merge(['pelunasan' => str_replace('.', '', $request->pelunasan)]);
+        // dd($request->pelunasan);
+
         $pesanan = Pesanan::where('booking_id',$id)->first();
+
         $pesanan->pelunasan = $request->pelunasan;
+        
         if ($request->hasFile('file_pelunasan')) {
             $file = $request->file('file_pelunasan');
 

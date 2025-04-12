@@ -118,12 +118,6 @@
     @endif
 
     @if (Auth::user()->role_id == 2)
-    <li class="nav-item {{ Request::routeIs('client.dashboard') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('client.dashboard') }}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span>
-        </a>
-    </li>
 
     <li class="nav-item {{ Request::routeIs('client.booking') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('client.booking') }}">
@@ -132,7 +126,44 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="nav-link btn logout-btn">
+                <i class="fas fa-sign-out-alt fa-sm fa-fw text-gray-400"></i>
+                <span>Logout</span>
+            </button>
+        </form>
+    </li>
+    
+
 
     <hr class="sidebar-divider d-none d-md-block">
     @endif
+
+    <script>
+        // Pilih semua tombol dengan kelas delete-btn
+        document.querySelectorAll('.logout-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // Mencegah pengiriman form langsung
+    
+                const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+    
+                Swal.fire({
+                    title: 'Apakah anda ingin logout?',
+                    // text: "Ya,!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Logout!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Kirim form jika pengguna mengonfirmasi
+                    }
+                });
+            });
+        });
+    </script>
 </ul>

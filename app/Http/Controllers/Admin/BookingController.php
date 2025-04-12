@@ -136,6 +136,7 @@ class BookingController extends Controller
         $b->event = $request->event;
         $b->tanggal = $request->tanggal;
         $b->jam = $request->jam;
+        $b->kota = $request->kota;
         $b->jam_selesai = $request->jam_selesai;
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;

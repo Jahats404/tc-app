@@ -98,13 +98,200 @@
                                     });
                                 });
                             </script>
-                            @include('admin.foto.modal',['item' => $item])
+
+                            
+
+                            {{-- @include('admin.foto.modal',['item' => $item]) --}}
+                            
+
+                            {{-- EDIT --}}
+                            <div class="modal fade" id="modalEdit{{ $item->id_foto }}" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalEditLabel">Edit Foto</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form id="fotoForm{{ $item->id_foto }}" action="{{ route('admin.update.foto',$item->id_foto) }}" method="post">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" id="nama{{ $item->id_foto }}" value="{{ $item->pesanan?->booking?->nama }}">
+                                            <input type="hidden" id="no_wa{{ $item->id_foto }}" value="{{ $item->pesanan?->booking?->no_wa }}">
+                                        
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="status_foto{{ $item->id_foto }}" class="col-form-label">Status Foto</label>
+                                                    <select id="status_foto{{ $item->id_foto }}" name="status_foto" class="form-control">
+                                                        <option value="">-- Pilih Status Foto --</option>
+                                                        <option value="Sending" {{ old('status_foto', $item->status_foto) == 'Sending' ? 'selected' : '' }}>Sending</option>
+                                                        <option value="Listing" {{ old('status_foto', $item->status_foto) == 'Listing' ? 'selected' : '' }}>Listing</option>
+                                                        <option value="Editing" {{ old('status_foto', $item->status_foto) == 'Editing' ? 'selected' : '' }}>Editing</option>
+                                                        <option value="Complete" {{ old('status_foto', $item->status_foto) == 'Complete' ? 'selected' : '' }}>Complete</option>
+                                                    </select>
+                                                    @error('status_foto')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                        
+                                                <div class="form-group">
+                                                    <label for="link{{ $item->id_foto }}" class="col-form-label">Link Foto</label>
+                                                    <textarea name="link" id="link{{ $item->id_foto }}" class="form-control @error('link') is-invalid @enderror">{{ old('link',$item->link) }}</textarea>
+                                                    @error('link')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
+                                        
+                                                <div class="form-group">
+                                                    <label for="list_foto">List Foto Edit</label>
+                                                    @php
+                                                        $fotoEdit = json_decode($item->foto_edit);
+                                                    @endphp
+                                                    @if ($item->foto_edit)
+                                                        <ul class="list-group">
+                                                            @foreach ($fotoEdit as $list)
+                                                                <li class="list-group-item">{{ $list }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                <button type="button" class="btn btn-primary submitFormBtn" data-id="{{ $item->id_foto }}">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+{{-- <script>
+    document.getElementById('submitForm').addEventListener('click', function () {
+        // Ambil data dari form
+        const nama = document.getElementById('nama').value;
+        const link = document.getElementById('link').value;
+        const statusFoto = document.getElementById('status_foto').value;
+        let message = '';
+
+        if (statusFoto === "Sending") {
+            message = `Halo ka ${nama}, Berikut ini untuk link foto originalnya yah
+
+${link}
+
+Nanti dipilih (jumlah foto) foto untuk kami edit, misal di gdrivenya ada IMG_5678
+
+langsung list aja di web ya kak (wajib berurutan nomer) :
+1. 5678
+2. 1234
+dst
+
+massa simpan foto di Drive 14 hari terhitung dari hari ini ya ka, jadi mohon untuk langsung di backup/download menggunakan Laptop atau PC
+
+Terimakasih sebelumnya`.trim();
+        } else if (statusFoto === "Complete") {
+            message = `Halo ka ${nama}, 
+
+Kami berterimakasih atas kepercayaan yang telah Ka ${nama} beri, untuk menjadi saksi dari akhir lembaran Cerita semasa Kuliah. Semoga sukses dan lancar untuk Chapter menarik lainnya.
+
+Berikut ini rangkaian kisah yang Tersimpan dalam lukisan cahaya :
+${link}
+
+Sekali lagi terimakasih telah berlayar bersama kami — Doa serta Harapan senantiasa bahagia kekal dan abadi.
+
+dan kami ingatkan kembali untuk backup atau download foto yang telah kami kirimkan yah kak, mengingat massa simpannya hanya sementara :)`.trim();
+        }
+
+        if (message !== '') {
+            // Encode pesan untuk URL
+            const encodedMessage = encodeURIComponent(message);
+
+            // Nomor tujuan WhatsApp
+            const whatsappNumber = '6285878653934';
+
+            // Buat URL WhatsApp
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+            // Buka WhatsApp di tab baru
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Submit form ke server
+        document.getElementById('fotoForm').submit();
+    });
+</script> --}}
+
+<script>
+    document.querySelectorAll('.submitFormBtn').forEach(button => {
+    button.addEventListener('click', function () {
+        const id = this.dataset.id;
+        const nama = document.getElementById(`nama${id}`).value;
+        let no_wa = document.getElementById(`no_wa${id}`).value.trim();
+        const link = document.getElementById(`link${id}`).value;
+        const statusFoto = document.getElementById(`status_foto${id}`).value;
+        let message = '';
+
+        // Hapus karakter non-digit
+        no_wa = no_wa.replace(/\D/g, '');
+
+        // Convert jika diawali dengan '08'
+        if (no_wa.startsWith('08')) {
+            no_wa = '62' + no_wa.slice(1);
+        }
+
+        if (statusFoto === "Sending") {
+            message = `Halo ka ${nama}, Berikut ini untuk link foto originalnya yah
+
+${link}
+
+Nanti dipilih (jumlah foto) foto untuk kami edit, misal di gdrivenya ada IMG_5678
+
+langsung list aja di web ya kak (wajib berurutan nomer) :
+1. 5678
+2. 1234
+dst
+
+massa simpan foto di Drive 14 hari terhitung dari hari ini ya ka, jadi mohon untuk langsung di backup/download menggunakan Laptop atau PC
+
+Terimakasih sebelumnya`.trim();
+        } else if (statusFoto === "Complete") {
+            message = `Halo ka ${nama}, 
+
+Kami berterimakasih atas kepercayaan yang telah Ka ${nama} beri, untuk menjadi saksi dari akhir lembaran Cerita semasa Kuliah. Semoga sukses dan lancar untuk Chapter menarik lainnya.
+
+Berikut ini rangkaian kisah yang Tersimpan dalam lukisan cahaya :
+${link}
+
+Sekali lagi terimakasih telah berlayar bersama kami — Doa serta Harapan senantiasa bahagia kekal dan abadi.
+
+dan kami ingatkan kembali untuk backup atau download foto yang telah kami kirimkan yah kak, mengingat massa simpannya hanya sementara :)`.trim();
+        }
+
+        if (message !== '' && no_wa !== '') {
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${no_wa}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Submit form
+        document.getElementById(`fotoForm${id}`).submit();
+    });
+});
+</script>
+
+    
+                            
+                            
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
+
+    
+
 @include('validasi.notifikasi')
 @include('validasi.notifikasi-error')
 @endsection

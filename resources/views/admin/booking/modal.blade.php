@@ -236,7 +236,7 @@
 </script>
 
 <!-- Modal file -->
-<div class="modal fade" id="modalDP{{ $item->id_pesanan }}" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="modalDP{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">

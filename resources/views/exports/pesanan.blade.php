@@ -95,7 +95,14 @@
                 <td>{{ $data->booking->kota }}</td>
                 <td>{{ $data->booking->universitas }}</td>
                 <td>{{ $data->booking->nama }}</td>
-                <td>{{ '+' . $data->booking->no_wa }}</td>
+                @php
+                    $waNumber = $data->booking->no_wa;
+                    // Cek apakah nomor WA dimulai dengan '0'
+                    if (substr($waNumber, 0, 1) === '0') {
+                        $waNumber = `'62` . '0' . substr($waNumber, 1); // Ganti '0' dengan '62'
+                    }
+                @endphp
+                <td>{{ $waNumber }}</td>
                 <td>{{ $data->booking->jam }} - {{ $data->booking->jam_selesai }}</td>
                 <td>{{ $data->booking->harga_paket->paket->kategori_paket->nama_kategori }} {{ $data->booking->harga_paket->paket->nama_paket }}</td>
                 <td>{{ $data->fotografer->nama ?? '-' }}</td>
@@ -104,12 +111,12 @@
                 <td>{{ $data->booking->post_foto }}</td>
                 <td>{{ $data->keterangan }}</td>
                 <td>{{ $data->foto?->status_foto }}</td>
-                <td>{{ number_format($data->harga, 0, ',', '.') }}</td>
-                <td>{{ number_format($data->dp, 0, ',', '.') }}</td>
-                <td>{{ number_format($data->kekurangan, 0, ',', '.') }}</td>
-                <td>{{ number_format($data->pelunasan, 0, ',', '.') }}</td>
-                <td>{{ number_format($data->total, 0, ',', '.') }}</td>
-                <td>{{ number_format($data->freelance, 0, ',', '.') }}</td>
+                <td>{{ 'Rp. ' . number_format($data->booking->harga_paket->harga, 0, ',', '.') }}</td>
+                <td>{{ 'Rp. ' . number_format($data->booking->dp, 0, ',', '.') }}</td>
+                <td>{{ 'Rp. ' . number_format($data->kekurangan, 0, ',', '.') }}</td>
+                <td>{{ 'Rp. ' . number_format($data->pelunasan, 0, ',', '.') }}</td>
+                <td>{{ 'Rp. ' . number_format($data->total, 0, ',', '.') }}</td>
+                <td>{{ 'Rp. ' . number_format($data->freelance, 0, ',', '.') }}</td>
             </tr>
         @endforeach
     </table>

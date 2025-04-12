@@ -17,7 +17,7 @@
                     <div class="col-12 col-md-10">
                         <div class="line"></div>
                         <h2>Do you know about us?</h2>
-                        <p>We are Tersimpan Cerita, a premier provider of photographic services. With a reputation for excellence and delivering high-quality images, we specialize in Graduation, Wedding, engagement, Couple Session Servic.</p>
+                        <p>We are Tersimpan Cerita, a premier provider of photographic services. With a reputation for excellence and delivering high-quality images, we specialize in Graduation, Wedding, Engagement, Couple Session Service.</p>
                         <a href="{{ route('fastbooking') }}" class="btn sonar-btn white-btn">Book Now</a>
                     </div>
                 </div>

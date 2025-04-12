@@ -60,7 +60,14 @@
                                     @endif
                                     <br>
                                     @if ($item->status_booking == 'Accepted')
-                                        <strong>Kekurangan:</strong> {{ 'Rp. ' . number_format($item->pesanan->kekurangan, 0, ',', '.') ?? '-' }} <br>
+                                        <strong>Kekurangan:</strong> {{ 'Rp. ' . number_format($item->pesanan->kekurangan, 0, ',', '.') ?? '-' }} 
+                                        @if ($item->pesanan?->status_pembayaran == 'Lunas')
+                                            <span class="badge badge-success">{{ $item->pesanan?->status_pembayaran }}</span> <br>
+                                        @elseif ($item->pesanan?->kekurangan <= 0)
+                                            <span class="badge badge-info">Sedang diverifikasi</span> <br>
+                                        @else
+                                            <span class="badge badge-danger">Belum Lunas</span> <br>
+                                        @endif
                                     @endif
                                     
                                     {{-- Foto --}}
@@ -88,52 +95,79 @@
                                 </p>
                             </div>
                             <div class="d-flex justify-content-center flex-wrap mb-4">
-                                @if ($item->status_booking != 'Accepted')
-                                    <!-- Tombol Update -->
-                                    <button class="btn btn-sm btn-warning mt-3 mr-2" {{ $item->pesanan?->foto?->status_foto == 'Complete' ? 'disabled' : '' }} data-toggle="modal" data-target="#modalEdit{{ $item->id_booking }}">
-                                        Lengkapi Data
-                                    </button>
-                                @endif
+                                @if ($item->status_booking != 'Cancelled')
                             
-                                <!-- Tombol File -->
-                                <a href="{{ asset('storage/' . $item->file_dp) }}" class="btn btn-sm btn-info mt-3 mr-2" data-toggle="modal" data-target="#fileModal{{ $item->id_booking }}">
-                                    Bukti DP
-                                </a>
-                            
-                                <button class="btn btn-sm btn-dark mt-3 mr-2" data-toggle="modal" data-target="#modalPelunasan{{ $item->id_booking }}">
-                                    Pelunasan
-                                </button>
-                            
-                                @if ($item->pesanan)
-                                    <!-- Tombol Pilih foto edit -->
-                                    <button class="btn btn-sm btn-primary mt-3 mr-2"  data-toggle="modal" 
-                                        {{ $item->pesanan->foto?->status_foto == 'Editing' || $item->pesanan->foto?->status_foto == 'Complete' ? '' : '' }} 
-                                        data-target="#modalEditFoto{{ $item->id_booking }}">
-                                            Pilih Foto Edit
-                                    </button>
-                                @endif
-                            
-                                <!-- Tombol Lihat Detail -->
-                                <button class="btn btn-sm btn-success mt-3 mr-2" data-toggle="modal" data-target="#detailModal{{ $item->id_booking }}">
-                                    Lihat Detail
-                                </button>
-                            
-                                @if ($item->status_booking != 'Accepted')
-                                    <!-- Form cancle -->
-                                    <form action="{{ route('client.ubah.status.booking', $item->id_booking) }}" method="POST" class="mt-3 mr-2" class="cancel-form">
-                                        @csrf
-                                        @method('put')
-                                        <input type="hidden" name="status_booking" value="Cancelled">
+                                    @if ($item->status_booking != 'Accepted')
+                                        <!-- Tombol Update -->
                                         <button 
-                                            type="submit" 
-                                            {{ $item->status_booking == 'Accepted' ? 'disabled' : '' }} 
-                                            class="btn btn-secondary btn-sm cancel-btn" 
-                                            title="Cancel"> Cancel
+                                            class="btn btn-sm btn-warning mt-3 mr-2" 
+                                            {{ $item->pesanan?->foto?->status_foto == 'Complete' ? 'disabled' : '' }} 
+                                            data-toggle="modal" 
+                                            data-target="#modalEdit{{ $item->id_booking }}">
+                                            Lengkapi Data
                                         </button>
-                                    </form>
-                                @endif
+                                    @endif
+                            
+                                    @if ($item->pesanan?->status_pembayaran != 'Lunas')
+                                        <!-- Tombol File -->
+                                        <a 
+                                            href="{{ asset('storage/' . $item->file_dp) }}" 
+                                            class="btn btn-sm btn-info mt-3 mr-2" 
+                                            data-toggle="modal" 
+                                            data-target="#fileModal{{ $item->id_booking }}">
+                                            Bukti DP
+                                        </a>
                                 
-                            </div>
+                                        @if ($item->status_booking == 'Accepted')
+                                            <!-- Tombol Pelunasan -->
+                                            <button 
+                                                class="btn btn-sm btn-dark mt-3 mr-2" 
+                                                data-toggle="modal" 
+                                                data-target="#modalPelunasan{{ $item->id_booking }}">
+                                                Pelunasan
+                                            </button>
+
+                                        @endif
+                                    @endif
+                            
+                                    @if ($item->pesanan)
+                                        <!-- Tombol Pilih Foto Edit -->
+                                        <button 
+                                            class="btn btn-sm btn-primary mt-3 mr-2" 
+                                            data-toggle="modal" 
+                                            data-target="#modalEditFoto{{ $item->id_booking }}">
+                                            Pilih Foto Edit
+                                        </button>
+                                    @endif
+                            
+                                    <!-- Tombol Lihat Detail -->
+                                    <button 
+                                        class="btn btn-sm btn-success mt-3 mr-2" 
+                                        data-toggle="modal" 
+                                        data-target="#detailModal{{ $item->id_booking }}">
+                                        Lihat Detail
+                                    </button>
+                            
+                                    @if ($item->status_booking != 'Accepted')
+                                        <!-- Form Cancel -->
+                                        <form 
+                                            action="{{ route('client.ubah.status.booking', $item->id_booking) }}" 
+                                            method="POST" 
+                                            class="mt-3 mr-2 cancel-form">
+                                            @csrf
+                                            @method('put')
+                                            <input type="hidden" name="status_booking" value="Cancelled">
+                                            <button 
+                                                type="submit" 
+                                                class="btn btn-secondary btn-sm cancel-btn" 
+                                                title="Cancel">
+                                                Cancel
+                                            </button>
+                                        </form>
+                                    @endif
+                            
+                                @endif
+                            </div>                            
                         </div>
                     </div>
 
@@ -166,11 +200,12 @@
                                             <label for="dp" class="col-form-label">DP</label>
                                             <input 
                                                 type="text" 
+                                                capture="environment" 
                                                 value="{{ old('dp', number_format($item->dp ?? 0, 0, ',', '.')) }}" 
                                                 name="dp" 
                                                 class="form-control @error('dp') is-invalid @enderror" 
                                                 id="dp" 
-                                                oninput="formatNumber(this)"
+                                                oninput="formatNumberr(this)"
                                                 autocomplete="off">
                                             @error('dp')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -187,7 +222,7 @@
                                             @if($item->file_dp)
                                                 <small class="form-text text-muted">
                                                     File DP saat ini: 
-                                                    <a target="_blank" href="{{ asset('storage/' . $item->file_dp) }}">Lihat DP</a>.
+                                                    <a target="_blank" target="_blank" href="{{ asset('storage/' . $item->file_dp) }}">Lihat DP</a>.
                                                     Biarkan kosong jika tidak ingin mengganti.
                                                 </small>
                                             @endif
@@ -214,22 +249,42 @@
                     </form>
 
                     <!-- Modal file Pelunasan -->
-                    <div class="modal fade" id="modalPelunasan{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="modalLabel{{ $item->id_booking }}">Pelunasan</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form action="{{ route('client.add.pelunasan',$item->id_booking) }}" method="post" enctype="multipart/form-data">
-                                    @csrf
-                                    @method('put')
+                    <form action="{{ route('client.add.pelunasan',$item->id_booking) }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        @method('put')
+                        <div class="modal fade" id="modalPelunasan{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel{{ $item->id_booking }}">Pelunasan</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
                                     <div class="modal-body">
+                                        @if ($item->pesanan)
+                                            <div class="alert alert-info">
+                                                <h6 class="mb-1"><strong><i class="fas fa-fw fa-credit-card"></i> Informasi Pelunasan</strong></h6>
+                                                <!-- Tombol Cepitir -->
+                                                <a
+                                                    href="{{ route('client.export.faktur',$item->pesanan?->id_pesanan) }}" download style="text-decoration: underline;"><i class="fas fa-fw fa-file"></i>Download Faktur
+                                                </a>
+                                                <p class="mb-1">Silakan lakukan Pelunasan dari kekurangan: <strong>{{ 'Rp. ' . number_format($item->pesanan->kekurangan, 0, ',', '.') ?? '-' }} </strong> ke rekening berikut:</p>
+                                                <ul class="mb-1">
+                                                    <li><strong>Bank Blu BCA</strong></li>
+                                                    <li>No. Rekening: <strong>0900-12011708</strong></li>
+                                                    <li>A.N: <strong>Ahmad Reza Rizky Setio Aji</strong></li>
+                                                </ul>
+                                                <p class="mb-0">Setelah melakukan Pelunasan, silakan tunggu konfirmasi dari Admin.</p>
+                                            </div>
+                                            
+                                        @endif
                                         <div class="form-group">
                                             <label for="pelunasan" class="col-form-label">Jumlah Pelunasan</label>
-                                            <input type="number" value="{{ old('pelunasan',$item->pesanan?->pelunasan) }}" name="pelunasan" min="0" class="form-control @error('pelunasan') is-invalid @enderror" id="pelunasan">
+                                            <input id="pelunasan" 
+                                            oninput="formatNumberr(this)" 
+                                            type="text" 
+                                            value="{{ old('pelunasan',number_format($item->pesanan?->pelunasan ?? 0, 0, ',', '.')) }}" name="pelunasan" min="0" class="form-control @error('pelunasan') is-invalid @enderror" id="pelunasan">
                                             @error('pelunasan')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -244,7 +299,7 @@
                                             @if($item->pesanan?->file_pelunasan)
                                                 <small class="form-text text-muted">
                                                     File Pelunasan saat ini: 
-                                                    <a href="{{ asset('storage/' . $item->pesanan->file_pelunasan) }}">Lihat DP</a>.
+                                                    <a target="_blank" href="{{ asset('storage/' . $item->pesanan->file_pelunasan) }}">Lihat DP</a>.
                                                     Biarkan kosong jika tidak ingin mengganti.
                                                 </small>
                                             @endif
@@ -252,15 +307,20 @@
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        @if ($item->pesanan?->file_pelunasan)
+                                            <img src="{{ asset('storage/' . $item->pesanan?->file_pelunasan) }}" class="card-img-top mt-2" alt="Bukti DP">
+                                        @else
+                                            <p class="text-muted mt-2">Bukti Pelunasan tidak ditemukan!</p>
+                                        @endif
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 
                     <!-- Modal pilih edit foto -->
                     <div class="modal fade" id="modalEditFoto{{ $item->id_booking }}" tabindex="-1" aria-hidden="true">
@@ -278,7 +338,7 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="link" class="col-form-label">Link Foto</label>
-                                            <textarea name="link" readonly id="link" class="form-control @error('link') is-invalid @enderror">{{ $item->pesanan?->foto?->link ? $item?->pesanan->foto->link : 'Link Belum Tersedia.' }}</textarea>
+                                            <a target="_blank" href="{{ $item->pesanan?->foto?->link ? $item?->pesanan->foto->link : 'Link Belum Tersedia.' }}" name="link" readonly id="link" class="form-control @error('link') is-invalid @enderror">{{ $item->pesanan?->foto?->link ? $item?->pesanan->foto->link : 'Link Belum Tersedia.' }}</a>
                                             @error('link')
                                                 <div class="text-danger">{{ $message }}</div>
                                             @enderror
@@ -351,7 +411,7 @@
                                         <li class="list-group-item"><strong>Harga Paket Tambahan:</strong> {{ 'Rp ' . number_format($hargaPaketTambahan, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>DP:</strong> {{ 'Rp ' . number_format($item->dp, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Jumlah Anggota:</strong> {{ $item->jumlah_anggota ?? '-' }}</li>
-                                        <li class="list-group-item"><strong>Request Khusus:</strong> {{ $item->req_khusus ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>Catatan:</strong> {{ $item->req_khusus ?? '-' }}</li>
                                         <li class="list-group-item"><strong>IG Vendor MUA:</strong> {{ $item->ig_mua ?? '-' }}</li>
                                         <li class="list-group-item"><strong>IG Vendor Kebaya/Jass:</strong> {{ $item->ig_dress ?? '-' }}</li>
                                         <li class="list-group-item"><strong>IG Vendor Nailart:</strong> {{ $item->ig_nailart ?? '-' }}</li>
@@ -480,6 +540,19 @@
             });
         });
     </script>
+
+<script>
+    function formatNumberr(input) {
+        // Menghapus semua karakter selain angka
+        let value = input.value.replace(/\D/g, '');
+    
+        // Menambahkan titik setiap 3 digit
+        let formattedValue = new Intl.NumberFormat('id-ID').format(value);
+    
+        // Mengatur kembali nilai input
+        input.value = formattedValue;
+    }
+</script>
 
 @include('validasi.notifikasi')
 @include('validasi.notifikasi-error')
