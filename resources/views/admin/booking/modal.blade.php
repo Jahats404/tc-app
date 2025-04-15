@@ -105,43 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <!-- Vendor Section -->
-                    <div class="row mt-3">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="ig_mua" class="col-form-label">IG Vendor MUA</label>
-                                <input type="text" value="{{ old('ig_mua',$item->ig_mua) }}" name="ig_mua" class="form-control @error('ig_mua') is-invalid @enderror" id="ig_mua" placeholder="Username Instagram MUA">
-                                @error('ig_mua')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="ig_nailart" class="col-form-label">IG Vendor Nailart</label>
-                                <input type="text" value="{{ old('ig_nailart',$item->ig_nailart) }}" name="ig_nailart" class="form-control @error('ig_nailart') is-invalid @enderror" id="ig_nailart" placeholder="Username Instagram Nailart">
-                                @error('ig_nailart')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="ig_dress" class="col-form-label">IG Vendor Kebaya/Jass</label>
-                                <input type="text" value="{{ old('ig_dress',$item->ig_dress) }}" name="ig_dress" class="form-control @error('ig_dress') is-invalid @enderror" id="ig_dress" placeholder="Username Instagram Kebaya/Jass">
-                                @error('ig_dress')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="ig_hijab" class="col-form-label">IG Vendor Hijabdo/Hairdo</label>
-                                <input type="text" value="{{ old('ig_hijab',$item->ig_hijab) }}" name="ig_hijab" class="form-control @error('ig_hijab') is-invalid @enderror" id="ig_hijab" placeholder="Username Instagram Hijabdo/Hairdo">
-                                @error('ig_hijab')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    
+                
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

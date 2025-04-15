@@ -317,32 +317,6 @@
                             @enderror
                         </div>
                     </div>
-                
-                    <br>
-                    <hr>
-                    <p class="font-weight-bold text-center">FOTO</p>
-                
-                    <div class="form-group">
-                        <label for="status_foto" class="col-form-label">Status Foto</label>
-                        <select id="inputState" name="status_foto" class="form-control">
-                            <option value="">-- Pilih Status Foto --</option>
-                            <option value="Sending" {{ old('status_foto', $item->foto?->status_foto) == 'Sending' ? 'selected' : '' }}>Sending</option>
-                            <option value="Listing" {{ old('status_foto', $item->foto?->status_foto) == 'Listing' ? 'selected' : '' }}>Listing</option>
-                            <option value="Editing" {{ old('status_foto', $item->foto?->status_foto) == 'Editing' ? 'selected' : '' }}>Editing</option>
-                            <option value="Complete" {{ old('status_foto', $item->foto?->status_foto) == 'Complete' ? 'selected' : '' }}>Complete</option>
-                        </select>
-                        @error('status_foto')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-                
-                    <div class="form-group">
-                        <label for="link" class="col-form-label">Link Foto</label>
-                        <textarea name="link" id="link" class="form-control @error('link') is-invalid @enderror">{{ old('link',$item->foto?->link) }}</textarea>
-                        @error('link')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

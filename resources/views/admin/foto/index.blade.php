@@ -241,13 +241,11 @@ dan kami ingatkan kembali untuk backup atau download foto yang telah kami kirimk
         }
 
         if (statusFoto === "Sending") {
-            message = `Halo ka ${nama}, Berikut ini untuk link foto originalnya yah
+message = `Halo ka ${nama}, Berikut ini untuk link foto originalnya yah
 
 ${link}
 
-Nanti dipilih (jumlah foto) foto untuk kami edit, misal di gdrivenya ada IMG_5678
-
-langsung list aja di web ya kak (wajib berurutan nomer) :
+Nanti dipilih (jumlah foto) foto untuk kami edit, misal di gdrivenya ada IMG_5678 langsung list aja di web ya kak (wajib berurutan nomer) :
 1. 5678
 2. 1234
 dst
@@ -261,6 +259,7 @@ Terimakasih sebelumnya`.trim();
 Kami berterimakasih atas kepercayaan yang telah Ka ${nama} beri, untuk menjadi saksi dari akhir lembaran Cerita semasa Kuliah. Semoga sukses dan lancar untuk Chapter menarik lainnya.
 
 Berikut ini rangkaian kisah yang Tersimpan dalam lukisan cahaya :
+
 ${link}
 
 Sekali lagi terimakasih telah berlayar bersama kami — Doa serta Harapan senantiasa bahagia kekal dan abadi.

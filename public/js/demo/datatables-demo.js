@@ -4,6 +4,10 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+    $('#dataTablePengeluaran').DataTable();
+});
+
+$(document).ready(function() {
     $('#booking').DataTable({
         ordering: true, // Mengaktifkan pengurutan
         scrollX: true, // Mengaktifkan scroll horizontal

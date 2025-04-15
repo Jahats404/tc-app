@@ -167,7 +167,7 @@
                 <div class="payment-info">
                 <strong>Instruksi pembayaran</strong>
                 </div>
-                <div style="font-size: 16px; color: rgb(51, 51, 51);">Bank BluBCA : 0900-12011708 (A.N Ahmad Reza Rizky Setio Aji)</div>
+                <div style="font-size: 16px; color: rgb(51, 51, 51);">Bank BCA Digital : 0900-12011708 (A.N Ahmad Reza Rizky Setio Aji)</div>
             </td>
 
             @php
@@ -183,8 +183,8 @@
                             <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">{{ 'Rp. ' . number_format($jumlahSeluruh, 0, ',', '.') ?? '-' }}</td>
                         </tr>
                         <tr>
-                            <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">Total:</td>
-                            <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">{{ 'Rp. ' . number_format($jumlahSeluruh, 0, ',', '.') ?? '-' }}</td>
+                            <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">DP:</td>
+                            <td style="text-align: right; padding-top: 6px; padding-bottom: 2px;">{{ 'Rp. ' . number_format($pesanan->booking->dp, 0, ',', '.') ?? '-' }}</td>
                         </tr>
                     </table>
                     <div style="background-color: #f0f2f2; padding: 10px; margin-top: 10px;">
@@ -206,7 +206,7 @@
     @endphp 
 
     <div class="dp-info">
-        <strong style="text-decoration: underline;">DP {{ 'Rp. ' . number_format($pesanan->booking->dp, 0, ',', '.') ?? '-' }}</strong><br>
+        <strong style="text-decoration: underline;">Catatan :</strong><br>
         - {{ $pesanan->booking->universitas }}<br>
         - Tanggal {{ $formattedDate = \Carbon\Carbon::parse($pesanan->booking->tanggal)->translatedFormat('d F Y') }}<br>
         - {{ $jam . ' ' . ' jam ' . $menit . ' Menit ' . 'foto di Lokasi Fakultas ' . $pesanan->booking->fakultas }}<br>

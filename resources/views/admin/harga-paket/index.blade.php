@@ -43,6 +43,7 @@
                                     <option selected disabled value="">-- Pilih --</option>
                                     <option value="W1" {{ old('golongan') == 'W1' ? 'selected' : '' }}>Wilayah 1</option>
                                     <option value="W2" {{ old('golongan') == 'W2' ? 'selected' : '' }}>Wilayah 2</option>
+                                    <option value="W3" {{ old('golongan') == 'W3' ? 'selected' : '' }}>Wilayah 3</option>
                                 </select>
                                 @error('golongan')
                                     <div class="invalid-feedback">{{ $message }}</div>

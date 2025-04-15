@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Exports\PesananExport;
 use App\Http\Controllers\Admin\FotoLandingController;
+use App\Http\Controllers\Admin\PengeluaranController;
 use App\Http\Controllers\Admin\TestimoniController;
 use App\Http\Controllers\Client\TestimoniController as ClientTestimoniController;
 use Maatwebsite\Excel\Facades\Excel;
@@ -168,6 +169,18 @@ Route::middleware(['auth'])->group(function () {
         Route::post('testimoni/store', [TestimoniController::class, 'store'])->name('store.testi');
         Route::put('testimoni/update/{id}', [TestimoniController::class, 'update'])->name('update.testi');
         Route::delete('testimoni/delete/{id}', [TestimoniController::class, 'delete'])->name('delete.testi');
+
+        //JENIS PENGELUARAN
+        Route::get('jenis-pengeluaran', [PengeluaranController::class, 'jenisPengeluaran'])->name('jenispengeluaran');
+        Route::post('store/jenis-pengeluaran', [PengeluaranController::class, 'storeJenisPengeluaran'])->name('store.jenispengeluaran');
+        Route::put('update/jenis-pengeluaran/{id}', [PengeluaranController::class, 'updateJenisPengeluaran'])->name('update.jenispengeluaran');
+        Route::delete('delete/jenis-pengeluaran/{id}', [PengeluaranController::class, 'deleteJenisPengeluaran'])->name('delete.jenispengeluaran');
+        
+        //PENGELUARAN
+        Route::get('pengeluaran', [PengeluaranController::class, 'pengeluaran'])->name('pengeluaran');
+        Route::post('store/pengeluaran', [PengeluaranController::class, 'storePengeluaran'])->name('store.pengeluaran');
+        Route::put('update/pengeluaran/{id}', [PengeluaranController::class, 'updatePengeluaran'])->name('update.pengeluaran');
+        Route::delete('delete/pengeluaran/{id}', [PengeluaranController::class, 'deletePengeluaran'])->name('delete.pengeluaran');
     });
     
     //PROFILE
@@ -199,6 +212,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('testimoni', [ClientTestimoniController::class, 'index'])->name('testi');
     });
     
-    Route::post('testimoni/store', [ClientTestimoniController::class, 'store'])->name('store.testi');
-
+    
 });
+
+Route::post('testimoni/store', [ClientTestimoniController::class, 'store'])->name('store.testi');

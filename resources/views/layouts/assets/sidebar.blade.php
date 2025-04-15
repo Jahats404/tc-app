@@ -115,6 +115,22 @@
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">
+    <div class="sidebar-heading">
+        PENGELUARAN
+    </div>
+    <li class="nav-item {{ Request::routeIs('admin.jenispengeluaran') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.jenispengeluaran') }}">
+            <i class="fas fa-fw fa-location-arrow"></i>
+            <span>Jenis</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::routeIs('admin.pengeluaran') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.pengeluaran') }}">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>Pengeluaran</span>
+        </a>
+    </li>
+    <hr class="sidebar-divider d-none d-md-block">
     @endif
 
     @if (Auth::user()->role_id == 2)

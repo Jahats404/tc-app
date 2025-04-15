@@ -39,6 +39,8 @@
                                     <option value="">-- Pilih Wilayah --</option>
                                     <option value="W1" {{ old('golongan') == 'W1' ? 'selected' : '' }}>Wilayah 1</option>
                                     <option value="W2" {{ old('golongan') == 'W2' ? 'selected' : '' }}>Wilayah 2</option>
+                                    <option value="W3" {{ old('golongan') == 'W3' ? 'selected' : '' }}>Wilayah 3</option>
+                                    <option value="W4" {{ old('golongan') == 'W4' ? 'selected' : '' }}>Wilayah 4</option>
                                 </select>
                                 @error('golongan')
                                     <div class="text-danger">{{ $message }}</div>

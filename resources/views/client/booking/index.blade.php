@@ -189,7 +189,7 @@
                                             <h6 class="mb-1"><strong><i class="fas fa-fw fa-credit-card"></i> Informasi Pembayaran DP</strong></h6>
                                             <p class="mb-1">Silakan lakukan pembayaran <strong>DP minimal 50%</strong> dari total harga paket ke rekening berikut:</p>
                                             <ul class="mb-1">
-                                                <li><strong>Bank Blu BCA</strong></li>
+                                                <li><strong>Bank BCA Digital</strong></li>
                                                 <li>No. Rekening: <strong>0900-12011708</strong></li>
                                                 <li>A.N: <strong>Ahmad Reza Rizky Setio Aji</strong></li>
                                             </ul>
@@ -271,7 +271,7 @@
                                                 </a>
                                                 <p class="mb-1">Silakan lakukan Pelunasan dari kekurangan: <strong>{{ 'Rp. ' . number_format($item->pesanan->kekurangan, 0, ',', '.') ?? '-' }} </strong> ke rekening berikut:</p>
                                                 <ul class="mb-1">
-                                                    <li><strong>Bank Blu BCA</strong></li>
+                                                    <li><strong>Bank BCA Digital</strong></li>
                                                     <li>No. Rekening: <strong>0900-12011708</strong></li>
                                                     <li>A.N: <strong>Ahmad Reza Rizky Setio Aji</strong></li>
                                                 </ul>

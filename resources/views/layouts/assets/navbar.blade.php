@@ -86,27 +86,33 @@
 
 </nav>
 
+
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Script konfirmasi logout -->
 <script>
-    // Pilih semua tombol dengan kelas delete-btn
-    document.querySelectorAll('.logout-btn').forEach(button => {
-        button.addEventListener('click', function (e) {
-            e.preventDefault(); // Mencegah pengiriman form langsung
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.logout-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault(); // Cegah submit langsung
 
-            const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+                const form = this.closest('form');
+                if (!form) return;
 
-            Swal.fire({
-                title: 'Apakah anda ingin logout?',
-                // text: "Ya,!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Ya, Logout!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit(); // Kirim form jika pengguna mengonfirmasi
-                }
+                Swal.fire({
+                    title: 'Apakah Anda yakin ingin logout?',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Ya, Logout',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit(); // Submit jika user konfirmasi
+                    }
+                });
             });
         });
     });

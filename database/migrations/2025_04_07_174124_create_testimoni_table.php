@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('id_testimoni')->primary()->unique();
             $table->string('nama');
             $table->string('event');
-            $table->string('deskripsi');
+            $table->text('deskripsi');
             $table->string('status');
             $table->timestamps();
         });
