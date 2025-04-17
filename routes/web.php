@@ -169,6 +169,9 @@ Route::middleware(['auth'])->group(function () {
         //EXPORT PESANAN
         Route::get('/export-pesanan', [PesananController::class, 'export'])->name('export.pesanan');
 
+        //EXPORT PENGELUARAN
+        Route::get('/export-pengeluaran', [PengeluaranController::class, 'export'])->name('export.pengeluaran');
+
         //EXPORT FAKTUR
         Route::get('/export-faktur/{id}', [PesananController::class, 'faktur'])->name('export.faktur');
 
