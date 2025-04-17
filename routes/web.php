@@ -33,6 +33,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Exports\PesananExport;
 use App\Http\Controllers\Admin\FotoLandingController;
+use App\Http\Controllers\Admin\PaketLandingController;
 use App\Http\Controllers\Admin\PengeluaranController;
 use App\Http\Controllers\Admin\TestimoniController;
 use App\Http\Controllers\Client\TestimoniController as ClientTestimoniController;
@@ -158,9 +159,17 @@ Route::middleware(['auth'])->group(function () {
         Route::get('foto', [FotoController::class, 'index'])->name('foto');
         Route::put('update/foto/{id}', [FotoController::class, 'update'])->name('update.foto');
         Route::delete('delete/foto/{id}', [FotoController::class, 'delete'])->name('delete.foto');
+        
+        //PAKET LANDING
+        Route::get('paket-landing', [PaketLandingController::class, 'index'])->name('paket.landing');
+        Route::post('paket-landing/store', [PaketLandingController::class, 'store'])->name('store.paket.landing');
+        Route::put('paket-landing/update/{id}', [PaketLandingController::class, 'update'])->name('update.paket.landing');
+        Route::delete('paket-landing/delete/{id}', [PaketLandingController::class, 'delete'])->name('delete.paket.landing');
 
+        //EXPORT PESANAN
         Route::get('/export-pesanan', [PesananController::class, 'export'])->name('export.pesanan');
 
+        //EXPORT FAKTUR
         Route::get('/export-faktur/{id}', [PesananController::class, 'faktur'])->name('export.faktur');
 
 

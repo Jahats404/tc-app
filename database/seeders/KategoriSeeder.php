@@ -17,7 +17,8 @@ class KategoriSeeder extends Seeder
         $data = [
             ['nama_kategori' => 'Private Package','id_kp' => '1'],
             ['nama_kategori' => 'Couple & Group Package','id_kp' => '2'],
-            ['nama_kategori' => 'Analog Package','id_kp' => '3'],
+            ['nama_kategori' => 'Photo & Video','id_kp' => '3'],
+            ['nama_kategori' => 'Add on Analog','id_kp' => '4'],
         ];
 
         foreach ($data as $item) {

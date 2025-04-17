@@ -36,9 +36,9 @@
                 @foreach ($paket as $item)
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="single-services-area wow fadeInUp" data-wow-delay="300ms">
-                        <h4>{{ $item->nama_paket }}</h4>
+                        <h4>{{ $item->paket->kategori_paket->nama_kategori }} - {{ $item->paket->nama_paket }}</h4>
                         @php
-                            $fiturs = json_decode($item->fitur);
+                            $fiturs = json_decode($item->paket->fitur);
                         @endphp
                         @foreach ($fiturs as $fitur)
                             <li>{{ $fitur }}</li>

@@ -48,6 +48,23 @@
     
     <hr class="sidebar-divider d-none d-md-block">
     <div class="sidebar-heading">
+        PENGELUARAN
+    </div>
+    <li class="nav-item {{ Request::routeIs('admin.jenispengeluaran') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.jenispengeluaran') }}">
+            <i class="fas fa-fw fa-location-arrow"></i>
+            <span>Jenis</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::routeIs('admin.pengeluaran') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.pengeluaran') }}">
+            <i class="fas fa-fw fa-money-bill"></i>
+            <span>Pengeluaran</span>
+        </a>
+    </li>
+    
+    <hr class="sidebar-divider d-none d-md-block">
+    <div class="sidebar-heading">
         PAKET
     </div>
     <li class="nav-item {{ Request::routeIs('admin.wilayah') ? 'active' : '' }}">
@@ -102,6 +119,10 @@
             <span>Fotografer</span>
         </a>
     </li>
+    <hr class="sidebar-divider d-none d-md-block">
+    <div class="sidebar-heading">
+        LANDINGPAGE
+    </div>
     <li class="nav-item {{ Request::routeIs('admin.foto.landing') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.foto.landing') }}">
             <i class="fas fa-fw fa-image"></i>
@@ -114,20 +135,10 @@
             <span>Testimoni</span>
         </a>
     </li>
-    <hr class="sidebar-divider d-none d-md-block">
-    <div class="sidebar-heading">
-        PENGELUARAN
-    </div>
-    <li class="nav-item {{ Request::routeIs('admin.jenispengeluaran') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.jenispengeluaran') }}">
-            <i class="fas fa-fw fa-location-arrow"></i>
-            <span>Jenis</span>
-        </a>
-    </li>
-    <li class="nav-item {{ Request::routeIs('admin.pengeluaran') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.pengeluaran') }}">
-            <i class="fas fa-fw fa-money-bill"></i>
-            <span>Pengeluaran</span>
+    <li class="nav-item {{ Request::routeIs('admin.paketlanding') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('admin.paket.landing') }}">
+            <i class="fas fa-fw fa-gift"></i>
+            <span>Paket Landing</span>
         </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block">

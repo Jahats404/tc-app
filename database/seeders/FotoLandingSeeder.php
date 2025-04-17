@@ -15,13 +15,13 @@ class FotoLandingSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['univ' => 'UNIV. PANDJAJARAN', 'keterangan' => 'Kampus prestisius dengan banyak inovasi.', 'foto' => 'landing/img/home-sample/unpad.jpg'],
-            ['univ' => 'UNIV. INDONESIA', 'keterangan' => 'Salah satu universitas terbaik di Indonesia.', 'foto' => 'landing/img/home-sample/ui.jpg'],
-            ['univ' => 'BINUS', 'keterangan' => 'Kampus unggulan di bidang teknologi dan bisnis.', 'foto' => 'landing/img/home-sample/binus.jpg'],
-            ['univ' => 'TRISAKTI', 'keterangan' => 'Dikenal dengan pendidikan hukum dan tekniknya.', 'foto' => 'landing/img/home-sample/trisakti.jpg'],
-            ['univ' => 'PRESIDEN UNIVERSITY', 'keterangan' => 'Universitas bertaraf internasional di Indonesia.', 'foto' => 'landing/img/home-sample/presiden.jpg'],
-            ['univ' => 'UNIV. DIPONEGORO', 'keterangan' => 'Universitas kebanggaan Jawa Tengah.', 'foto' => 'landing/img/home-sample/undip.jpg'],
-            ['univ' => 'UNIV. NEGERI SEMARANG', 'keterangan' => 'Kampus unggulan dengan pendidikan berkualitas.', 'foto' => 'landing/img/home-sample/unes.jpg'],
+            ['univ' => 'UNIV. PANDJAJARAN', 'keterangan' => 'A prestigious campus with many innovations', 'foto' => 'landing/img/home-sample/unpad.jpg'],
+            ['univ' => 'UNIV. INDONESIA', 'keterangan' => 'One of the best universities in Indonesia', 'foto' => 'landing/img/home-sample/ui.jpg'],
+            ['univ' => 'BINUS', 'keterangan' => 'Leading technology and business campuses', 'foto' => 'landing/img/home-sample/binus.jpg'],
+            ['univ' => 'TRISAKTI', 'keterangan' => 'Known for its legal and engineering education', 'foto' => 'landing/img/home-sample/trisakti.jpg'],
+            ['univ' => 'PRESIDEN UNIVERSITY', 'keterangan' => 'International universities in Indonesia', 'foto' => 'landing/img/home-sample/presiden.jpg'],
+            ['univ' => 'UNIV. DIPONEGORO', 'keterangan' => 'The Pride of Central Java University', 'foto' => 'landing/img/home-sample/undip.jpg'],
+            ['univ' => 'UNIV. NEGERI SEMARANG', 'keterangan' => 'Excellent campus with quality education', 'foto' => 'landing/img/home-sample/unes.jpg'],
         ];
 
         foreach ($data as $item) {

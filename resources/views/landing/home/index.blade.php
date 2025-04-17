@@ -43,7 +43,7 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/home-sample/binus.jpg" alt="">
+                        <img src="landing/img/bg-img/s1.jpg" alt="">
                     </div>
                     {{-- <div class="portfolio-meta">
                         <p class="portfolio-date">Sep 06, 2024</p>
@@ -58,7 +58,7 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/home-sample/presiden.jpg" alt="">
+                        <img src="landing/img/bg-img/s2.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -72,7 +72,7 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/home-sample/trisakti.jpg" alt="">
+                        <img src="landing/img/bg-img/s3.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/home-sample/ui.jpg" alt="">
+                        <img src="landing/img/bg-img/s4.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                         <img class="dots" src="img/core-img/dots.png" alt="">
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/home-sample/undip.jpg" alt="">
+                        <img src="landing/img/bg-img/s5.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                         {{-- <h2>Future</h2> --}}
                     </div>
                     <div class="portfolio-thumb">
-                        <img src="landing/img/home-sample/unes.jpg" alt="">
+                        <img src="landing/img/bg-img/s6.jpg" alt="">
                     </div>
                 </div>
             </div>
