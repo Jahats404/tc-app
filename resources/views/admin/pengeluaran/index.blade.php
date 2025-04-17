@@ -7,6 +7,19 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex flex-wrap align-items-center">
             <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Pengeluaran</h6>
+            <!-- Actions -->
+            <div class="d-flex align-items-center flex-wrap">
+                <!-- Tanggal Keberangkatan Input -->
+                <form action="{{ route('admin.export.pengeluaran') }}" method="GET" class="d-flex align-items-center mr-3">
+                    <div class="form-group d-flex mb-0 align-items-center">
+                        <input type="month" name="bulan" value="{{ request()->get('bulan') }}" id="filterTanggal"
+                            class="form-control form-control-sm mr-2" placeholder="Pilih bulan">
+                        <button type="submit" class="btn btn-sm btn-primary shadow-sm d-flex align-items-center">
+                            <i class="fas fa-file-export fa-sm text-white-50 mr-1"></i> Export
+                        </button>
+                    </div>
+                </form>
+            </div>
             <button type="button" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0" data-toggle="modal" data-target="#modalTambah">
                 <i class="fas fa-solid fa-folder-plus fa-sm text-white-50"></i> Tambah Pengeluaran
             </button>
@@ -85,7 +98,7 @@
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="pengeluaran" width="100%" cellspacing="0">
                     <thead>
                         <tr class="text-center">
                             <th class="text-center">NO</th>
@@ -261,6 +274,35 @@
             input.value = formattedValue;
         }
     </script>
+
+<script>
+    // Saat nilai bulan berubah, kirimkan data bulan dengan AJAX
+    document.getElementById('filterTanggal').addEventListener('change', function () {
+        let bulan = this.value;
+        
+        // Jika bulan dipilih, kirimkan filter ke server
+        if (bulan) {
+            console.log(bulan);
+            fetchPengeluaranByBulan(bulan);
+        }
+    });
+
+    // Fungsi untuk mengirim permintaan AJAX dan memperbarui data pesanan
+    function fetchPengeluaranByBulan(bulan) {
+        // Kirimkan permintaan ke server
+        $.ajax({
+            url: window.location.href, // Menggunakan URL yang sama untuk permintaan
+            method: 'GET',
+            data: {
+                bulan: bulan
+            },
+            success: function(response) {
+                // Perbarui tabel dengan data baru
+                $('#pengeluaran tbody').html(response);
+            }
+        });
+    }
+</script>
 
 
 @include('validasi.notifikasi')
