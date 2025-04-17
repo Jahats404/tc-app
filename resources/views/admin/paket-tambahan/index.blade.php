@@ -32,13 +32,13 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="harga_tambahan" class="col-form-label">Harga</label>
                                 <input type="number" value="{{ old('harga_tambahan') }}" name="harga_tambahan" class="form-control @error('harga_tambahan') is-invalid @enderror" id="harga_tambahan">
                                 @error('harga_tambahan')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
@@ -57,7 +57,7 @@
                         <tr class="text-center">
                             <th class="text-center">NO</th>
                             <th class="text-center">JENIS TAMBAHAN</th>
-                            <th class="text-center">HARGA</th>
+                            {{-- <th class="text-center">HARGA</th> --}}
                             <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
@@ -67,7 +67,7 @@
                             <tr class="text-center">
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td class="text-center">{{ $item->jenis_tambahan }}</td>
-                                <td class="text-center">{{ 'Rp. ' . number_format($item->harga_tambahan, 0, ',', '.') }}</td>
+                                {{-- <td class="text-center">{{ 'Rp. ' . number_format($item->harga_tambahan, 0, ',', '.') }}</td> --}}
                                 <td class="text-center">
                                     <div class="d-flex justify-content-center">
                                         <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_paket_tambahan }}" title="Update">

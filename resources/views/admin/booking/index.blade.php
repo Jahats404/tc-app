@@ -181,13 +181,14 @@
 
                                 {{-- PKT TMBHN --}}
                                 @php
-                                    $paket_tambahan = [];
-                                    if ( $item->paketTambahan) {
-                                        foreach ($item->paketTambahan as $pt) {
-                                            $paket_tambahan[] = $pt->jenis_tambahan;
-                                        }
-                                    }
-                                    $hargaPaketTambahan = $item->paketTambahan->sum('harga_tambahan');
+                                    // $paket_tambahan = [];
+                                    // if ( $item->paketTambahan) {
+                                    //     foreach ($item->paketTambahan as $pt) {
+                                    //         $paket_tambahan[] = $pt->jenis_tambahan;
+                                    //     }
+                                    // }
+                                    // $hargaPaketTambahan = $item->paketTambahan->sum('harga_tambahan');
+                                    $hargaPaketTambahan = $item->pesanan?->harga_paket_tambahan;
                                 @endphp
                                 <td>{{ 'Rp ' . number_format($hargaPaketTambahan, 0, ',', '.') ?? '-' }}</td>
                                 <td>{{ 'Rp ' . number_format($item->harga_paket?->harga + $hargaPaketTambahan, 0, ',', '.') ?? '-' }}</td>

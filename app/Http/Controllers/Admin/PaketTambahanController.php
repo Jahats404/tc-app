@@ -21,7 +21,7 @@ class PaketTambahanController extends Controller
         $validator = Validator::make($request->all(), 
             [
                 'jenis_tambahan' => 'required',
-                'harga_tambahan' => 'required',
+                // 'harga_tambahan' => 'required',
             ],
             [
                 'jenis_tambahan.required' => 'Jenis Tambahan wajib diisi',
@@ -37,7 +37,7 @@ class PaketTambahanController extends Controller
         $paketTambahan = new PaketTambahan();
         $paketTambahan->id_paket_tambahan = 'PT' . str_pad(rand(0, 999), 3, '0', STR_PAD_LEFT);
         $paketTambahan->jenis_tambahan = $request->jenis_tambahan;
-        $paketTambahan->harga_tambahan = $request->harga_tambahan;
+        // $paketTambahan->harga_tambahan = $request->harga_tambahan;
         $paketTambahan->save();
 
         return redirect()->back()->with('success','Paket Tambahan berhasil ditambahkan');
@@ -48,7 +48,7 @@ class PaketTambahanController extends Controller
         $validator = Validator::make($request->all(), 
             [
                 'jenis_tambahan' => 'required',
-                'harga_tambahan' => 'required',
+                // 'harga_tambahan' => 'required',
             ],
             [
                 'jenis_tambahan.required' => 'Jenis Tambahan wajib diisi',
@@ -63,7 +63,7 @@ class PaketTambahanController extends Controller
 
         $paketTambahan = PaketTambahan::find($id);
         $paketTambahan->jenis_tambahan = $request->jenis_tambahan;
-        $paketTambahan->harga_tambahan = $request->harga_tambahan;
+        // $paketTambahan->harga_tambahan = $request->harga_tambahan;
         $paketTambahan->save();
 
         return redirect()->back()->with('success','Paket Tambahan berhasil diperbarui');

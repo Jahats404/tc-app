@@ -34,6 +34,29 @@ class BookingController extends Controller
 
         $booking = Booking::orderByDesc('created_at')->get();
 
+
+        $pesanan = Pesanan::whereHas('booking', function ($query) {
+            $query->where('status_booking','Accepted');
+        })->get();
+
+        foreach ($pesanan as $pes) {
+            $jumlahHargaTambahan = $pes->harga_paket_tambahan;
+        
+            // foreach ($pes->booking->paketTambahan as $pt) {
+            //     $jumlahHargaTambahan += $pt->harga_tambahan;
+            // }
+        
+            $total = $pes->booking->dp + $pes->pelunasan;
+            $kekurangan = ($pes->booking->harga_paket->harga + $jumlahHargaTambahan) - $total;
+        
+            // Update pesanan dengan nilai yang telah dihitung
+            $pes->update([
+                'harga_paket_tambahan' => $jumlahHargaTambahan,
+                'kekurangan' => $kekurangan,
+                'total' => $total
+            ]);
+        }
+
         
         return view('admin.booking.index',compact('hargaPaket','booking','paketTambahan'));
     }

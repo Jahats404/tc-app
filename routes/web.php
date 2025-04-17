@@ -153,7 +153,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('delete/pesanan/{id}', [PesananController::class, 'delete'])->name('delete.pesanan');
 
         // PELUNASAN
-        Route::put('pelunasan/{id}', [BookingController::class, 'add_pelunasan'])->name('add.pelunasan');
+        Route::put('pelunasan/{id}', [PesananController::class, 'add_pelunasan'])->name('add.pelunasan');
 
         //FOTO
         Route::get('foto', [FotoController::class, 'index'])->name('foto');

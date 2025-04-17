@@ -19,13 +19,13 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="harga_tambahan" class="col-form-label">Harga</label>
                         <input type="number" value="{{ old('harga_tambahan',$item->harga_tambahan) }}" name="harga_tambahan" class="form-control @error('harga_tambahan') is-invalid @enderror" id="harga_tambahan">
                         @error('harga_tambahan')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>

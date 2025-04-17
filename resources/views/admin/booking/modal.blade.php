@@ -137,7 +137,7 @@
                         <label for="harga_paket_id" class="col-form-label">Paket</label>
                         <select id="harga_paket_id" name="harga_paket_id" class="form-control js-example-basic-single-update @error('harga_paket_id') is-invalid @enderror">
                             <option selected disabled value="">--Pilih Paket--</option>
-                            @foreach ($hargaPaket as $harga)
+                            @foreach ($hargaPaket    as $harga)
                                 <option value="{{ $harga->id_harga_paket }}" 
                                     {{ old('harga_paket_id',$item->harga_paket_id) == $harga->id_harga_paket ? 'selected' : '' }}>
                                     

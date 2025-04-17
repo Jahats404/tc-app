@@ -11,6 +11,7 @@ use App\Models\Pesanan;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use App\Exports\PesananExport;
+use App\Models\PaketTambahan;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Storage;
@@ -40,11 +41,11 @@ class PesananController extends Controller
 
         // dd($pesanan);
         foreach ($pesanan as $pes) {
-            $jumlahHargaTambahan = 0;
+            $jumlahHargaTambahan = $pes->harga_paket_tambahan;
         
-            foreach ($pes->booking->paketTambahan as $pt) {
-                $jumlahHargaTambahan += $pt->harga_tambahan;
-            }
+            // foreach ($pes->booking->paketTambahan as $pt) {
+            //     $jumlahHargaTambahan += $pt->harga_tambahan;
+            // }
         
             $total = $pes->booking->dp + $pes->pelunasan;
             $kekurangan = ($pes->booking->harga_paket->harga + $jumlahHargaTambahan) - $total;
@@ -58,8 +59,9 @@ class PesananController extends Controller
         }
         
         $fotografer = Fotografer::all();
+        $paketTambahan = PaketTambahan::all();
         
-        return view('admin.pesanan.index',compact('pesanan','fotografer','hargaPaket'));
+        return view('admin.pesanan.index',compact('pesanan','fotografer','hargaPaket','paketTambahan'));
     }
 
     public function filter2(Request $request)
@@ -131,6 +133,7 @@ class PesananController extends Controller
         $request->merge(
             [
                     'harga' => str_replace('.', '', $request->harga),
+                    'harga_paket_tambahan' => str_replace('.', '', $request->harga_paket_tambahan),
                     'dp' => str_replace('.', '', $request->dp),
                     'kekurangan' => str_replace('.', '', $request->kekurangan),
                     'pelunasan' => str_replace('.', '', $request->pelunasan),
@@ -154,6 +157,7 @@ class PesananController extends Controller
             'keterangan' => 'nullable|string|max:255',
             // 'status_foto' => 'in:Pending,Editing,Complete',
             'harga' => 'required|numeric|min:0',
+            'harga_paket_tambahan' => 'nullable|numeric|min:0',
             'dp' => 'required|numeric|min:0',
             'kekurangan' => 'nullable|numeric|min:0',
             'pelunasan' => 'nullable|numeric|min:0',
@@ -179,6 +183,8 @@ class PesananController extends Controller
             'harga.required' => 'Harga wajib diisi.',
             'harga.numeric' => 'Harga harus berupa angka.',
             'harga.min' => 'Harga minimal adalah 1.',
+            'harga_paket_tambahan.numeric' => 'Harga harus berupa angka.',
+            'harga_paket_tambahan.min' => 'Harga minimal adalah 1.',
             'dp.required' => 'DP wajib diisi.',
             'dp.numeric' => 'DP harus berupa angka.',
             'dp.min' => 'DP minimal adalah 1.',
@@ -213,6 +219,7 @@ class PesananController extends Controller
         $pesanan->fotografer_id = $request->fotografer_id;
         $pesanan->kekurangan = $request->kekurangan;
         $pesanan->pelunasan = $request->pelunasan;
+        $pesanan->harga_paket_tambahan = $request->harga_paket_tambahan;
         $pesanan->total = $request->total;
         $pesanan->freelance = $request->freelance;
         $pesanan->keterangan = $request->keterangan;
@@ -285,10 +292,10 @@ class PesananController extends Controller
 
     public function add_pelunasan(Request $request,$id)
     {
+        
         $request->merge(['pelunasan' => str_replace('.', '', $request->pelunasan)]);
-        // dd($request->pelunasan);
-
-        $pesanan = Pesanan::where('booking_id',$id)->first();
+        
+        $pesanan = Pesanan::find($id);
 
         $pesanan->pelunasan = $request->pelunasan;
         
@@ -308,6 +315,6 @@ class PesananController extends Controller
         }
         $pesanan->save();
 
-        return redirect()->back()->with('success','Pelunasan sedang diverifikasi oleh Admin');
+        return redirect()->back()->with('success','Pelunasan berhasil ditambahkan');
     }
 }

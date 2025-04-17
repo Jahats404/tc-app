@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('paket_tambahan', function (Blueprint $table) {
             $table->string('id_paket_tambahan')->primary()->unique();
             $table->string('jenis_tambahan');
-            $table->integer('harga_tambahan');
+            // $table->integer('harga_tambahan');
             $table->timestamps();
         });
     }

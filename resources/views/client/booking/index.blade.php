@@ -408,7 +408,7 @@
                                             @endphp
                                             {{ !empty($paket_tambahan) ? implode(', ', $paket_tambahan) : '-' }}
                                         </li>
-                                        <li class="list-group-item"><strong>Harga Paket Tambahan:</strong> {{ 'Rp ' . number_format($hargaPaketTambahan, 0, ',', '.') ?? '-' }}</li>
+                                        <li class="list-group-item"><strong>Harga Paket Tambahan:</strong> {{ 'Rp ' . number_format($item->pesanan?->harga_paket_tambahan, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>DP:</strong> {{ 'Rp ' . number_format($item->dp, 0, ',', '.') ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Jumlah Anggota:</strong> {{ $item->jumlah_anggota ?? '-' }}</li>
                                         <li class="list-group-item"><strong>Catatan:</strong> {{ $item->req_khusus ?? '-' }}</li>

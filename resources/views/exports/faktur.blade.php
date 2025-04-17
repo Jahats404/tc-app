@@ -114,7 +114,10 @@
                 <th>Barang</th>
                 <th>Kuantitas</th>
                 <th>Harga</th>
+                <th></th>
+                <th></th>
                 <th>Jumlah</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -128,6 +131,7 @@
                     <strong>P{{ $pesanan->booking->harga_paket->paket->kategori_paket->nama_kategori . ' ' . $pesanan->booking->harga_paket->paket->nama_paket . ' ' . $pesanan->booking->kota }}</strong><br>
                     @php
                         $namaWilayah = \App\Models\Wilayah::where('kode', $pesanan->booking->harga_paket->golongan)->pluck('nama_wilayah')->toArray();
+                        // dd($pesanan->harga_paket_tambahan);
                     @endphp
 
                     {{ implode(', ', $namaWilayah) }}<br>
@@ -140,24 +144,40 @@
                     @endforeach
                 </td>
                 <td style="text-align: center">1</td>
-                <td>{{ 'Rp ' . number_format($pesanan->booking->harga_paket->harga, 0, ',', '.') ?? '-' }}</td>
-                <td>{{ 'Rp ' . number_format($total, 0, ',', '.') ?? '-' }}</td>
+                <td colspan="3">{{ 'Rp ' . number_format($pesanan->booking->harga_paket->harga, 0, ',', '.') ?? '-' }}</td>
+                <td colspan="2">{{ 'Rp ' . number_format($total, 0, ',', '.') ?? '-' }}</td>
             </tr>
             
             <tr>
                 <td colspan="4" style="font-weight: bold; text-align: center;">PAKET TAMBAHAN</td>
             </tr>
-            @foreach ($pesanan->booking->bookingPaketTambahan as $item)
-                <tr>
-                    <td>- {{ $item->paketTambahan->jenis_tambahan }}</td>
-                    <td>1</td>
-                    <td>{{ 'Rp ' . number_format($item->paketTambahan->harga_tambahan, 0, ',', '.') ?? '-' }}</td>
-                    <td>{{ 'Rp ' . number_format($item->paketTambahan->harga_tambahan, 0, ',', '.') ?? '-' }}</td>
-                </tr>
-                @php
-                    $jumlahHargaTambahan += $item->paketTambahan->harga_tambahan; 
-                @endphp
-            @endforeach
+
+            <tr>
+                <td>
+                    @php
+                        $qty = 0;
+                    @endphp
+                    @foreach ($pesanan->booking->bookingPaketTambahan as $item)
+                        @php
+                            $qty += 1;
+                        @endphp
+                        - {{ $item->paketTambahan->jenis_tambahan }} <br>
+                    @endforeach
+                </td>
+                {{-- <td>1</td> --}}
+                {{-- <td>{{ 'Rp ' . number_format($item->paketTambahan->harga_tambahan, 0, ',', '.') ?? '-' }}</td>
+                <td>{{ 'Rp ' . number_format($item->paketTambahan->harga_tambahan, 0, ',', '.') ?? '-' }}</td> --}}
+            </tr>
+
+            <tr>
+                <td><strong>Total Harga Paket Tambahan:</strong></td>
+                <td></td>
+                {{-- <td></td> --}}
+                <td colspan="5" style="text-align: right;">{{ 'Rp ' . number_format($pesanan->harga_paket_tambahan, 0, ',', '.') ?? '-' }}</td>
+            </tr>
+            @php
+                $jumlahHargaTambahan += $item->paketTambahan->harga_tambahan; 
+            @endphp
         </tbody>
     </table>
 

@@ -177,15 +177,29 @@
                     </div>
                 
                     @php
-                        $jumlahHargaTambahan = 0;
-                        foreach ($item->booking->paketTambahan as $pt) {
-                            $jumlahHargaTambahan += $pt->harga_tambahan;
-                        }
+                        $jumlahHargaTambahan = $item->harga_paket_tambahan;
+                        // foreach ($item->booking->paketTambahan as $pt) {
+                        //     $jumlahHargaTambahan += $pt->harga_tambahan;
+                        // }
                         $kekurangan = ($item->booking->harga_paket->harga + $jumlahHargaTambahan) - ($item->booking->dp + $item->pelunasan);
                         
                         $total = $item->booking->dp + $item->pelunasan;
                         
                     @endphp
+
+                    <div class="form-group">
+                        <label for="kp_id" class="col-form-label">Pilih Paket Tambahan</label>
+                        <select class="form-control js-paket-tambahan" 
+                            style="width: 100%; height: 300px;" disabled
+                            multiple="multiple" name="paket_tambahan[]">
+                            @foreach ($paketTambahan as $pt)
+                                <option value="{{ $pt->id_paket_tambahan }}" 
+                                    @if (isset($item->booking) && $item->booking->paketTambahan->contains('id_paket_tambahan', $pt->id_paket_tambahan)) selected @endif>
+                                    {{ $pt->jenis_tambahan }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                 
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -213,7 +227,6 @@
                                 class="form-control @error('harga_paket_tambahan') is-invalid @enderror" 
                                 id="harga_paket_tambahan" 
                                 oninput="formatNumber(this)"
-                                readonly
                                 autocomplete="off">
                             @error('harga_paket_tambahan')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -338,4 +351,24 @@
         // Mengatur kembali nilai input
         input.value = formattedValue;
     }
+</script>
+
+<script>
+    $(".js-paket-tambahan").select2({
+        // tags: true,                 // Mengizinkan input custom
+        allowClear: true,           // Mengizinkan penghapusan semua pilihan
+        placeholder: "-- Pilih Paket Tambahan --", // Placeholder untuk dropdown
+        createTag: function(params) {
+            var term = $.trim(params.term); // Menghapus spasi ekstra
+            if (term === '') {
+                return null; // Jangan tambahkan tag jika input kosong
+            }
+            return {
+                id: term,
+                text: term,
+                newTag: true // Tandai bahwa ini adalah tag baru
+            };
+        },
+        tokenSeparators: [] // Menghapus pemisah token, memungkinkan input spasi
+    });
 </script>

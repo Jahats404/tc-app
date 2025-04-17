@@ -170,14 +170,14 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form action="{{ route('admin.add.pelunasan',$item->id_pesanan) }}" method="post" enctype="multipart/form-data">
+                                        <form action="{{ route('admin.add.pelunasan', ['id' => $item->id_pesanan]) }}" method="post" enctype="multipart/form-data">
                                             @csrf
                                             @method('put')
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="pelunasan" class="col-form-label">Jumlah Pelunasan</label>
                                                     <input id="pelunasan" 
-                                                    oninput="formatNumberr(this)" 
+                                                    oninput="formatNumber(this)" 
                                                     type="text" 
                                                     value="{{ old('pelunasan',number_format($item->pelunasan ?? 0, 0, ',', '.')) }}" name="pelunasan" min="0" class="form-control @error('pelunasan') is-invalid @enderror" id="pelunasan">
                                                     @error('pelunasan')
