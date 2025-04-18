@@ -91,12 +91,12 @@
             <td colspan="5"></td>
         </tr>
         <tr>
-            <td colspan="4" style="font-weight: bold;">TOTAL PENGELUARAN</td>
-            <td style="font-weight: bold;">{{ 'Rp. ' . number_format($totalPengeluaran ?? 0, 0, ',', '.') }}</td>
-        </tr>
-        <tr>
             <td colspan="4" style="font-weight: bold;">OMSET KOTOR</td>
             <td style="font-weight: bold;">{{ 'Rp. ' . number_format($totalOmsetKotor ?? 0, 0, ',', '.') }}</td>
+        </tr>
+        <tr>
+            <td colspan="4" style="font-weight: bold;">TOTAL PENGELUARAN</td>
+            <td style="font-weight: bold;">{{ 'Rp. ' . number_format($totalPengeluaran ?? 0, 0, ',', '.') }}</td>
         </tr>
         <tr>
             <td colspan="4" style="font-weight: bold;">OMSET BERSIH</td>

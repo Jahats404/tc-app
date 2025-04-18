@@ -8,7 +8,7 @@
         <div class="card-header py-3 d-flex flex-wrap align-items-center">
             <h6 class="m-0 font-weight-bold text-primary flex-grow-1">Daftar Jenis Pengeluaran</h6>
             <button type="button" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0" data-toggle="modal" data-target="#modalTambah">
-                <i class="fas fa-solid fa-folder-plus fa-sm text-white-50"></i> Tambah Jenis
+                <i class="fas fa-solid fa-stethoscope fa-sm text-white-50"></i> Tambah Jenis
             </button>
         </div>
 

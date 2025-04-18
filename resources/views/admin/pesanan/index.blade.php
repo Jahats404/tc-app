@@ -300,7 +300,7 @@
                 },
                 success: function(response) {
                     // Perbarui tabel dengan data baru
-                    $('#pesanan tbody').html(response);
+                    // $('#pesanan tbody').html(response);
                 }
             });
         }

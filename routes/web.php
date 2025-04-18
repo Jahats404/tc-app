@@ -190,6 +190,8 @@ Route::middleware(['auth'])->group(function () {
         
         //PENGELUARAN
         Route::get('pengeluaran', [PengeluaranController::class, 'pengeluaran'])->name('pengeluaran');
+        Route::get('pengeluaran/filter', [PengeluaranController::class, 'filter'])->name('pengeluaran.filter');
+
         Route::post('store/pengeluaran', [PengeluaranController::class, 'storePengeluaran'])->name('store.pengeluaran');
         Route::put('update/pengeluaran/{id}', [PengeluaranController::class, 'updatePengeluaran'])->name('update.pengeluaran');
         Route::delete('delete/pengeluaran/{id}', [PengeluaranController::class, 'deletePengeluaran'])->name('delete.pengeluaran');

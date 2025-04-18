@@ -4,7 +4,9 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('#dataTablePengeluaran').DataTable();
+    $('#pengeluaran').DataTable({
+        paging: false,
+    });
 });
 
 $(document).ready(function() {

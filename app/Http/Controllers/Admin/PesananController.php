@@ -35,9 +35,9 @@ class PesananController extends Controller
         ->get();
         
         // Mengembalikan hanya bagian body tabel untuk pembaruan AJAX
-        if (request()->ajax()) {
-            return view('admin.pesanan.table-body', compact('pesanan'));
-        }
+        // if (request()->ajax()) {
+        //     return view('admin.pesanan.table-body', compact('pesanan'));
+        // }
 
         // dd($pesanan);
         foreach ($pesanan as $pes) {

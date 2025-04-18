@@ -52,13 +52,13 @@
     </div>
     <li class="nav-item {{ Request::routeIs('admin.jenispengeluaran') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.jenispengeluaran') }}">
-            <i class="fas fa-fw fa-location-arrow"></i>
-            <span>Jenis</span>
+            <i class="fas fa-fw fa-stethoscope"></i>
+            <span>Jenis Pengeluaran</span>
         </a>
     </li>
     <li class="nav-item {{ Request::routeIs('admin.pengeluaran') ? 'active' : '' }}">
         <a class="nav-link" href="{{ route('admin.pengeluaran') }}">
-            <i class="fas fa-fw fa-money-bill"></i>
+            <i class="fas fa-fw fa-chart-bar"></i>
             <span>Pengeluaran</span>
         </a>
     </li>

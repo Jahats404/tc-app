@@ -10,7 +10,7 @@
             <!-- Actions -->
             <div class="d-flex align-items-center flex-wrap">
                 <!-- Tanggal Keberangkatan Input -->
-                <form action="{{ route('admin.export.pengeluaran') }}" method="GET" class="d-flex align-items-center mr-3">
+                <form id="formFilterPengeluaran" action="{{ route('admin.export.pengeluaran') }}" method="GET" class="d-flex align-items-center mr-3">
                     <div class="form-group d-flex mb-0 align-items-center">
                         <input type="month" name="bulan" value="{{ request()->get('bulan') }}" id="filterTanggal"
                             class="form-control form-control-sm mr-2" placeholder="Pilih bulan">
@@ -21,7 +21,7 @@
                 </form>
             </div>
             <button type="button" class="btn btn-sm btn-primary shadow-sm mt-2 mt-md-0" data-toggle="modal" data-target="#modalTambah">
-                <i class="fas fa-solid fa-folder-plus fa-sm text-white-50"></i> Tambah Pengeluaran
+                <i class="fas fa-solid fa-chart-bar fa-sm text-white-50"></i> Tambah Pengeluaran
             </button>
         </div>
 
@@ -109,140 +109,134 @@
                             <th class="text-center">AKSI</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @php
-                            $totalPengeluaran = 0;
-                        @endphp
+                    <tbody id="pengeluaran-table-body">
                         @foreach ($pengeluaran as $item)
-                            <tr class="text-center">
-                                <td class="text-center">{{ $loop->iteration }}</td>
-                                <td class="text-center">{{ $item->tanggal_transaksi }}</td>
-                                <td class="text-center">{{ $item->jenis_pengeluaran->jenis_pengeluaran }}</td>
-                                <td class="text-center">{{ $item->deskripsi }}</td>
-                                @php
-                                    $totalPengeluaran += $item->nominal;
-                                @endphp
-                                <td class="text-center">{{ 'Rp. ' . number_format($item->nominal ?? 0, 0, ',', '.') }}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center">
-                                            <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pengeluaran }}" title="Update">
-                                                <i class="fas fa-exclamation-triangle"></i>
-                                            </a>
-                                            <form action="{{ route('admin.delete.pengeluaran', ['id' => $item->id_pengeluaran]) }}" method="POST" class="delete-form">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                {{-- @include('admin.users.modal', ['item' => $item]) --}}
-                                {{-- EDIT --}}
-                                <div class="modal fade" id="modalEdit{{ $item->id_pengeluaran }}" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="modalEditLabel">Edit Pengeluaran</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <form action="{{ route('admin.update.pengeluaran', ['id' => $item->id_pengeluaran]) }}" method="POST">
-                                                @csrf
-                                                @method('put')
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label for="tanggal_transaksi" class="col-form-label">Tanggal Transaksi</label>
-                                                        <input 
-                                                            type="date" 
-                                                            name="tanggal_transaksi" 
-                                                            id="tanggal_transaksi" 
-                                                            class="form-control @error('tanggal_transaksi') is-invalid @enderror" 
-                                                            value="{{ old('tanggal_transaksi',$item->tanggal_transaksi) }}" 
-                                                            placeholder="Masukkan Nama">
-                                                        @error('tanggal_transaksi')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                        
-                                                    <div class="form-group">
-                                                        <label for="jenis_pengeluaran_id" class="col-form-label">Jenis Pengeluaran</label>
-                                                        <select 
-                                                            id="inputState" 
-                                                            name="jenis_pengeluaran_id" 
-                                                            class="form-control @error('jenis_pengeluaran_id') is-invalid @enderror">
-                                                            <option value="">-- Pilih Jenis --</option>
-                                                            @foreach ($jenisPengeluaran as $jp)
-                                                                <option value="{{ $jp->id_jenis_pengeluaran }}" {{ old('jenis_pengeluaran_id',$jp->id_jenis_pengeluaran) == $item->jenis_pengeluaran_id ? 'selected' : '' }}>{{ $jp->jenis_pengeluaran }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        @error('jenis_pengeluaran_id')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="deskripsi" class="col-form-label">Deskripsi</label>
-                                                        <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" rows="3" placeholder="Masukkan Deskripsi">{{ old('deskripsi',$item->deskripsi) }}</textarea>
-                                                        @error('deskripsi')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="nominal" class="col-form-label">Nominal</label>
-                                                        <input 
-                                                            type="text" 
-                                                            name="nominal" 
-                                                            id="nominal" 
-                                                            oninput="formatNumber(this)"
-                                                            class="form-control @error('nominal') is-invalid @enderror" 
-                                                            value="{{ old('nominal',number_format($item->nominal ?? 0, 0, ',', '.')) }}" 
-                                                            placeholder="Masukkan Nominal">
-                                                        @error('nominal')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                    <button type="submit" class="btn btn-primary">Simpan</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+                        <tr class="text-center">
+                            <td>{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $item->tanggal_transaksi }}</td>
+                            <td>{{ $item->jenis_pengeluaran->jenis_pengeluaran }}</td>
+                            <td>{{ $item->deskripsi }}</td>
+                            <td>{{ 'Rp. ' . number_format($item->nominal ?? 0, 0, ',', '.') }}</td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit{{ $item->id_pengeluaran }}" title="Update">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </a>
+                                    <form action="{{ route('admin.delete.pengeluaran', ['id' => $item->id_pengeluaran]) }}" method="POST" class="delete-form">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
                                 </div>
-                                @endforeach
+                            </td>
+                        </tr>
+                        @endforeach
 
-                            @php
-                                $totalOmsetBersih = $totalOmsetKotor - $totalPengeluaran
-                            @endphp
-                            <tfoot class="text-right">
-                                <td colspan="4">Omset Bersih</td>
-                                <td class="text-right" colspan="2">{{ 'Rp. ' . number_format($totalOmsetBersih ?? 0, 0, ',', '.') }}</td>
-                            </tfoot>
-                            <tfoot>
-                                <td colspan="4">Total Pengeluaran</td>
-                                <td class="text-right" colspan="2">{{ 'Rp. ' . number_format($totalPengeluaran ?? 0, 0, ',', '.') }}</td>
-                            </tfoot>
-                            <tfoot>
-                                <td colspan="4">Total Omset Kotor</td>
-                                <td class="text-right" colspan="2">{{ 'Rp. ' . number_format($totalOmsetKotor ?? 0, 0, ',', '.') }}</td>
-                            </tfoot>
-                            
+                        {{-- Tampilkan Modal di luar <tr> --}}
+                        @foreach ($pengeluaran as $item)
+                        <div class="modal fade" id="modalEdit{{ $item->id_pengeluaran }}" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Edit Pengeluaran</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span>&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="{{ route('admin.update.pengeluaran', ['id' => $item->id_pengeluaran]) }}" method="POST">
+                                        @csrf
+                                        @method('put')
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="tanggal_transaksi">Tanggal Transaksi</label>
+                                                <input 
+                                                    type="date" 
+                                                    name="tanggal_transaksi" 
+                                                    class="form-control @error('tanggal_transaksi') is-invalid @enderror" 
+                                                    value="{{ old('tanggal_transaksi', $item->tanggal_transaksi) }}">
+                                                @error('tanggal_transaksi')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="jenis_pengeluaran_id">Jenis Pengeluaran</label>
+                                                <select name="jenis_pengeluaran_id" class="form-control @error('jenis_pengeluaran_id') is-invalid @enderror">
+                                                    <option value="">-- Pilih Jenis --</option>
+                                                    @foreach ($jenisPengeluaran as $jp)
+                                                        <option value="{{ $jp->id_jenis_pengeluaran }}" {{ old('jenis_pengeluaran_id', $item->jenis_pengeluaran_id) == $jp->id_jenis_pengeluaran ? 'selected' : '' }}>
+                                                            {{ $jp->jenis_pengeluaran }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @error('jenis_pengeluaran_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="deskripsi">Deskripsi</label>
+                                                <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" rows="3">{{ old('deskripsi', $item->deskripsi) }}</textarea>
+                                                @error('deskripsi')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="nominal">Nominal</label>
+                                                <input 
+                                                    type="text" 
+                                                    name="nominal" 
+                                                    oninput="formatNumber(this)"
+                                                    class="form-control @error('nominal') is-invalid @enderror" 
+                                                    value="{{ old('nominal', number_format($item->nominal ?? 0, 0, ',', '.')) }}">
+                                                @error('nominal')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+
+
                     </tbody>
+
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">Total Omset Kotor</td>
+                            <td colspan="2" class="text-right" id="total_omset_kotor">Rp. {{ number_format($totalOmsetKotor ?? 0, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">Total Pengeluaran</td>
+                            <td colspan="2" class="text-right" id="total_pengeluaran">Rp. {{ number_format($totalPengeluaran ?? 0, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"><strong>Omset Bersih</strong></td>
+                            <td colspan="2" class="text-right"><strong id="total_omset_bersih">Rp. {{ number_format($totalOmsetBersih ?? 0, 0, ',', '.') }}</strong></td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{-- SweetAlert Delete --}}
     <script>
-        // Pilih semua tombol dengan kelas delete-btn
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', function (e) {
-                e.preventDefault(); // Mencegah pengiriman form langsung
+        // Delegasi event untuk tombol delete dalam #pengeluaran-table-body
+        document.getElementById('pengeluaran-table-body').addEventListener('click', function (e) {
+            if (e.target.closest('.delete-btn')) {
+                e.preventDefault();
     
-                const form = this.closest('form'); // Ambil form terdekat dari tombol yang diklik
+                const button = e.target.closest('.delete-btn');
+                const form = button.closest('form');
     
                 Swal.fire({
                     title: 'Apakah data ini akan dihapus?',
@@ -255,10 +249,10 @@
                     cancelButtonText: 'Batal'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        form.submit(); // Kirim form jika pengguna mengonfirmasi
+                        form.submit();
                     }
                 });
-            });
+            }
         });
     </script>
 
@@ -275,35 +269,83 @@
         }
     </script>
 
-<script>
-    // Saat nilai bulan berubah, kirimkan data bulan dengan AJAX
+{{-- <script>
     document.getElementById('filterTanggal').addEventListener('change', function () {
-        let bulan = this.value;
-        
-        // Jika bulan dipilih, kirimkan filter ke server
-        if (bulan) {
-            console.log(bulan);
-            fetchPengeluaranByBulan(bulan);
-        }
-    });
+        const bulan = this.value;
 
-    // Fungsi untuk mengirim permintaan AJAX dan memperbarui data pesanan
-    function fetchPengeluaranByBulan(bulan) {
-        // Kirimkan permintaan ke server
-        $.ajax({
-            url: window.location.href, // Menggunakan URL yang sama untuk permintaan
-            method: 'GET',
-            data: {
-                bulan: bulan
-            },
-            success: function(response) {
-                // Perbarui tabel dengan data baru
-                $('#pengeluaran tbody').html(response);
+        // Ubah URL di address bar tanpa reload
+        const newUrl = `${window.location.pathname}?bulan=${bulan}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+
+        fetch(`{{ route('admin.pengeluaran') }}?bulan=${bulan}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
             }
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('pengeluaran-table-body').innerHTML = data.table;
+            document.getElementById('totalPengeluaran').innerText = data.total_pengeluaran;
+            document.getElementById('totalOmsetKotor').innerText = data.total_omset_kotor;
+            document.getElementById('totalOmsetBersih').innerText = data.total_omset_bersih;
         });
-    }
-</script>
+    });
+</script> --}}
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const filterTanggal = document.getElementById('filterTanggal');
+
+        filterTanggal.addEventListener('change', function () {
+            const bulan = this.value;
+
+            fetch(`/admin/pengeluaran/filter?bulan=${bulan}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('pengeluaran-table-body');
+                tbody.innerHTML = '';
+
+                let html = '';
+                data.pengeluaran.forEach((item, index) => {
+                    html += `
+                        <tr class="text-center">
+                            <td>${index + 1}</td>
+                            <td>${item.tanggal_transaksi}</td>
+                            <td>${item.jenis_pengeluaran}</td>
+                            <td>${item.deskripsi}</td>
+                            <td>Rp. ${parseInt(item.nominal).toLocaleString('id-ID')}</td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="#" class="btn btn-warning btn-circle btn-sm mr-2" data-toggle="modal" data-target="#modalEdit${item.id_pengeluaran}" title="Update">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </a>
+                                    <form action="/admin/delete/pengeluaran/${item.id_pengeluaran}" method="POST" class="delete-form">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="_method" value="delete">
+                                        <button type="submit" class="btn btn-danger btn-circle btn-sm delete-btn mr-2" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                tbody.innerHTML = html;
+
+                // Update total
+                document.getElementById('total_omset_bersih').textContent = `Rp. ${parseInt(data.totalOmsetBersih).toLocaleString('id-ID')}`;
+                document.getElementById('total_pengeluaran').textContent = `Rp. ${parseInt(data.totalPengeluaran).toLocaleString('id-ID')}`;
+                document.getElementById('total_omset_kotor').textContent = `Rp. ${parseInt(data.totalOmsetKotor).toLocaleString('id-ID')}`;
+            });
+        });
+    });
+</script>
 
 @include('validasi.notifikasi')
 @include('validasi.notifikasi-error')
