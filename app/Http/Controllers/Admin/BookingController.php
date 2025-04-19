@@ -102,6 +102,7 @@ class BookingController extends Controller
         $b->universitas = $request->universitas;
         $b->fakultas = $request->fakultas;
         $b->lokasi_foto = $request->lokasi_foto;
+        $b->kota = $request->kota;
         $b->ig_mua = $request->ig_mua;
         $b->ig_dress = $request->ig_dress;
         $b->ig_nailart = $request->ig_nailart;
